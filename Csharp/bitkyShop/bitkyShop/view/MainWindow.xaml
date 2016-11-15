@@ -1,0 +1,41 @@
+﻿<Window x:Class="bitkyShop.view.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bitkyShop"
+        mc:Ignorable="d"
+        Title="商店数据上传" Height="450" Width="800" MinWidth="800" MinHeight="450">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="ListBoxCommunicationText" Margin="518,10,9.6,190" />
+        <ListBox x:Name="ListBoxControlText" Margin="518,0,9.6,10" Height="175" VerticalAlignment="Bottom" />
+        <Button x:Name="BtnUploadFile" Content="数据上传" HorizontalAlignment="Left" Margin="370,330,0,0"
+                VerticalAlignment="Top" Width="80" Height="40" Click="btnUploadFile_Click" />
+        <Label x:Name="LabelFileName" Content="" HorizontalAlignment="Left" Margin="73,17,0,0" VerticalAlignment="Top"
+               RenderTransformOrigin="0.505,0.57" Width="152" Height="26" />
+        <Label x:Name="Label1" Content="文件名：" HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top" Height="26" Width="58" />
+        <Button x:Name="BtnSelectedFile" Content="浏览" HorizontalAlignment="Left" Margin="230,10,0,0"
+                VerticalAlignment="Top" Width="95" Height="40" Click="btnSelectedFile_Click" />
+        <Label x:Name="Label" Content="名称：" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"/>
+        <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" Height="30" Margin="73,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelCopy" Content="类别：" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"/>
+        <ComboBox x:Name="ComboBoxCategory" HorizontalAlignment="Left" Margin="73,140,0,0" VerticalAlignment="Top" Width="252" Height="30">
+            <ComboBoxItem Content="洗浴用品"/>
+            <ComboBoxItem Content="书籍"/>
+            <ComboBoxItem Content="零食速食"/>
+            <ComboBoxItem Content="饮品酒水"/>
+            <ComboBoxItem Content="生活用品"/>
+            <ComboBoxItem Content="学习用品"/>
+        </ComboBox>
+        <Label x:Name="LabelCopy1" Content="价格：" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"/>
+        <TextBox x:Name="TextBoxPrice" HorizontalAlignment="Left" Height="30" Margin="73,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelCopy2" Content="数量：" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"/>
+        <TextBox x:Name="TextBoxCount" HorizontalAlignment="Left" Height="30" Margin="73,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelCopy3" Content="简介：" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"/>
+        <TextBox x:Name="TextBoxDetails" HorizontalAlignment="Left" Height="90" Margin="73,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" AcceptsReturn="True"/>
+
+    </Grid>
+</Window>
