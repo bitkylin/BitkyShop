@@ -7,7 +7,7 @@ namespace bitkyShop.bean
     {
         public string BitkyId { set; get; }
         public BmobInt BitkyMode { set; get; }
-
+        public string BitkyModeStr { set; get; }
         public string Category { set; get; }
         public string Name { set; get; }
         public BmobDouble Price { set; get; }
@@ -20,6 +20,7 @@ namespace bitkyShop.bean
 
         public Commodity()
         {
+            BitkyModeStr = "none";
             BitkyId = "default";
             BitkyMode = 0;
             CoverPhotoUrlSet = new List<string>();
@@ -45,6 +46,7 @@ namespace bitkyShop.bean
 
             BitkyId = input.getString("BitkyId");
             BitkyMode = input.getInt("BitkyMode");
+            BitkyModeStr = input.getString("BitkyModeStr");
             Category = input.getString("Category");
             Name = input.getString("Name");
             Price = input.getDouble("Price");
@@ -63,6 +65,8 @@ namespace bitkyShop.bean
 
             output.Put("BitkyId", BitkyId);
             output.Put("BitkyMode", BitkyMode);
+            output.Put("BitkyModeStr", BitkyModeStr);
+
             output.Put("Category", Category);
             output.Put("Name", Name);
             output.Put("Price", Price);
