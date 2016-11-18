@@ -7,7 +7,7 @@ namespace bitkyShop.bean
     {
         public string BitkyId { set; get; }
         public BmobInt BitkyMode { set; get; }
-
+        public string BitkyModeStr { set; get; }
         public string Category { set; get; }
         public string Name { set; get; }
         public BmobDouble Price { set; get; }
@@ -20,6 +20,7 @@ namespace bitkyShop.bean
 
         public Commodity()
         {
+            BitkyModeStr = "none";
             BitkyId = "default";
             BitkyMode = 0;
             CoverPhotoUrlSet = new List<string>();
