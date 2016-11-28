@@ -153,7 +153,11 @@ namespace bitkyShop.view
             fileDialog.Multiselect = false;
             fileDialog.DefaultExt = ".jpg";
             fileDialog.Filter = "图片文件 (*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
-            if (fileDialog.ShowDialog() != true) throw new Exception("操作错误");
+            if (fileDialog.ShowDialog() != true)
+            {
+                LabelFileName.Content = "未选择图片";
+                return;
+            }
             _filePath = fileDialog.FileName;
             var fileName = fileDialog.SafeFileName;
             LabelFileName.Content = fileName;

@@ -94,5 +94,10 @@ namespace bitkyShop.view
         {
             MessageBox.Show("商品上传失败\n错误信息: " + msg, "提示");
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _confirmUploadInfo = null;
+        }
     }
 }

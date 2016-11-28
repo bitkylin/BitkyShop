@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bitkyShop.view"
         mc:Ignorable="d"
-        Title="确认商品信息上传" Height="450" Width="400" MinWidth="400" MinHeight="450" Topmost="True" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        Title="确认商品信息上传" Height="450" Width="400" MinWidth="400" MinHeight="450" Topmost="True" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed">
     <Grid>
         <Image x:Name="imageShow" Height="189" Margin="10,31,10,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="商品信息上传确认" HorizontalAlignment="Left" VerticalAlignment="Top"/>
