@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -39,9 +40,24 @@ namespace bitkyShop.view
             _commodity = commodity;
             labelName.Content = commodity.Name;
             labelCategory.Content = commodity.Category;
+            labelCategorySub.Content = commodity.CategorySub;
             labelCount.Content = commodity.Count;
             labelPrice.Content = commodity.Price;
             textBlockDetails.Text = commodity.Details;
+            var builder = new StringBuilder();
+            if (commodity.Promotion.Equals("true"))
+            {
+                builder.AppendLine("已促销");
+            }
+            if (commodity.AD.Equals("true"))
+            {
+                builder.AppendLine("已设为广告");
+            }
+            if (builder.Length <= 2)
+            {
+                builder.Append("无");
+            }
+            labelPromotionAndAD.Content = builder;
 
             _photoLocalUrl = @"./photoCache/" + commodity.CoverPhotoName;
             _webClient = new WebClient();

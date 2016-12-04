@@ -66,7 +66,7 @@ namespace bitkyShop.view
         public void OnBmobUploadCompleted(int code, string msg)
         {
             if (_confirmUploadInfo == null) return;
-            Debug.WriteLine("商品上传成功:"+code);
+            Debug.WriteLine("商品上传成功:" + code);
             switch (code)
             {
                 case 0:
@@ -123,25 +123,38 @@ namespace bitkyShop.view
 
         public void btnUploadFile_Click(object sender, RoutedEventArgs e)
         {
-            if (LabelFileName.Content.ToString().Equals(string.Empty) ||
-                TextBoxName.Text.Equals(string.Empty) ||
-                ComboBoxCategory.Text.Equals(string.Empty) ||
-                TextBoxName.Text.Equals(string.Empty) ||
-                !IsInt(TextBoxCount.Text) ||
-                !IsFloat(TextBoxPrice.Text))
+            if (LabelFileName.Content.ToString().Trim().Equals(string.Empty) ||
+                TextBoxName.Text.Trim().Equals(string.Empty) ||
+                ComboBoxCategory.Text.Trim().Equals(string.Empty) ||
+                TextBoxCategorySub.Text.Trim().Equals(string.Empty) ||
+                TextBoxName.Text.Trim().Equals(string.Empty) ||
+                !IsInt(TextBoxCount.Text.Trim()) ||
+                !IsFloat(TextBoxPrice.Text.Trim()))
             {
                 MessageBox.Show("输入文本有误，请检查！", "警告");
                 return;
             }
 
+
             _commodity = new Commodity
             {
                 Name = TextBoxName.Text.Trim(),
                 Category = ComboBoxCategory.Text.Trim(),
+                CategorySub = TextBoxCategorySub.Text.Trim(),
                 Count = int.Parse(TextBoxCount.Text.Trim()),
                 Price = double.Parse(TextBoxPrice.Text.Trim()),
                 Details = TextBoxDetails.Text.Trim(),
             };
+
+
+            if (checkBoxPromotion.IsChecked == true)
+            {
+                _commodity.Promotion = "true";
+            }
+            if (checkBoxAD.IsChecked == true)
+            {
+                _commodity.AD = "true";
+            }
             _presenter.UploadFile(_filePath);
         }
 

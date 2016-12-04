@@ -8,7 +8,10 @@ namespace bitkyShop.bean
         public string BitkyId { set; get; }
         public BmobInt BitkyMode { set; get; }
         public string BitkyModeStr { set; get; }
+        public string Promotion { set; get; }
+        public string AD { set; get; }
         public string Category { set; get; }
+        public string CategorySub { set; get; }
         public string Name { set; get; }
         public BmobDouble Price { set; get; }
         public BmobInt Count { set; get; }
@@ -20,8 +23,11 @@ namespace bitkyShop.bean
 
         public Commodity()
         {
+            CategorySub = "";
             BitkyModeStr = "none";
             BitkyId = "default";
+            Promotion = "none";
+            AD = "none";
             BitkyMode = 0;
             CoverPhotoUrlSet = new List<string>();
             CoverPhotoNameSet = new List<string>();
@@ -47,7 +53,10 @@ namespace bitkyShop.bean
             BitkyId = input.getString("BitkyId");
             BitkyMode = input.getInt("BitkyMode");
             BitkyModeStr = input.getString("BitkyModeStr");
+            Promotion = input.getString("Promotion");
+            AD = input.getString("AD");
             Category = input.getString("Category");
+            CategorySub = input.getString("CategorySub");
             Name = input.getString("Name");
             Price = input.getDouble("Price");
             Count = input.getInt("Count");
@@ -66,8 +75,10 @@ namespace bitkyShop.bean
             output.Put("BitkyId", BitkyId);
             output.Put("BitkyMode", BitkyMode);
             output.Put("BitkyModeStr", BitkyModeStr);
-
+            output.Put("Promotion", Promotion);
+            output.Put("AD", AD);
             output.Put("Category", Category);
+            output.Put("CategorySub", CategorySub);
             output.Put("Name", Name);
             output.Put("Price", Price);
             output.Put("Count", Count);
