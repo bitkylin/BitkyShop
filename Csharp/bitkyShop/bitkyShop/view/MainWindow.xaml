@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bitkyShop"
         mc:Ignorable="d"
-        Title="商品数据上传" Height="600" Width="900" MinWidth="800" MinHeight="600">
+        Title="生乐自选超市电脑端" Height="600" Width="900" MinWidth="800" MinHeight="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" Margin="1">
-            <TabItem Header="TabItem" Background="#669EE4FF">
+        <TabControl x:Name="tabControl" Margin="1,1,9.6,1.4">
+            <TabItem Header="商品信息上传" Background="#669EE4FF" Height="30" Width="120">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="239*"/>
@@ -63,8 +63,12 @@
                     <CheckBox x:Name="checkBoxAD" Content="轮播广告" HorizontalAlignment="Right" Margin="0,140,28.8,0" VerticalAlignment="Top" Height="30" Width="90"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem" Background="#669EE4FF">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="商品信息修改" Background="#669EE4FF">
+                <Grid>
+                    <DataGrid x:Name="dataGrid" Margin="1,1,0.6,76.4"/>
+                    <Button x:Name="btnChangeCommodityPageNext" Content="下一页" HorizontalAlignment="Left" Margin="346,0,0,10.4" VerticalAlignment="Bottom" Width="110" Height="36"/>
+                    <Button x:Name="btnChangeCommodityPageFormer" Content="上一页" HorizontalAlignment="Left" Margin="210,0,0,10.4" VerticalAlignment="Bottom" Width="110" Height="36"/>
+                </Grid>
             </TabItem>
         </TabControl>
 
