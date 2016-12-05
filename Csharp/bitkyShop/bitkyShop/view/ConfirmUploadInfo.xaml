@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:bitkyShop.view"
         mc:Ignorable="d"
-        Title="确认商品信息上传" Height="480" Width="445" MinWidth="400" MinHeight="450" Topmost="True" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed">
+        Title="确认商品信息上传" Height="480" Width="445" MinWidth="400" MinHeight="450" Topmost="True" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed" BorderBrush="#FF000CFF" BorderThickness="1">
     <Grid>
         <Image x:Name="imageShow" Height="189" Margin="10,31,10,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="商品信息上传确认" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -24,7 +24,7 @@
         <Label x:Name="label1_Copy4" Content="下级类别：" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelCategorySub" Content="" Margin="85,286,9.8,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Copy5" Content="模式：" HorizontalAlignment="Left" Margin="270,317,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="labelPromotionAndAD" Content="" Margin="326,317,9.8,0" VerticalAlignment="Top" Height="56" BorderBrush="Black" BorderThickness="1"/>
+        <Label x:Name="labelPromotionAndAD" Content="" Margin="326,317,9.8,0" VerticalAlignment="Top" Height="56" BorderBrush="#FF00FAFF" BorderThickness="1"/>
 
     </Grid>
 </Window>
