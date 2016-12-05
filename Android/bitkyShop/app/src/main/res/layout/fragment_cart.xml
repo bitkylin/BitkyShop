@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.homefragment.HomeFragment"
+    >
+  <cc.bitky.bitkyshop.fragment.cartfragment.CartToolbar
+      android:id="@+id/cartfragment_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      />
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/recyclerView_cartFragment"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      />
+
+  <LinearLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="35dp"
+      android:background="@drawable/selector_number_add_sub"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
+      >
+
+    <CheckBox
+        android:id="@+id/cartfragment_checkbox_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全选"
+        />
+
+    <TextView
+        android:id="@+id/cartfragment_textview_total"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="合计: 0元"
+
+        android:textSize="16dp"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=" "
+
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/cartfragment_btn_order"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/bg_btn_style_red"
+        android:shadowRadius="50"
+        android:text="结算"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/cartfragment_btn_deleteAll"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/red"
+        android:text="删除"
+        android:visibility="gone"
+        />
+
+  </LinearLayout>
+
+</LinearLayout>

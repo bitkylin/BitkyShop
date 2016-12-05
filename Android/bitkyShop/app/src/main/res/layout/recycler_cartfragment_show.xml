@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginTop="2dp"
+
+    app:cardBackgroundColor="#fff"
+    app:cardCornerRadius="5dp"
+    app:contentPadding="5dp"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+      >
+
+    <CheckBox
+        android:id="@+id/cartfragment_checkbox_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/recycler_cartfragment_draweeview"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/recycler_cartfragment_text_title"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:layout_weight="2"
+          android:gravity="end"
+          android:minLines="2"
+          android:text="简介"
+          android:textSize="14sp"
+          style="@style/ware_title"
+          />
+      <cc.bitky.bitkyshop.utils.widget.ItemCounter
+          android:id="@+id/recycler_cartfragment_ItemCounter"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end"
+          />
+      <Button
+          android:id="@+id/recycler_cartfragment_btnRemoveItem"
+          android:layout_width="55dp"
+          android:layout_height="28dp"
+          android:layout_gravity="end"
+          android:layout_marginBottom="5dp"
+          android:layout_marginTop="5dp"
+          android:background="@color/red"
+          android:text="删除"
+          android:visibility="gone"
+          android:textColor="@color/white"
+          />
+      <!--<View-->
+      <!--android:layout_gravity="end"-->
+      <!--android:layout_marginTop="0dp"-->
+      <!--style="@style/line_vertical"-->
+      <!--/>-->
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+
+        <TextView
+            android:id="@+id/recycler_cartfragment_text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="0.00 元"
+            android:textSize="18sp"
+            style="@style/ware_price"
+            />
+
+      </RelativeLayout>
+
+
+    </LinearLayout>
+  </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,9 @@
+/build
+/libs
+
+# 因为隐私问题，暂时屏蔽build.gradle和BitkyApplication.java，敬请谅解
+build.gradle
+BitkyApplication.java
+
+*.png
+*.jpg
