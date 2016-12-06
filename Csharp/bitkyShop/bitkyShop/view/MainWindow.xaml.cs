@@ -197,5 +197,10 @@ namespace bitkyShop.view
             value = value.Trim();
             return Regex.IsMatch(value, @"^[1-9]d*.d*|0.d*[1-9]d*|[1-9]\d*|0$");
         }
+
+        private void btnChangeCommodityQueryShow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

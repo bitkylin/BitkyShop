@@ -182,6 +182,7 @@ public class HomeFragment extends Fragment
   @Override public void initRecyclerViewData(List<Commodity> list) {
     recyclerAdapter =
         new KyBaseRecyclerAdapter<Commodity>(list, R.layout.recycler_homefragment_show) {
+
           @Override
           public void setDataToViewHolder(final Commodity dataItem, KyBaseViewHolder holder) {
             holder.getSimpleDraweeView(R.id.recycler_homeshow_draweeview)
@@ -199,7 +200,6 @@ public class HomeFragment extends Fragment
                 });
           }
         };
-
     recyclerAdapter.setOnClickListener(
         new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<Commodity>() {
           @Override public void Onclick(View v, int adapterPosition, Commodity data) {

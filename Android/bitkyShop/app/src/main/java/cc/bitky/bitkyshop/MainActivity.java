@@ -11,11 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import cc.bitky.bitkyshop.bean.KyTab;
-import cc.bitky.bitkyshop.fragment.homefragment.HomeFragment;
-import cc.bitky.bitkyshop.fragment.userfragment.UserFragment;
 import cc.bitky.bitkyshop.fragment.cartfragment.CartFragment;
 import cc.bitky.bitkyshop.fragment.categrayfragment.CategrayFragment;
+import cc.bitky.bitkyshop.fragment.homefragment.HomeFragment;
 import cc.bitky.bitkyshop.fragment.hotfragment.HotFragment;
+import cc.bitky.bitkyshop.fragment.userfragment.UserFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         new KyTab(CategrayFragment.class, "分类", R.drawable.navigationbar_selector_category);
     KyTab tab_cart = new KyTab(CartFragment.class, "购物车", R.drawable.navigationbar_selector_cart);
     KyTab tab_user = new KyTab(UserFragment.class, "个人", R.drawable.navigationbar_selector_user);
-
     kyTabs.add(tab_home);
     kyTabs.add(tab_hot);
     kyTabs.add(tab_category);

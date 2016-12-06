@@ -11,7 +11,7 @@
       android:layout_width="match_parent"
       android:layout_height="40dp"
       android:background="@color/colorAccent"
-      app:navigationIcon="@mipmap/icon_toolbar_back"
+      app:enableKyNavigationIcon="true"
       app:title="注册"
       app:titleTextColor="@color/white"
       />

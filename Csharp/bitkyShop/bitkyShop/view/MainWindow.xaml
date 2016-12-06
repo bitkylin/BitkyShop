@@ -65,9 +65,10 @@
             </TabItem>
             <TabItem Header="商品信息修改" Background="#669EE4FF">
                 <Grid>
-                    <DataGrid x:Name="dataGrid" Margin="1,1,0.6,76.4"/>
+                    <DataGrid x:Name="dataGridCommodityInfoShow" Margin="1,1,0.6,76.4"/>
                     <Button x:Name="btnChangeCommodityPageNext" Content="下一页" HorizontalAlignment="Left" Margin="346,0,0,10.4" VerticalAlignment="Bottom" Width="110" Height="36"/>
                     <Button x:Name="btnChangeCommodityPageFormer" Content="上一页" HorizontalAlignment="Left" Margin="210,0,0,10.4" VerticalAlignment="Bottom" Width="110" Height="36"/>
+                    <Button x:Name="btnChangeCommodityQueryShow" Content="查询" HorizontalAlignment="Left" Margin="501,0,0,10.4" VerticalAlignment="Bottom" Width="110" Height="36" Click="btnChangeCommodityQueryShow_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

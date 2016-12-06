@@ -16,6 +16,7 @@ public class KyToolBar extends Toolbar {
   private TextView textView;
   private View view;
   private ImageView kyNavigation;
+  private ImageView rightButton;
 
   public KyToolBar(Context context) {
     this(context, null);
@@ -53,9 +54,11 @@ public class KyToolBar extends Toolbar {
       kyNavigation.setVisibility(INVISIBLE);
     }
   }
+
   @Override public void setNavigationOnClickListener(OnClickListener listener) {
     kyNavigation.setOnClickListener(listener);
   }
+
   /**
    * 设置navigation的图标
    *
@@ -64,6 +67,7 @@ public class KyToolBar extends Toolbar {
   @Override public void setNavigationIcon(@Nullable Drawable icon) {
     if (icon != null) {
       kyNavigation.setImageDrawable(icon);
+      enableKyNavigation(true);
     }
   }
 
@@ -72,6 +76,7 @@ public class KyToolBar extends Toolbar {
     view = inflater.inflate(R.layout.widget_ky_toolbar, this, true);
     textView = (TextView) view.findViewById(R.id.kytoolbar_title);
     kyNavigation = (ImageView) view.findViewById(R.id.kytoolbar_navigation);
+    rightButton = (ImageView) view.findViewById(R.id.kytoolbar_rightButton);
   }
 
   @Override public void setTitle(CharSequence title) {
@@ -80,3 +85,4 @@ public class KyToolBar extends Toolbar {
     textView.setText(title);
   }
 }
+

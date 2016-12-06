@@ -11,11 +11,21 @@ public class ReceiveAddress implements Serializable {
   String Name;
   String Phone;
   String Address;
+  Boolean isDefault;
+
+  public Boolean getDefault() {
+    return isDefault;
+  }
+
+  public void setDefault(Boolean aDefault) {
+    isDefault = aDefault;
+  }
 
   public ReceiveAddress(String name, String phone, String address) {
     Name = name;
     Phone = phone;
     Address = address;
+    isDefault = false;
   }
 
   public String getAddress() {

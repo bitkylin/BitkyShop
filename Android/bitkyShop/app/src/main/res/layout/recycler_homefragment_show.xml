@@ -8,8 +8,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="2dp"
-
-    app:cardBackgroundColor="#fff"
+    app:cardBackgroundColor="@color/selector_list_item"
     app:cardCornerRadius="10dp"
     app:contentPadding="10dp"
     >
@@ -17,7 +16,6 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/selector_list_item"
       android:orientation="vertical"
       >
 

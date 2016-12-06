@@ -37,6 +37,8 @@
     </activity>
     <activity android:name=".fragment.userfragment.orderactivity.OrderOptionActivity">
     </activity>
+    <activity android:name=".fragment.userfragment.addressactivity.AddressOptionActivity">
+    </activity>
   </application>
 
 </manifest>
