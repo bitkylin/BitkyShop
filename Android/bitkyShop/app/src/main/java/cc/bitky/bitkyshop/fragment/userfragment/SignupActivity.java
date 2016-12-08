@@ -8,13 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.cart.KyUser;
-import cc.bitky.bitkyshop.fragment.userfragment.util.KySet;
+import cc.bitky.bitkyshop.utils.tools.KySet;
 import cc.bitky.bitkyshop.utils.KyToolBar;
 import cc.bitky.bitkyshop.utils.ToastUtil;
+import cc.bitky.bitkyshop.utils.tools.KyPattern;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
   ToastUtil toastUtil;
@@ -76,15 +75,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
           break;
         }
         //验证语法规则
-        if (!checkUserName(userNameStr)) {
+        if (!KyPattern.checkUserName(userNameStr)) {
           toastUtil.show("用户名只能使用中文、英文和数字");
           break;
         }
-        if (!checkNumStr(inputPwdStr)) {
+        if (!KyPattern.checkNumStr(inputPwdStr)) {
           toastUtil.show("密码只能使用英文和数字");
           break;
         }
-        if (!checkUserName(pwdResumeQuestionStr) || !checkUserName(pwdResumeAnswerStr)) {
+        if (!KyPattern.checkUserName(pwdResumeQuestionStr) || !KyPattern.checkUserName(
+            pwdResumeAnswerStr)) {
           toastUtil.show("密码找回问题和答案只能使用中文、英文和数字");
           break;
         }
@@ -129,41 +129,5 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     intent.putExtra("bundle", bundle);
     setResult(KySet.USER_RESULT_SIGN_UP, intent);
     finish();
-  }
-
-  /**
-   * 验证手机号码
-   *
-   * @param phoneNumber 手机号码
-   * @return boolean
-   */
-  public static boolean checkPhoneNumber(String phoneNumber) {
-    Pattern pattern = Pattern.compile("^1[0-9]{10}$");
-    Matcher matcher = pattern.matcher(phoneNumber);
-    return matcher.matches();
-  }
-
-  /**
-   * 验证数字字母和中文字符
-   *
-   * @param phoneNumber 用户名
-   * @return boolean
-   */
-  public static boolean checkUserName(String phoneNumber) {
-    Pattern pattern = Pattern.compile("([a-zA-Z0-9\\u4e00-\\u9fa5]{2,24})");
-    Matcher matcher = pattern.matcher(phoneNumber);
-    return matcher.matches();
-  }
-
-  /**
-   * 验证数字字母
-   *
-   * @param phoneNumber 密码
-   * @return boolean
-   */
-  public static boolean checkNumStr(String phoneNumber) {
-    Pattern pattern = Pattern.compile("([a-zA-Z0-9]{2,24})");
-    Matcher matcher = pattern.matcher(phoneNumber);
-    return matcher.matches();
   }
 }

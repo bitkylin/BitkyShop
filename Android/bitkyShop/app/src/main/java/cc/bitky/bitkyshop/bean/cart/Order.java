@@ -9,16 +9,64 @@ import java.util.List;
  */
 
 public class Order extends BmobObject implements Serializable {
-
-  private ReceiveAddress receiveAddress;
+  String userObjectId;
+  String username;
+  String name;
+  String phone;
+  String address;
+  Boolean isDefault;
   private List<CommodityOrder> commodityList;
 
-  public ReceiveAddress getReceiveAddress() {
-    return receiveAddress;
+  public Order(List<CommodityOrder> commodityList) {
+    this.commodityList = commodityList;
   }
 
-  public void setReceiveAddress(ReceiveAddress receiveAddress) {
-    this.receiveAddress = receiveAddress;
+  public String getUserObjectId() {
+    return userObjectId;
+  }
+
+  public void setUserObjectId(String userObjectId) {
+    this.userObjectId = userObjectId;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public Boolean getDefault() {
+    return isDefault;
+  }
+
+  public void setDefault(Boolean aDefault) {
+    isDefault = aDefault;
   }
 
   public List<CommodityOrder> getCommodityList() {

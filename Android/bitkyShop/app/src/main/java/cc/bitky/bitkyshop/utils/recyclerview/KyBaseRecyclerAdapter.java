@@ -4,11 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class KyBaseRecyclerAdapter<T> extends RecyclerView.Adapter<KyBaseViewHolder> {
   protected KyRecyclerViewItemOnClickListener listener;
-  protected List<T> mDatas;
+  protected List<T> mDatas = new ArrayList<>();
   protected int resourceId;
 
   /**
@@ -35,7 +36,7 @@ public abstract class KyBaseRecyclerAdapter<T> extends RecyclerView.Adapter<KyBa
     View view = LayoutInflater.from(parent.getContext()).inflate(resourceId, parent, false);
     return new KyBaseViewHolder(view, new KyBaseViewHolder.HolderOnClickListener() {
       @Override public void Onclick(View v, int adapterPosition) {
-        listener.Onclick(v, adapterPosition, mDatas.get(adapterPosition));
+        if (listener != null) listener.Onclick(v, adapterPosition, mDatas.get(adapterPosition));
       }
     });
   }
@@ -55,6 +56,10 @@ public abstract class KyBaseRecyclerAdapter<T> extends RecyclerView.Adapter<KyBa
 
   @Override public int getItemCount() {
     return mDatas.size();
+  }
+
+  public List<T> getDataItems() {
+    return mDatas;
   }
 
   public void reloadData(List<T> list) {

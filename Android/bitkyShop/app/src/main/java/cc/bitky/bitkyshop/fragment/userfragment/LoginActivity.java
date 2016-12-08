@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.cart.KyUser;
-import cc.bitky.bitkyshop.fragment.userfragment.util.KySet;
+import cc.bitky.bitkyshop.utils.tools.KySet;
 import cc.bitky.bitkyshop.utils.KyToolBar;
 import cc.bitky.bitkyshop.utils.ToastUtil;
-import cn.bmob.v3.BmobUser;
+import cc.bitky.bitkyshop.utils.tools.KyPattern;
 import rx.Subscriber;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -69,11 +69,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
       return;
     }
     //验证语法规则
-    if (!SignupActivity.checkUserName(userName)) {
+    if (!KyPattern.checkUserName(userName)) {
       toastUtil.show("用户名只能使用中文、英文和数字");
       return;
     }
-    if (!SignupActivity.checkNumStr(password)) {
+    if (!KyPattern.checkNumStr(password)) {
       toastUtil.show("密码只能使用英文和数字");
       return;
     }

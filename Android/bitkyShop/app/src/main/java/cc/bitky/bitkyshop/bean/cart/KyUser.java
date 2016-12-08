@@ -1,13 +1,8 @@
 package cc.bitky.bitkyshop.bean.cart;
 
 import cn.bmob.v3.BmobUser;
-import java.util.List;
 
 public class KyUser extends BmobUser {
-
-  List<ReceiveAddress> addressList;
-  ReceiveAddress defaultAddress;
-
   String pwdResumeQuestion;
   String pwdResumeAnswer;
 
@@ -26,20 +21,5 @@ public class KyUser extends BmobUser {
   public void setPwdResumeAnswer(String pwdResumeAnswer) {
     this.pwdResumeAnswer = pwdResumeAnswer;
   }
-
-  public List<ReceiveAddress> getAddressList() {
-    return addressList;
-  }
-
-  public void setAddressList(List<ReceiveAddress> addressList) {
-    this.addressList = addressList;
-  }
-
-  public ReceiveAddress getDefaultAddress() {
-    return defaultAddress;
-  }
-
-  public void setDefaultAddress(ReceiveAddress defaultAddress) {
-    this.defaultAddress = defaultAddress;
-  }
 }
+

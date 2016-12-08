@@ -17,10 +17,13 @@ import cc.bitky.bitkyshop.bean.cart.Order;
 import cc.bitky.bitkyshop.bean.cart.ReceiveAddress;
 import cc.bitky.bitkyshop.utils.KyToolBar;
 import cc.bitky.bitkyshop.utils.ToastUtil;
+import cc.bitky.bitkyshop.utils.recyclerview.DividerItemDecoration;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
+import cc.bitky.bitkyshop.utils.recyclerview.KyRecyclerViewDivider;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 import com.socks.library.KLog;
 import java.util.ArrayList;
@@ -38,6 +41,8 @@ public class OrderActivity extends AppCompatActivity {
   private Context mContext;
   private ToastUtil toastUtil;
   private List<Commodity> commodities;
+  private Order order;
+  private String userObjectId;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -57,17 +62,47 @@ public class OrderActivity extends AppCompatActivity {
         finish();
       }
     });
-    initRecyclerView(initData());
+
+    initOrder();
+    initDefaultAddress();
+    initRecyclerView(order.getCommodityList());
   }
 
-  private List<CommodityOrder> initData() {
+  private void initDefaultAddress() {
+    BmobQuery<ReceiveAddress> bmobQuery = new BmobQuery<>();
+    bmobQuery.addWhereEqualTo("userObjectId", userObjectId);
+    bmobQuery.addWhereEqualTo("isDefault", true);
+    bmobQuery.setLimit(50);
+    bmobQuery.findObjects(new FindListener<ReceiveAddress>() {
+
+      private ReceiveAddress receiveAddress;
+
+      @Override public void done(List<ReceiveAddress> list, BmobException e) {
+        if (e != null) {
+          toastUtil.show(e.getMessage());
+          return;
+        }
+        if (list.size() > 0) {
+          receiveAddress = list.get(0);
+          userName.setText(receiveAddress.getName());
+          phone.setText(receiveAddress.getPhone());
+          address.setText(receiveAddress.getAddress());
+        }
+      }
+    });
+  }
+
+  private void initOrder() {
     Bundle bundle = getIntent().getBundleExtra("bundle");
+    String userObjectId = bundle.getString("userObjectId");
     Order order = (Order) bundle.getSerializable("order");
-    ReceiveAddress receiveAddress = order.getReceiveAddress();
-    userName.setText(receiveAddress.getName());
-    phone.setText(receiveAddress.getPhone());
-    address.setText(receiveAddress.getAddress());
-    return order.getCommodityList();
+
+    if (order != null && userObjectId != null) {
+      this.order = order;
+      this.userObjectId = userObjectId;
+    } else {
+      finish();
+    }
   }
 
   private void initRecyclerView(List<CommodityOrder> commodityOrders) {
@@ -75,9 +110,10 @@ public class OrderActivity extends AppCompatActivity {
     if (recyclerAdapter == null) {
       initRecyclerViewData(new ArrayList<Commodity>());
     }
-    recyclerView.setAdapter(recyclerAdapter);
     recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
+    recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+    recyclerView.setAdapter(recyclerAdapter);
     for (final CommodityOrder commodityOrder : commodityOrders) {
       BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
       bmobQuery.getObject(commodityOrder.getObjectId(), new QueryListener<Commodity>() {
@@ -86,7 +122,6 @@ public class OrderActivity extends AppCompatActivity {
             KLog.d("有异常：" + e.getMessage());
             return;
           }
-          commodity.setPrice(commodityOrder.getPrice());
           commodity.setCount(commodityOrder.getCount());
           commodities.add(commodity);
           recyclerAdapter.reloadData(commodities);

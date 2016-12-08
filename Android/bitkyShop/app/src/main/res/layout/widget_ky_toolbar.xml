@@ -10,10 +10,11 @@
   <ImageView
       android:id="@+id/kytoolbar_navigation"
       android:layout_width="wrap_content"
-      android:layout_height="25dp"
-      android:paddingLeft="5dp"
-      android:paddingRight="10dp"
-      android:src="@mipmap/icon_toolbar_back"
+      android:layout_height="match_parent"
+      android:layout_gravity="center_vertical"
+      android:paddingLeft="6dp"
+      android:paddingRight="6dp"
+      android:src="@mipmap/icon_toolbar_arrow_left"
       android:visibility="invisible"
       />
 
@@ -28,15 +29,34 @@
       android:textColor="@color/white"
       android:textSize="20sp"
       />
+  <TextView
+      android:id="@+id/kytoolbar_rightTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:gravity="bottom"
+      android:paddingLeft="10dp"
+      android:paddingRight="10dp"
+      android:text=""
+      android:textColor="@color/white"
+      android:textSize="18sp"
+      android:visibility="gone"
+      />
 
   <ImageView
       android:id="@+id/kytoolbar_rightButton"
       android:layout_width="wrap_content"
-      android:layout_height="25dp"
+      android:layout_height="match_parent"
+      android:gravity="center_vertical"
       android:paddingLeft="5dp"
-      android:paddingRight="10dp"
+      android:paddingRight="5dp"
       android:src="@mipmap/icon_toolbar_plus"
-      android:visibility="invisible"
+      android:visibility="gone"
+      />
+
+  <TextView
+      android:id="@+id/kytoolbar_placeholder"
+      android:layout_width="50dp"
+      android:layout_height="match_parent"
       />
 
 </LinearLayout>

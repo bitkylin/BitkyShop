@@ -30,15 +30,14 @@
         android:layout_margin="5dp"
         android:background="@drawable/edittext_style_grey"
         android:hint="用户名 (使用中文、英文或数字)"
-        android:lines="1"
         android:maxLength="18"
         android:padding="10dp"
+        android:inputType="text"
         android:textColorHint="@color/darkgrey"
         android:textSize="16sp"
         />
 
     <EditText
-
         android:id="@+id/signupActivity_editText_inputPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +53,6 @@
         />
 
     <EditText
-
         android:id="@+id/signupActivity_editText_confirmPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,28 +68,26 @@
         />
 
     <EditText
-
+        android:inputType="text"
         android:id="@+id/signupActivity_editText_pwdResumeQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/edittext_style_grey"
         android:hint="密码找回提示问题"
-        android:lines="1"
         android:maxLength="18"
         android:padding="10dp"
         android:textColorHint="@color/darkgrey"
         android:textSize="16sp"
         />
     <EditText
-
+        android:inputType="text"
         android:id="@+id/signupActivity_editText_pwdResumeAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@drawable/edittext_style_grey"
         android:hint="密码找回问题答案"
-        android:lines="1"
         android:maxLength="18"
         android:padding="10dp"
         android:textColorHint="@color/darkgrey"

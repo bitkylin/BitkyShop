@@ -17,12 +17,14 @@ import android.widget.TextView;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.cart.CommodityLocal;
 import cc.bitky.bitkyshop.bean.cart.CommodityOrder;
+import cc.bitky.bitkyshop.bean.cart.KyUser;
 import cc.bitky.bitkyshop.bean.cart.Order;
-import cc.bitky.bitkyshop.bean.cart.ReceiveAddress;
 import cc.bitky.bitkyshop.fragment.userfragment.orderactivity.OrderActivity;
-import cc.bitky.bitkyshop.fragment.userfragment.util.KySet;
 import cc.bitky.bitkyshop.globalDeploy.GreenDaoKyHelper;
 import cc.bitky.bitkyshop.utils.ToastUtil;
+import cc.bitky.bitkyshop.utils.recyclerview.DividerItemDecoration;
+import cc.bitky.bitkyshop.utils.tools.KyBmobHelper;
+import cc.bitky.bitkyshop.utils.tools.KySet;
 import cc.bitky.bitkyshop.utils.widget.ItemCounter;
 import com.socks.library.KLog;
 import java.util.ArrayList;
@@ -137,6 +139,7 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     recyclerViewCategray.setAdapter(recyclerAdapter);
     recyclerViewCategray.setLayoutManager(new LinearLayoutManager(mContext));
     recyclerViewCategray.setItemAnimator(new DefaultItemAnimator());
+    recyclerViewCategray.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
   }
 
   private void itemSetIsChecked(Boolean isChecked) {
@@ -196,6 +199,13 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         countTotalPrices();
         break;
       case R.id.cartfragment_btn_order:
+        KyUser kyUser = KyBmobHelper.getCurrentUser();
+        if (kyUser == null) {
+          toastUtil.show("请登录后再提交订单");
+          return;
+        }
+        String userObjectId = kyUser.getObjectId();
+
         List<CommodityOrder> commodityOrders = new ArrayList<>();
         for (CommodityLocal commodityLocal : commodityLocals) {
           if (commodityLocal.getCartIsChecked()) {
@@ -206,13 +216,10 @@ public class CartFragment extends Fragment implements View.OnClickListener {
           }
         }
         if (commodityOrders.size() > 0) {
-          Order order = new Order();
-          order.setCommodityList(commodityOrders);
-          order.setReceiveAddress(new ReceiveAddress("李明亮", "18593275591", "桂林市七星区桂林电子科技大学金鸡岭校区"));
-
+          Order order = new Order(commodityOrders);
           Bundle bundle = new Bundle();
           bundle.putSerializable("order", order);
-
+          bundle.putString("userObjectId", userObjectId);
           Intent intent = new Intent(mContext, OrderActivity.class);
           intent.putExtra("bundle", bundle);
           startActivityForResult(intent, KySet.CART_REQUEST_SUBMIT_ORDER);

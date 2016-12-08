@@ -17,6 +17,8 @@ public class KyToolBar extends Toolbar {
   private View view;
   private ImageView kyNavigation;
   private ImageView rightButton;
+  private TextView rightTextView;
+  private TextView placeHolderTextView;
 
   public KyToolBar(Context context) {
     this(context, null);
@@ -36,10 +38,35 @@ public class KyToolBar extends Toolbar {
     final boolean enableKyNavigationIcon =
         a.getBoolean(R.styleable.KyToolbar_enableKyNavigationIcon, true);
     final Drawable navIcon = a.getDrawable(R.styleable.KyToolbar_KyNavigationIcon);
+    final Drawable rightButtonIcon = a.getDrawable(R.styleable.KyToolbar_setRightButton);
+    final String rightText = a.getString(R.styleable.KyToolbar_setRightText);
 
     setNavigationIcon(navIcon);
+    setRightButtonIcon(rightButtonIcon);
     enableKyNavigation(enableKyNavigationIcon);
+    setRightTextView(rightText);
     a.recycle();
+  }
+  private void initView() {
+    LayoutInflater inflater = LayoutInflater.from(getContext());
+    view = inflater.inflate(R.layout.widget_ky_toolbar, this, true);
+    textView = (TextView) view.findViewById(R.id.kytoolbar_title);
+    kyNavigation = (ImageView) view.findViewById(R.id.kytoolbar_navigation);
+    rightButton = (ImageView) view.findViewById(R.id.kytoolbar_rightButton);
+    rightTextView = (TextView) view.findViewById(R.id.kytoolbar_rightTextView);
+    placeHolderTextView = (TextView) view.findViewById(R.id.kytoolbar_placeholder);
+  }
+
+  @Override public void setNavigationOnClickListener(OnClickListener listener) {
+    kyNavigation.setOnClickListener(listener);
+  }
+
+  public void setRightButtonOnClickListener(OnClickListener listener) {
+    rightButton.setOnClickListener(listener);
+  }
+
+  public void setRightTextViewOnClickListener(OnClickListener listener) {
+    rightTextView.setOnClickListener(listener);
   }
 
   /**
@@ -55,12 +82,34 @@ public class KyToolBar extends Toolbar {
     }
   }
 
-  @Override public void setNavigationOnClickListener(OnClickListener listener) {
-    kyNavigation.setOnClickListener(listener);
+  /**
+   * 是否启用 rightButton
+   *
+   * @param enableRightButton kyNavigation
+   */
+  private void enableRightButton(boolean enableRightButton) {
+    if (enableRightButton) {
+      rightButton.setVisibility(VISIBLE);
+    } else {
+      rightButton.setVisibility(GONE);
+    }
   }
 
   /**
-   * 设置navigation的图标
+   * 是否启用 RightTextView
+   *
+   * @param enableRightTextView enableRightTextView
+   */
+  private void enableRightTextView(boolean enableRightTextView) {
+    if (enableRightTextView) {
+      rightTextView.setVisibility(VISIBLE);
+    } else {
+      rightTextView.setVisibility(GONE);
+    }
+  }
+
+  /**
+   * 设置 navigation 的图标
    *
    * @param icon 图标
    */
@@ -71,13 +120,32 @@ public class KyToolBar extends Toolbar {
     }
   }
 
-  private void initView() {
-    LayoutInflater inflater = LayoutInflater.from(getContext());
-    view = inflater.inflate(R.layout.widget_ky_toolbar, this, true);
-    textView = (TextView) view.findViewById(R.id.kytoolbar_title);
-    kyNavigation = (ImageView) view.findViewById(R.id.kytoolbar_navigation);
-    rightButton = (ImageView) view.findViewById(R.id.kytoolbar_rightButton);
+  /**
+   * 设置 RightButton 的图标
+   *
+   * @param icon 图标
+   */
+  private void setRightButtonIcon(@Nullable Drawable icon) {
+    if (icon != null) {
+      rightButton.setImageDrawable(icon);
+      enableRightButton(true);
+      placeHolderTextView.setVisibility(GONE);
+    }
   }
+
+  /**
+   * 设置 RightTextView 启用
+   *
+   * @param str 显示的文字
+   */
+  private void setRightTextView(@Nullable String str) {
+    if (str != null) {
+      rightTextView.setText(str);
+      enableRightTextView(true);
+      placeHolderTextView.setVisibility(GONE);
+    }
+  }
+
 
   @Override public void setTitle(CharSequence title) {
     super.setTitle(title);
