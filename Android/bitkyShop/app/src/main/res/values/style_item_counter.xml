@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="ItemCounter">
+    <attr format="reference" name="buttonBackground"/>
+    <attr format="reference" name="background"/>
+  </declare-styleable>
+
+  <declare-styleable name="KyToolbar">
+    <attr format="reference" name="KyNavigationIcon"/>
+    <attr format="boolean" name="enableKyNavigationIcon"/>
+    <attr format="reference" name="setRightButton"/>
+    <attr format="string|reference" name="setRightText"/>
+  </declare-styleable>
+</resources>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.userfragment.addressactivity.CreateAddressActivity"
+    >
+  <cc.bitky.bitkyshop.utils.KyToolBar
+      android:id="@+id/createAddressActivity_kyToolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@color/colorAccent"
+      app:enableKyNavigationIcon="true"
+      app:setRightText="保存"
+      app:title="新建收货地址"
+      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="10dp"
+      >
+
+    <EditText
+        android:id="@+id/createAddressActivity_userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_style_grey"
+        android:hint="收件人姓名"
+        android:lines="1"
+        android:maxLength="9"
+        android:padding="10dp"
+        android:textColorHint="@color/darkgrey"
+        android:textSize="16sp"
+        android:inputType="text"
+        />
+    <EditText
+        android:id="@+id/createAddressActivity_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edittext_style_grey"
+        android:hint="联系电话"
+        android:lines="1"
+        android:maxLength="11"
+        android:padding="10dp"
+        android:textColorHint="@color/darkgrey"
+        android:textSize="16sp"
+        android:inputType="phone"
+        />
+    <EditText
+        android:id="@+id/createAddressActivity_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:maxLength="99"
+        android:background="@drawable/edittext_style_grey"
+        android:hint="详细地址"
+        android:padding="10dp"
+        android:textColorHint="@color/darkgrey"
+        android:textSize="16sp"
+        android:inputType="text"
+        />
+  </LinearLayout>
+
+
+</LinearLayout>

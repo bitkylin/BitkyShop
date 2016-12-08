@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_order"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.userfragment.orderactivity.OrderActivity"
+    >
+  <cc.bitky.bitkyshop.utils.KyToolBar
+      android:id="@+id/orderActivity_kyToolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@color/colorAccent"
+      app:navigationIcon="@mipmap/icon_toolbar_arrow_left"
+      app:title="订单详情"
+      />
+  <android.support.v7.widget.CardView
+      android:id="@+id/orderActivity_addressCardView"
+      android:layout_width="match_parent"
+      android:layout_height="70dp"
+      android:layout_margin="5dp"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+      <RelativeLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:padding="5dp"
+          >
+
+        <TextView
+            android:id="@+id/orderActivity_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/orderActivity_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="电话"
+            android:textSize="16sp"
+            />
+        <TextView
+            android:id="@+id/orderActivity_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:maxLines="2"
+            android:text="详细地址"
+            />
+
+      </RelativeLayout>
+      <ImageView
+          android:layout_width="20dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="10dp"
+          android:src="@mipmap/icon_toolbar_arrow_right"
+          />
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/orderActivity_recycler_commodity"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/selector_number_add_sub"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
+      >
+
+    <TextView
+        android:id="@+id/orderActivity_textview_total"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+        android:text="合计: 0元"
+        android:textSize="16dp"
+        />
+
+    <Button
+        android:id="@+id/orderActivity_btn_order"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/bg_btn_style_red"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="生成订单"
+        android:textColor="@color/white"
+        />
+
+  </LinearLayout>
+
+</LinearLayout>

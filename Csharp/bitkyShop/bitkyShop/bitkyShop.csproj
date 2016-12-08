@@ -73,6 +73,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="bean\beanShow\CommodityPcShow.cs" />
     <Compile Include="bean\Commodity.cs" />
     <Compile Include="bean\CommodityUploadInfo.cs" />
     <Compile Include="bean\GameObject.cs" />

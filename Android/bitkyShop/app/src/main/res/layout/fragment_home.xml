@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_one"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.homefragment.HomeFragment"
+    >
+
+  <RelativeLayout
+
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      >
+
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </com.daimajia.slider.library.SliderLayout>
+
+    <com.daimajia.slider.library.Indicators.PagerIndicator
+        android:id="@+id/custom_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        custom:selected_color="#bbf8ff"
+        custom:selected_height="8dp"
+        custom:selected_padding_left="3dp"
+        custom:selected_padding_right="3dp"
+        custom:selected_width="8dp"
+        custom:shape="oval"
+        custom:unselected_color="#c8ffffff"
+        custom:unselected_height="4dp"
+        custom:unselected_padding_left="3dp"
+        custom:unselected_padding_right="3dp"
+        custom:unselected_width="4dp"
+        />
+
+  </RelativeLayout>
+  <com.cjj.MaterialRefreshLayout
+      android:id="@+id/swiperefreshlayout_home_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:isLoadMore="true"
+      app:overlay="false"
+      app:progress_colors="@array/material_colors"
+      app:wave_color="#90ffffff"
+      app:wave_height_type="higher"
+      app:wave_show="true"
+      >
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_home_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+  </com.cjj.MaterialRefreshLayout>
+
+</LinearLayout>

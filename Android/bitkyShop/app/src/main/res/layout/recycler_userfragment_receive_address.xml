@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="2dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="2dp"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="5dp"
+      >
+
+    <TextView
+        android:id="@+id/recycler_userfragment_receiveAddress_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="李明亮"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/recycler_userfragment_receiveAddress_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="18593275591"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        />
+
+  </RelativeLayout>
+
+  <TextView
+      android:id="@+id/recycler_userfragment_receiveAddress_address"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:lines="2"
+      android:text="桂林电子科技大学金鸡岭校区"
+      android:textColor="@color/gray"
+      android:textSize="16sp"
+      />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <CheckBox
+        android:id="@+id/recycler_userfragment_receiveAddress_is_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:button="@drawable/selector_checkable"
+        android:clickable="false"
+        android:paddingRight="10dp"
+        android:text="设为默认"
+        android:textColor="@color/gray"
+        />
+
+    <!--<TextView-->
+    <!--android:id="@+id/recycler_userfragment_receiveAddress_edit"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_toLeftOf="@+id/recycler_userfragment_receiveAddress_delete"-->
+    <!--android:drawableLeft="@mipmap/icon_edit"-->
+    <!--android:gravity="center"-->
+    <!--android:paddingLeft="5dp"-->
+    <!--android:paddingRight="5dp"-->
+    <!--android:text="编辑"-->
+    <!--android:textColor="@color/gray"-->
+    <!--/>-->
+
+    <TextView
+        android:id="@+id/recycler_userfragment_receiveAddress_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@mipmap/icon_delete"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="删除"
+        android:textColor="@color/gray"
+        />
+
+  </RelativeLayout>
+</LinearLayout>
+
