@@ -6,15 +6,15 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Unique;
 
 @Entity public class CommodityLocal implements Cloneable {
-  @Id Long id;
-  @Unique String objectId;
-  String category;
-  String name;
-  String details;
-  Integer cartCount;
-  Double price;
-  String CoverPhotoUrl;
-  Boolean CartIsChecked;
+  private @Id Long id;
+  private @Unique String objectId;
+  private String category;
+  private String name;
+  private String details;
+  private Integer cartCount;
+  private Double price;
+  private String CoverPhotoUrl;
+  private Boolean CartIsChecked;
 
   @Generated(hash = 449135961)
   public CommodityLocal(Long id, String objectId, String category, String name, String details,

@@ -24,7 +24,7 @@ public abstract class KyBaseRecyclerAdapter<T> extends RecyclerView.Adapter<KyBa
   }
 
   /**
-   * 设置点击监听器
+   * 设置RecyclerView中条目的点击监听器
    *
    * @param listener 设置点击监听器
    */

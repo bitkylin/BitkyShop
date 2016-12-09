@@ -16,8 +16,8 @@ import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.recyclerview.DividerItemDecoration;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
-import cc.bitky.bitkyshop.utils.recyclerview.KyRecyclerViewDivider;
 import cc.bitky.bitkyshop.utils.tools.KySet;
+import com.socks.library.KLog;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,14 +44,30 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
 
     initRecyclerView();
 
+    //由订单确认页面进入时的初始化
+    int requestCode = getIntent().getIntExtra("requestCode", -1);
+    if (requestCode == KySet.CART_REQUEST_SELECT_RECEIVE_ADDRESS) {
+      kyToolBar.setTitle("点击选择收货地址");
+      recyclerAdapter.setOnClickListener(
+          new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<ReceiveAddress>() {
+            @Override public void Onclick(View v, int adapterPosition, ReceiveAddress data) {
+              Intent intent = getIntent();
+              intent.putExtra("address", data);
+              setResult(KySet.CART_RESULT_SELECT_RECEIVE_ADDRESS, intent);
+              finish();
+            }
+          });
+    }
+
     //初始化本地User对象并获取远端ReceivedAddress
     String objectId = getIntent().getStringExtra("objectId");
-    String username = getIntent().getStringExtra("username");
+    String username = getIntent().getStringExtra("userName");
     if (objectId != null && username != null) {
       this.objectId = objectId;
       this.username = username;
       presenter.getCurrentUserAddress(objectId);
     } else {
+      KLog.d("未知错误");
       toastUtil.show("未知错误");
       finish();
     }
@@ -64,9 +80,9 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
     }
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-    recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+    recyclerView.addItemDecoration(
+        new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
     recyclerView.setAdapter(recyclerAdapter);
-
   }
 
   public void initRecyclerViewData(List<ReceiveAddress> list) {

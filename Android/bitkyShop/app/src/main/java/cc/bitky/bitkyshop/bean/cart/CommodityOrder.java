@@ -2,10 +2,6 @@ package cc.bitky.bitkyshop.bean.cart;
 
 import java.io.Serializable;
 
-/**
- * Created by bitky on 2016/11/24.
- */
-
 public class CommodityOrder implements Serializable {
 
   private String objectId;

@@ -69,8 +69,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         break;
       case R.id.userFragment_addressCardView:
         Intent intent = new Intent(getContext(), AddressOptionActivity.class);
-        intent.putExtra("username", KyBmobHelper.getCurrentUser().getUsername());
         intent.putExtra("objectId", KyBmobHelper.getCurrentUser().getObjectId());
+        intent.putExtra("userName", KyBmobHelper.getCurrentUser().getUsername());
         startActivity(intent);
         break;
     }

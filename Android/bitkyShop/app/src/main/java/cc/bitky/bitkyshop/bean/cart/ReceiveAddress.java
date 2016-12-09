@@ -1,15 +1,16 @@
 package cc.bitky.bitkyshop.bean.cart;
 
 import cn.bmob.v3.BmobObject;
+import java.io.Serializable;
 
-public class ReceiveAddress extends BmobObject {
+public class ReceiveAddress extends BmobObject implements Serializable {
 
-  String userObjectId;
-  String username;
-  String name;
-  String phone;
-  String address;
-  Boolean isDefault;
+  private String userObjectId;
+  private String username;
+  private String name;
+  private String phone;
+  private String address;
+  private Boolean isDefault;
 
   public ReceiveAddress() {
   }

@@ -139,7 +139,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     recyclerViewCategray.setAdapter(recyclerAdapter);
     recyclerViewCategray.setLayoutManager(new LinearLayoutManager(mContext));
     recyclerViewCategray.setItemAnimator(new DefaultItemAnimator());
-    recyclerViewCategray.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
+    recyclerViewCategray.addItemDecoration(
+        new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
   }
 
   private void itemSetIsChecked(Boolean isChecked) {
@@ -187,6 +188,16 @@ public class CartFragment extends Fragment implements View.OnClickListener {
     textViewTotalPrice.setText("合计： " + priceTotal + "元");
   }
 
+  @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    switch (resultCode) {
+      case KySet.CART_RESULT_SUBMIT_ORDER:
+        toastUtil.show("添加订单成功");
+        btnDeleteAll.performClick();
+        break;
+    }
+  }
+
   @Override public void onClick(View v) {
     switch (v.getId()) {
       case R.id.cartfragment_checkbox_all:
@@ -204,7 +215,6 @@ public class CartFragment extends Fragment implements View.OnClickListener {
           toastUtil.show("请登录后再提交订单");
           return;
         }
-        String userObjectId = kyUser.getObjectId();
 
         List<CommodityOrder> commodityOrders = new ArrayList<>();
         for (CommodityLocal commodityLocal : commodityLocals) {
@@ -217,11 +227,14 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         }
         if (commodityOrders.size() > 0) {
           Order order = new Order(commodityOrders);
+          order.setUserObjectId(kyUser.getObjectId());
+          order.setUsername(kyUser.getUsername());
+
           Bundle bundle = new Bundle();
           bundle.putSerializable("order", order);
-          bundle.putString("userObjectId", userObjectId);
           Intent intent = new Intent(mContext, OrderActivity.class);
           intent.putExtra("bundle", bundle);
+          intent.putExtra("requestCode", KySet.CART_REQUEST_SUBMIT_ORDER);
           startActivityForResult(intent, KySet.CART_REQUEST_SUBMIT_ORDER);
         } else {
           toastUtil.show("未勾选商品");

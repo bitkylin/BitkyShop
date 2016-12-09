@@ -11,14 +11,46 @@ import java.util.List;
 public class Order extends BmobObject implements Serializable {
   String userObjectId;
   String username;
-  String name;
-  String phone;
-  String address;
-  Boolean isDefault;
+  Boolean isCompleted = false;
+
+  private ReceiveAddress receiveAddress;
+
   private List<CommodityOrder> commodityList;
 
   public Order(List<CommodityOrder> commodityList) {
     this.commodityList = commodityList;
+  }
+
+  /**
+   * 设置收货地址以及当前用户信息
+   */
+  public void setAddressAndUserInfo(ReceiveAddress receiveAddress) {
+    this.receiveAddress = receiveAddress;
+    userObjectId = receiveAddress.getUserObjectId();
+    username = receiveAddress.getUsername();
+  }
+
+  /**
+   * JavaBean是否填写完整
+   *
+   * @return 填写完整的状态
+   */
+  public Boolean isDone() {
+    if (userObjectId != null
+        && username != null
+        && receiveAddress != null
+        && commodityList != null) {
+      return true;
+    }
+    return false;
+  }
+
+  public ReceiveAddress getReceiveAddress() {
+    return receiveAddress;
+  }
+
+  public void setReceiveAddress(ReceiveAddress receiveAddress) {
+    this.receiveAddress = receiveAddress;
   }
 
   public String getUserObjectId() {
@@ -35,38 +67,6 @@ public class Order extends BmobObject implements Serializable {
 
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public Boolean getDefault() {
-    return isDefault;
-  }
-
-  public void setDefault(Boolean aDefault) {
-    isDefault = aDefault;
   }
 
   public List<CommodityOrder> getCommodityList() {
