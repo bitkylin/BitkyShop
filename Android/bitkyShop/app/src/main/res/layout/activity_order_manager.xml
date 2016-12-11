@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_order_manager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.userfragment.orderactivity.OrderManagerActivity"
+    >
+  <cc.bitky.bitkyshop.utils.KyToolBar
+      android:id="@+id/orderActivity_kyToolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@color/colorAccent"
+      app:enableKyNavigationIcon="true"
+      app:title="订单列表"
+      />
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/orderManagerActivity_recycler_All"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      />
+
+</LinearLayout>

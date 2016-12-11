@@ -14,69 +14,136 @@
       android:layout_width="match_parent"
       android:layout_height="40dp"
       android:background="@color/colorAccent"
-      app:navigationIcon="@mipmap/icon_toolbar_arrow_left"
+      app:enableKyNavigationIcon="true"
       app:title="订单详情"
       />
-  <android.support.v7.widget.CardView
+  <RelativeLayout
+      android:id="@+id/orderActivity_relativeLayout_historyOrderInfo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="10dp"
+      android:visibility="gone"
+      >
+    <LinearLayout
+        android:id="@+id/recycler_orderManagerActivity_LinearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+      <TextView
+          android:id="@+id/recycler_orderManagerActivity_anon1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="订单编号: "
+          android:textSize="12sp"
+          />
+      <TextView
+          android:id="@+id/orderActivity_historyOrderInfo_OrderId"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@id/recycler_orderManagerActivity_anon1"
+          android:text="订单ID"
+          android:textSize="12sp"
+          />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recycler_orderManagerActivity_LinearLayout1"
+        android:orientation="horizontal"
+        >
+
+      <TextView
+          android:id="@+id/recycler_orderManagerActivity_anon3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="创建时间: "
+          android:textSize="12sp"
+          />
+      <TextView
+          android:id="@+id/orderActivity_historyOrderInfo_OrderCreatedTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@id/recycler_orderManagerActivity_anon3"
+          android:text="时间"
+          android:textSize="12sp"
+          />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/orderActivity_historyOrderInfo_orderStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="订单状态"
+        android:textSize="16sp"
+        />
+  </RelativeLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/lightgray"
+      />
+
+  <LinearLayout
       android:id="@+id/orderActivity_addressCardView"
       android:layout_width="match_parent"
       android:layout_height="70dp"
-      android:layout_margin="5dp"
-      android:clickable="true"
-      android:focusable="true"
+      android:orientation="horizontal"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
       >
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <RelativeLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:layout_weight="1"
+        android:padding="5dp"
         >
 
-      <RelativeLayout
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="1"
-          android:padding="5dp"
-          >
-
-        <TextView
-            android:id="@+id/orderActivity_userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="姓名"
-            android:textSize="16sp"
-            />
-        <TextView
-            android:id="@+id/orderActivity_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="电话"
-            android:textSize="16sp"
-            />
-        <TextView
-            android:id="@+id/orderActivity_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:maxLines="2"
-            android:text="详细地址"
-            />
-
-      </RelativeLayout>
-      <ImageView
-          android:id="@+id/orderActivity_addressCardView_ArrowRight"
-          android:layout_width="20dp"
+      <TextView
+          android:id="@+id/orderActivity_userName"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="10dp"
-          android:layout_marginRight="10dp"
-          android:src="@mipmap/icon_toolbar_arrow_right"
-          android:visibility="gone"
+          android:text="姓名"
+          android:textSize="16sp"
           />
-    </LinearLayout>
-  </android.support.v7.widget.CardView>
+      <TextView
+          android:id="@+id/orderActivity_phone"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:text="电话"
+          android:textSize="16sp"
+          />
+      <TextView
+          android:id="@+id/orderActivity_address"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:maxLines="2"
+          android:text="详细地址"
+          />
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/orderActivity_addressCardView_ArrowRight"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/icon_toolbar_arrow_right"
+        android:visibility="gone"
+        />
+  </LinearLayout>
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/lightgray"
+      />
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/orderActivity_recycler_commodity"
@@ -87,14 +154,14 @@
 
   <LinearLayout
       android:id="@+id/orderActivity_bottomNavigation"
-      android:visibility="gone"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="40dp"
       android:background="@drawable/selector_number_add_sub"
       android:gravity="center_vertical"
       android:orientation="horizontal"
       android:paddingLeft="5dp"
       android:paddingRight="5dp"
+      android:visibility="gone"
       >
 
     <TextView
@@ -108,16 +175,41 @@
         />
 
     <Button
+        android:id="@+id/orderActivity_cancelOrder"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_style_white"
+        android:text="取消订单"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        />
+
+    <View
+        android:id="@+id/orderActivity_placeholder1"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/orderActivity_confirmCompleted"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn_style_red"
+        android:text="确认收货"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
+
+    <Button
         android:id="@+id/orderActivity_btn_orderGeneration"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_btn_style_red"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:text="生成订单"
         android:textColor="@color/white"
+        android:visibility="gone"
         />
 
   </LinearLayout>

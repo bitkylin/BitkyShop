@@ -9,16 +9,32 @@ import java.util.List;
  */
 
 public class Order extends BmobObject implements Serializable {
-  String userObjectId;
-  String username;
-  Boolean isCompleted = false;
+  public static final int NONE = 0;
+  public static final int POSTED = 100;
+  public static final int CONFIRMED = 110;
+
+  public static final int COMPLETED = 200;
+
+  public static final int CANCELLED = 500;
+  public static final int DELETED = 600;
+  private String userObjectId;
+  private String username;
+  private Integer status;
 
   private ReceiveAddress receiveAddress;
-
   private List<CommodityOrder> commodityList;
+
+  private String name;
+  private String phone;
+  private String address;
+
+  public Order() {
+
+  }
 
   public Order(List<CommodityOrder> commodityList) {
     this.commodityList = commodityList;
+    status = POSTED;
   }
 
   /**
@@ -28,6 +44,11 @@ public class Order extends BmobObject implements Serializable {
     this.receiveAddress = receiveAddress;
     userObjectId = receiveAddress.getUserObjectId();
     username = receiveAddress.getUsername();
+
+    name = receiveAddress.getName();
+    phone = receiveAddress.getPhone();
+    address = receiveAddress.getAddress();
+    status = POSTED;
   }
 
   /**
@@ -43,6 +64,38 @@ public class Order extends BmobObject implements Serializable {
       return true;
     }
     return false;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
   public ReceiveAddress getReceiveAddress() {

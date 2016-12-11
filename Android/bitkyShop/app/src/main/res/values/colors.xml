@@ -167,6 +167,9 @@
   <color name="darkgray">#a9a9a9</color>
   <!-- 暗灰色 -->
   <color name="darkgrey">#a9a9a9</color>
+
+  <color name="lightgrey">#c8c8c8</color>
+
   <!-- 暗灰色 -->
   <color name="brown">#a52a2a</color>
   <!-- 褐色 -->

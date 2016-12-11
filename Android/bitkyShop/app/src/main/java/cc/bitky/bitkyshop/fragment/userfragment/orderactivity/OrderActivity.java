@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,21 +43,35 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
   private TextView phone;
   private TextView address;
 
-  private CardView addressCardView;
+  private View addressLayout;
   private RecyclerView recyclerView;
   private KyBaseRecyclerAdapter recyclerAdapter;
   private TextView tvPriceTotal;
+
   private Button btnOrderGeneration;
   private ToastUtil toastUtil;
   private List<Commodity> commodities;
+  private Button btnCompleted;
+  private Button btncancel;
+  private View historyOrderInfoLayout;
+  private View bottomNavigation;
+  private OrderActivityPresenter presenter;
+  private TextView orderStatus;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_order);
     mContext = this;
+    presenter = new OrderActivityPresenter(this);
     toastUtil = new ToastUtil(mContext);
 
-    addressCardView = (CardView) findViewById(R.id.orderActivity_addressCardView);
+    historyOrderInfoLayout = findViewById(R.id.orderActivity_relativeLayout_historyOrderInfo);
+    TextView orderId = (TextView) findViewById(R.id.orderActivity_historyOrderInfo_OrderId);
+    TextView orderCreatedTime =
+        (TextView) findViewById(R.id.orderActivity_historyOrderInfo_OrderCreatedTime);
+    orderStatus = (TextView) findViewById(R.id.orderActivity_historyOrderInfo_orderStatus);
+
+    addressLayout = findViewById(R.id.orderActivity_addressCardView);
     ImageView imageViewArrowRight =
         (ImageView) findViewById(R.id.orderActivity_addressCardView_ArrowRight);
     name = (TextView) findViewById(R.id.orderActivity_userName);
@@ -67,38 +80,109 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
     recyclerView = (RecyclerView) findViewById(R.id.orderActivity_recycler_commodity);
 
-    View bottomNavigation = findViewById(R.id.orderActivity_bottomNavigation);
+    bottomNavigation = findViewById(R.id.orderActivity_bottomNavigation);
     tvPriceTotal = (TextView) findViewById(R.id.orderActivity_textview_total);
     btnOrderGeneration = (Button) findViewById(R.id.orderActivity_btn_orderGeneration);
+    btnCompleted = (Button) findViewById(R.id.orderActivity_confirmCompleted);
+    btncancel = (Button) findViewById(R.id.orderActivity_cancelOrder);
 
     KyToolBar kyToolBar = (KyToolBar) findViewById(R.id.orderActivity_kyToolbar);
     kyToolBar.setNavigationOnClickListener(this);
     btnOrderGeneration.setOnClickListener(this);
+    btnCompleted.setOnClickListener(this);
+    btncancel.setOnClickListener(this);
 
-    initOrder();
+    switchOrderLocation(OrderLocation.local);
     initRecyclerView();
 
     int requestCode = getIntent().getIntExtra("requestCode", -1);
     KLog.d("requestCode" + requestCode);
     switch (requestCode) {
       case KySet.CART_REQUEST_SUBMIT_ORDER:
-
         bottomNavigation.setVisibility(View.VISIBLE);
+        btnOrderGeneration.setVisibility(View.VISIBLE);
         imageViewArrowRight.setVisibility(View.VISIBLE);
-        addressCardView.setOnClickListener(this);
+        addressLayout.setVisibility(View.VISIBLE);
+        addressLayout.setOnClickListener(this);
         queryDefaultAddressFromBmob();
+        break;
+
+      case KySet.USER_REQUEST_HISTORY_ORDER:
+        historyOrderInfoLayout.setVisibility(View.VISIBLE);
+        bottomNavigation.setVisibility(View.VISIBLE);
+        orderId.setText(order.getObjectId());
+        orderCreatedTime.setText(order.getCreatedAt());
+        changeOrderStatus(order);
+        name.setText(order.getName());
+        phone.setText(order.getPhone());
+        address.setText(order.getAddress());
         break;
     }
     initRecyclerOrderData(order.getCommodityList());
   }
 
-  private void initOrder() {
-    Bundle bundle = getIntent().getBundleExtra("bundle");
-    Order order = (Order) bundle.getSerializable("order");
+  /**
+   * 根据不同的订单状态改变界面显示
+   */
+  public void changeOrderStatus(Order order) {
+    this.order = order;
+
+    switch (order.getStatus()) {
+      case Order.POSTED:
+        orderStatus.setText("订单已确认");
+        orderStatus.setTextColor(mContext.getResources().getColor(R.color.red));
+        btnCompleted.setVisibility(View.VISIBLE);
+        btncancel.setVisibility(View.VISIBLE);
+        break;
+      case Order.CONFIRMED:
+        orderStatus.setText("待收货");
+        orderStatus.setTextColor(mContext.getResources().getColor(R.color.red));
+        btnCompleted.setVisibility(View.VISIBLE);
+        btncancel.setVisibility(View.VISIBLE);
+        break;
+      case Order.COMPLETED:
+        orderStatus.setText("订单已完成");
+        orderStatus.setTextColor(mContext.getResources().getColor(R.color.green));
+        btnCompleted.setVisibility(View.INVISIBLE);
+        btncancel.setVisibility(View.INVISIBLE);
+        break;
+      case Order.CANCELLED:
+        orderStatus.setText("订单已取消");
+        orderStatus.setTextColor(mContext.getResources().getColor(R.color.gray));
+        btnCompleted.setVisibility(View.INVISIBLE);
+        btncancel.setVisibility(View.INVISIBLE);
+        break;
+    }
+  }
+
+  /**
+   * 选择 Order 对象所处的位置并获取所需的 Order 对象
+   *
+   * @param orderLocation Order 对象所处的位置
+   */
+  private void switchOrderLocation(OrderLocation orderLocation) {
+    switch (orderLocation) {
+      case local:
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        Order order = (Order) bundle.getSerializable("order");
+        initOrder(order);
+        break;
+      case bmob:
+        queryCurrentOrderFromBmob();
+        break;
+    }
+  }
+
+  /**
+   * 分析获得的Order对象，进行必要的初始化
+   *
+   * @param order Order对象
+   */
+  private void initOrder(Order order) {
     String userObjectId = order.getUserObjectId();
     String userName = order.getUsername();
 
-    if (order != null && userObjectId != null && userName != null) {
+    if (userObjectId != null && userName != null) {
       this.order = order;
     } else {
       Intent intent = new Intent();
@@ -125,6 +209,27 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
           name.setText(receiveAddress.getName());
           phone.setText(receiveAddress.getPhone());
           address.setText(receiveAddress.getAddress());
+        }
+      }
+    });
+  }
+
+  /**
+   *
+   */
+  private void queryCurrentOrderFromBmob() {
+    BmobQuery<Order> bmobQuery = new BmobQuery<>();
+    bmobQuery.addWhereEqualTo("objectId", order.getObjectId());
+    bmobQuery.findObjects(new FindListener<Order>() {
+
+      @Override public void done(List<Order> list, BmobException e) {
+        if (e != null) {
+          toastUtil.show(e.getMessage());
+          return;
+        }
+        if (list.size() > 0) {
+          order = list.get(0);
+          initOrder(order);
         }
       }
     });
@@ -230,7 +335,19 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
           }
         }
         break;
+      case R.id.orderActivity_confirmCompleted:
+        setResult(KySet.USER_RESULT_REFRESH_ORDER);
+        presenter.updateOrderStatus(order, Order.COMPLETED);
+        break;
+      case R.id.orderActivity_cancelOrder:
+        setResult(KySet.USER_RESULT_REFRESH_ORDER);
+        presenter.updateOrderStatus(order, Order.CANCELLED);
+        break;
     }
+  }
+
+  public void showMessage(String message) {
+    toastUtil.show(message);
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -246,5 +363,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         }
         break;
     }
+  }
+
+  enum OrderLocation {
+    local,
+    bmob
   }
 }
