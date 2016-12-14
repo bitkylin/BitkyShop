@@ -26,7 +26,7 @@ class HomeFragmentPresenter {
           @Override public void run() {
             currentPosition = 0;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-            bmobQuery.addWhereEqualTo("BitkyId", "default")
+            bmobQuery.addWhereEqualTo("Promotion", "true")
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");
@@ -51,7 +51,7 @@ class HomeFragmentPresenter {
           @Override public void run() {
             currentPosition = currentPosition + 10;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-            bmobQuery.addWhereEqualTo("BitkyId", "default")
+            bmobQuery.addWhereEqualTo("Promotion", "true")
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");

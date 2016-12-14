@@ -1,6 +1,7 @@
 package cc.bitky.bitkyshop.fragment.hotfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import cc.bitky.bitkyshop.CommodityDetailActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
 import cc.bitky.bitkyshop.fragment.hotfragment.HotFragmentPresenter.RefreshType;
@@ -146,7 +148,11 @@ public class HotFragment extends Fragment implements IHotFragment {
 
     recyclerAdapterCommodity.setOnClickListener(new KyRecyclerViewItemOnClickListener<Commodity>() {
       @Override public void Onclick(View v, int adapterPosition, Commodity data) {
-        KLog.d("点击:位置:" + adapterPosition + "; Name:" + data.getName());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("commodity", data);
+        Intent intent = new Intent(mContext, CommodityDetailActivity.class);
+        intent.putExtra("bundle", bundle);
+        startActivity(intent);
       }
     });
   }

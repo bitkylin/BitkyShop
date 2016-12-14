@@ -1,6 +1,7 @@
 package cc.bitky.bitkyshop.fragment.homefragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import cc.bitky.bitkyshop.CommodityDetailActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
 import cc.bitky.bitkyshop.fragment.homefragment.HomeFragmentPresenter.RefreshType;
@@ -129,8 +131,8 @@ public class HomeFragment extends Fragment
    */
   private void getBmobSliderData() {
     BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-    bmobQuery.addWhereEqualTo("BitkyId", "default");
-    bmobQuery.setLimit(3);
+    bmobQuery.addWhereEqualTo("AD", "true");
+    bmobQuery.setLimit(5);
     bmobQuery.findObjects(new FindListener<Commodity>() {
       @Override public void done(List<Commodity> list, BmobException e) {
         if (e != null) {
@@ -203,16 +205,13 @@ public class HomeFragment extends Fragment
     recyclerAdapter.setOnClickListener(
         new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<Commodity>() {
           @Override public void Onclick(View v, int adapterPosition, Commodity data) {
-            KLog.d("点击:位置:" + adapterPosition + "; Name:" + data.getName());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("commodity", data);
+            Intent intent = new Intent(mContext, CommodityDetailActivity.class);
+            intent.putExtra("bundle", bundle);
+            startActivity(intent);
           }
         });
-    //
-    //if (recyclerView != null) {
-    //  recyclerView.setAdapter(recyclerAdapter);
-    //  recyclerView.setLayoutManager(
-    //      new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-    //  recyclerView.setItemAnimator(new DefaultItemAnimator());
-    //}
   }
 
   @Override public void refleshRecyclerViewData(List<Commodity> list, RefreshType type) {

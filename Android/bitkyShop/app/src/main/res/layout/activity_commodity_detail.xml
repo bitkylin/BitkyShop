@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_commodity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="cc.bitky.bitkyshop.CommodityDetailActivity"
+    >
+
+  <cc.bitky.bitkyshop.utils.KyToolBar
+      android:id="@+id/commodityDetailActivity_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@color/colorAccent"
+      app:enableKyNavigationIcon="true"
+      app:title="商品详情"
+      app:titleTextColor="@color/white"
+      />
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_list_item"
+        android:orientation="vertical"
+        android:padding="15dp"
+        >
+
+
+      <com.facebook.drawee.view.SimpleDraweeView
+          android:id="@+id/commodityDetailActivity_draweeview"
+          android:layout_width="250dp"
+          android:layout_height="250dp"
+          android:layout_gravity="center_horizontal"
+          />
+
+      <TextView
+          android:id="@+id/commodityDetailActivity_textTitle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          android:layout_marginTop="20dp"
+          android:maxLines="2"
+          android:text="绿盾橄榄精油一瓶200克"
+          android:textColor="@color/black"
+          android:textSize="18sp"
+          style="@style/ware_title"
+          />
+
+
+      <TextView
+          android:id="@+id/commodityDetailActivity_textPrice"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="0.00 元"
+          android:textSize="18sp"
+          style="@style/ware_price"
+          />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginTop="15dp"
+          android:background="@color/lightgray"
+          />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一级分类: "
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/commodityDetailActivity_firstCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="食品"
+            />
+        <TextView
+            android:id="@+id/commodityDetailActivity_secondCategoryTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="二级分类: "
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/commodityDetailActivity_secondCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="大米"
+            />
+      </LinearLayout>
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginTop="10dp"
+          android:background="@color/lightgray"
+          />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="商品详情"
+          android:textColor="@color/black"
+          />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingLeft="30dp"
+          android:paddingRight="30dp"
+          android:paddingTop="10dp"
+          >
+        <TextView
+            android:id="@+id/commodityDetailActivity_textDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="这是一个订单\n哈哈哈哈哈\n我在哈哈哈哈哈"
+            />
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@drawable/selector_number_add_sub"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text=""
+        />
+
+
+    <Button
+        android:id="@+id/commodityDetailActivity_btnAddCart"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/bg_btn_style_red"
+        android:shadowRadius="50"
+        android:text="添加购物车"
+        android:textColor="@color/white"
+        />
+
+  </LinearLayout>
+</LinearLayout>

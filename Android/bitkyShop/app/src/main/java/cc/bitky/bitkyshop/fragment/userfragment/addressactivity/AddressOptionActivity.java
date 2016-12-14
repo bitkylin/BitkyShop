@@ -163,6 +163,9 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
           ReceiveAddress createdAddress =
               new ReceiveAddress(objectId, username, name, phone, address);
           if (recyclerAdapter.getDataItems().size() == 0) createdAddress.setDefault(true);
+          List<ReceiveAddress> receiveAddresses = new ArrayList<ReceiveAddress>();
+          receiveAddresses.add(createdAddress);
+          recyclerAdapter.loadMoreData(receiveAddresses);
           presenter.insertUserAddress(createdAddress);
         }
     }
@@ -187,6 +190,7 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
    */
   public void initReceiveAddress(List<ReceiveAddress> receiveList) {
     if (receiveList != null && receiveList.size() > 0) {
+      KLog.d("reloadData");
       recyclerAdapter.reloadData(receiveList);
     }
   }

@@ -1,9 +1,10 @@
 package cc.bitky.bitkyshop.bean;
 
 import cn.bmob.v3.BmobObject;
+import java.io.Serializable;
 import java.util.List;
 
-public class Commodity extends BmobObject {
+public class Commodity extends BmobObject implements Serializable{
   private String BitkyId;
   private Integer BitkyMode;
   private String BitkyModeStr;

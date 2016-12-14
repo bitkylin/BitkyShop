@@ -62,6 +62,8 @@
           android:layout_gravity="right|bottom"
           android:background="@drawable/bg_btn_style_red"
           android:text="+"
+          android:textSize="18sp"
+          android:textColor="@color/white"
           />
     </RelativeLayout>
 

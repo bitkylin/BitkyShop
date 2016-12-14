@@ -10,14 +10,14 @@ using Qiniu.Http;
 namespace bitkyShop.view
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    ///     MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : ICloudServiceView
     {
-        private string _filePath = string.Empty;
-        private Commodity _commodity;
         private readonly CommPresenter _presenter;
+        private Commodity _commodity;
         private ConfirmUploadInfo _confirmUploadInfo;
+        private string _filePath = string.Empty;
 
         public MainWindow()
         {
@@ -26,7 +26,7 @@ namespace bitkyShop.view
         }
 
         /// <summary>
-        ///  七牛上传完毕事件处理
+        ///     七牛上传完毕事件处理
         /// </summary>
         /// <param name="key">已上传的文件名</param>
         /// <param name="respInfo">返回信息</param>
@@ -51,7 +51,7 @@ namespace bitkyShop.view
         }
 
         /// <summary>
-        /// 确认单个商品信息上传Bmob
+        ///     确认单个商品信息上传Bmob
         /// </summary>
         public void ConfirmUpload()
         {
@@ -59,7 +59,7 @@ namespace bitkyShop.view
         }
 
         /// <summary>
-        /// Bmob上传完毕回调
+        ///     Bmob上传完毕回调
         /// </summary>
         /// <param name="code">错误代码，0:成功，1:失败</param>
         /// <param name="msg">返回信息</param>
@@ -126,7 +126,6 @@ namespace bitkyShop.view
             if (LabelFileName.Content.ToString().Trim().Equals(string.Empty) ||
                 TextBoxName.Text.Trim().Equals(string.Empty) ||
                 ComboBoxCategory.Text.Trim().Equals(string.Empty) ||
-                TextBoxCategorySub.Text.Trim().Equals(string.Empty) ||
                 TextBoxName.Text.Trim().Equals(string.Empty) ||
                 !IsInt(TextBoxCount.Text.Trim()) ||
                 !IsFloat(TextBoxPrice.Text.Trim()))
@@ -134,8 +133,17 @@ namespace bitkyShop.view
                 MessageBox.Show("输入文本有误，请检查！", "警告");
                 return;
             }
-
-
+            if (TextBoxCategorySub.Text.Trim().Equals(string.Empty))
+            {
+                var category = ComboBoxCategory.Text.Trim();
+                if (
+                    !(category.Equals("水果") || category.Equals("烧烤") || category.Equals("旅游") ||
+                      category.Equals("广告与促销")))
+                {
+                    MessageBox.Show("输入文本有误，请检查！", "警告");
+                    return;
+                }
+            }
             _commodity = new Commodity
             {
                 Name = TextBoxName.Text.Trim(),
@@ -143,18 +151,14 @@ namespace bitkyShop.view
                 CategorySub = TextBoxCategorySub.Text.Trim(),
                 Count = int.Parse(TextBoxCount.Text.Trim()),
                 Price = double.Parse(TextBoxPrice.Text.Trim()),
-                Details = TextBoxDetails.Text.Trim(),
+                Details = TextBoxDetails.Text.Trim()
             };
 
 
             if (checkBoxPromotion.IsChecked == true)
-            {
                 _commodity.Promotion = "true";
-            }
             if (checkBoxAD.IsChecked == true)
-            {
                 _commodity.AD = "true";
-            }
             _presenter.UploadFile(_filePath);
         }
 
@@ -188,7 +192,7 @@ namespace bitkyShop.view
         }
 
         /// <summary>
-        ///     判断是正浮点数 
+        ///     判断是正浮点数
         /// </summary>
         /// <param name="value">待匹配的文本</param>
         /// <returns>匹配结果</returns>
@@ -200,7 +204,6 @@ namespace bitkyShop.view
 
         private void btnChangeCommodityQueryShow_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

@@ -29,9 +29,9 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".fragment.userfragment.LoginActivity">
+    <activity android:name=".fragment.userfragment.loginfragment.LoginActivity">
     </activity>
-    <activity android:name=".fragment.userfragment.SignupActivity">
+    <activity android:name=".fragment.userfragment.loginfragment.SignupActivity">
     </activity>
     <activity android:name=".fragment.userfragment.orderactivity.OrderActivity">
     </activity>
@@ -42,6 +42,10 @@
     <activity android:name=".fragment.userfragment.addressactivity.CreateAddressActivity">
     </activity>
     <activity android:name=".fragment.userfragment.orderactivity.OrderManagerActivity">
+    </activity>
+    <activity android:name=".fragment.userfragment.loginfragment.RequestSMSCodeActivity">
+    </activity>
+    <activity android:name=".CommodityDetailActivity">
     </activity>
   </application>
 

@@ -1,0 +1,35 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="cc.bitky.bitkyshop.fragment.userfragment.loginfragment.LoginPhoneFragment"
+    >
+
+
+  <EditText
+      android:id="@+id/loginPhoneFragment_TextView_phone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/edittext_style_white"
+      android:hint="手机号码"
+      android:inputType="phone"
+      android:lines="1"
+      android:maxLength="11"
+      android:padding="15dp"
+      android:textColorHint="@color/darkgrey"
+      />
+  <Button
+      android:id="@+id/loginPhoneFragment_btn_login"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:background="@drawable/bg_btn_style_red"
+      android:text="一键注册或登录"
+      android:textColor="@color/white"
+      android:textSize="18sp"
+      />
+</LinearLayout>

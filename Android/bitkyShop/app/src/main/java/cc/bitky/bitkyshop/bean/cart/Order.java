@@ -29,7 +29,7 @@ public class Order extends BmobObject implements Serializable {
   private String address;
 
   public Order() {
-
+    status = POSTED;
   }
 
   public Order(List<CommodityOrder> commodityList) {

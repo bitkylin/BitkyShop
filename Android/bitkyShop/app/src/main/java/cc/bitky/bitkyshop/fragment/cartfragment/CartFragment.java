@@ -225,6 +225,11 @@ public class CartFragment extends Fragment implements View.OnClickListener {
             commodityOrders.add(commodityOrder);
           }
         }
+        if (commodityOrders.size()>=50)
+        {
+          toastUtil.show("您勾选的商品太多,请勾选少于50个");
+          return;
+        }
         if (commodityOrders.size() > 0) {
           Order order = new Order(commodityOrders);
           order.setUserObjectId(kyUser.getObjectId());

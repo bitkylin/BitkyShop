@@ -11,9 +11,9 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
       android:background="@color/colorAccent"
       android:orientation="vertical"
-      android:layout_marginBottom="10dp"
       >
 
     <TextView
@@ -107,7 +107,7 @@
       android:text="退出登录"
       android:textColor="@color/white"
       android:textSize="22sp"
-      android:visibility="gone"
+      android:visibility="visible"
       />
   <Button
       android:layout_width="match_parent"
@@ -116,5 +116,6 @@
       android:background="@color/powderblue"
       android:hint="点此设置"
       android:text=""
+      android:visibility="gone"
       />
 </LinearLayout>

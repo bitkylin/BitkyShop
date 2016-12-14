@@ -38,6 +38,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
   private ReceiveAddress receiveAddress;
 
   private Order order;
+  private List<Commodity> commodities;
 
   private TextView name;
   private TextView phone;
@@ -50,13 +51,13 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
   private Button btnOrderGeneration;
   private ToastUtil toastUtil;
-  private List<Commodity> commodities;
   private Button btnCompleted;
   private Button btncancel;
   private View historyOrderInfoLayout;
   private View bottomNavigation;
   private OrderActivityPresenter presenter;
   private TextView orderStatus;
+  private List<CommodityOrder> commodityOrderSubmitList;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -236,7 +237,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
   }
 
   private void initRecyclerView() {
-    commodities = new ArrayList<>();
     if (recyclerAdapter == null) {
       initRecyclerAdapter(new ArrayList<Commodity>());
     }
@@ -248,6 +248,11 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
   }
 
   private void initRecyclerOrderData(List<CommodityOrder> commodityOrders) {
+    //用于从服务器请求得到的商品信息
+    commodities = new ArrayList<>();
+    //用于提交到服务器中的订单中的商品信息
+    commodityOrderSubmitList = new ArrayList<>();
+
     for (final CommodityOrder commodityOrder : commodityOrders) {
       BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
       bmobQuery.getObject(commodityOrder.getObjectId(), new QueryListener<Commodity>() {
@@ -256,8 +261,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             KLog.d("有异常：" + e.getMessage());
             return;
           }
+          KLog.d("读取成功，objectId：" + commodity.getObjectId() + "," + commodity.getName());
           commodity.setCount(commodityOrder.getCount());
           commodities.add(commodity);
+          commodityOrderSubmitList.add(commodityOrder);
           recyclerAdapter.reloadData(commodities);
           countTotalPrices();
         }
@@ -317,9 +324,14 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
       //生成订单按钮
       case R.id.orderActivity_btn_orderGeneration:
         if (receiveAddress != null) {
-          order.setAddressAndUserInfo(receiveAddress);
-          if (order.isDone()) {
-            order.save(new SaveListener<String>() {
+          btnOrderGeneration.setEnabled(false);
+
+          //生成用于提交服务器的新的Order对象
+          Order orderSubmit = new Order(commodityOrderSubmitList);
+          orderSubmit.setAddressAndUserInfo(receiveAddress);
+          if (orderSubmit.isDone()) {
+            KLog.d("已上传服务器:" + orderSubmit.getCommodityList().size());
+            orderSubmit.save(new SaveListener<String>() {
               @Override public void done(String objectId, BmobException e) {
                 if (e == null) {
                   Intent intentResult = new Intent();
@@ -329,10 +341,15 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
                   intentResult.putExtra("bundle", bundle);
                   setResult(KySet.CART_RESULT_SUBMIT_ORDER, intentResult);
                   finish();
+                } else {
+                  btnOrderGeneration.setEnabled(true);
+                  toastUtil.show("订单生成失败,请重试");
                 }
               }
             });
           }
+        } else {
+          toastUtil.show("请先点击上方的标签添加收货地址");
         }
         break;
       case R.id.orderActivity_confirmCompleted:

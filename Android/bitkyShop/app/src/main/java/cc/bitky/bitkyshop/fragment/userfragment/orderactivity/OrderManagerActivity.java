@@ -10,9 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.cart.Order;
+import cc.bitky.bitkyshop.fragment.userfragment.orderactivity.OrderManagerPresenter.RefreshType;
+import cc.bitky.bitkyshop.utils.KyToolBar;
 import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.tools.KySet;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.socks.library.KLog;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,8 @@ public class OrderManagerActivity extends AppCompatActivity {
   private OrderManagerPresenter presenter;
   private String objectId;
   private String username;
+  private MaterialRefreshLayout swipeRefreshLayout;
+  private RecyclerView recyclerView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,7 +37,13 @@ public class OrderManagerActivity extends AppCompatActivity {
     mContext = this;
     toastUtil = new ToastUtil(mContext);
     presenter = new OrderManagerPresenter(this);
-
+    KyToolBar kyToolBar = (KyToolBar) findViewById(R.id.orderManagerActivity_kyToolbar);
+    kyToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        finish();
+      }
+    });
+    initSwipeRefreshLayout();
     initRecyclerView(new ArrayList<Order>());
 
     //初始化本地User对象并获取远端Order
@@ -48,8 +60,43 @@ public class OrderManagerActivity extends AppCompatActivity {
     }
   }
 
+  private void initSwipeRefreshLayout() {
+    swipeRefreshLayout =
+        (MaterialRefreshLayout) findViewById(R.id.orderManagerActivity_swiperefreshlayout);
+    swipeRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+      @Override public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+        presenter.refreshRecyclerAdapterData(RefreshType.Refresh);
+      }
+
+      @Override public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+        super.onRefreshLoadMore(materialRefreshLayout);
+        presenter.refreshRecyclerAdapterData(RefreshType.LoadMore);
+      }
+    });
+  }
+
+  public void refleshRecyclerViewData(List<Order> list, RefreshType type) {
+    switch (type) {
+      case Refresh:
+        swipeRefreshLayout.finishRefresh();
+        if (recyclerAdapter != null) recyclerAdapter.reloadData(list);
+        recyclerView.scrollToPosition(0);
+        break;
+
+      case LoadMore:
+        swipeRefreshLayout.finishRefreshLoadMore();
+        if (recyclerAdapter != null) recyclerAdapter.loadMoreData(list);
+        break;
+    }
+  }
+
+  public void CanNotRefreshData(RefreshType type) {
+    toastUtil.show("没有更多的订单了！");
+    swipeRefreshLayout.finishRefreshLoadMore();
+  }
+
   private void initRecyclerView(List<Order> list) {
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.orderManagerActivity_recycler_All);
+    recyclerView = (RecyclerView) findViewById(R.id.orderManagerActivity_recycler_All);
     if (recyclerAdapter == null) {
       recyclerAdapter = new OrderManagerRecyclerAdapter(list, mContext);
       recyclerAdapter.setOnClickListener(
