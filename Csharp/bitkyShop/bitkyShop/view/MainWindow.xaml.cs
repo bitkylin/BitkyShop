@@ -16,8 +16,12 @@ namespace bitkyShop.view
     {
         private readonly CommPresenter _presenter;
         private Commodity _commodity;
-        private ConfirmUploadInfo _confirmUploadInfo;
+        private ConfirmUploadCommodityInfo _confirmUploadCommodityInfo;
+        private ConfirmUploadSubCategoryInfo _confirmUploadSubCategoryInfo;
         private string _filePath = string.Empty;
+        private string _filePathSubcategory = string.Empty;
+        private UploadPhotoType _currentUploadPhotoType = UploadPhotoType.Commodity;
+        private SubCategory _subCategory;
 
         public MainWindow()
         {
@@ -39,8 +43,18 @@ namespace bitkyShop.view
                 CommunicateMessageShow(respJson);
                 if (respInfo.StatusCode == 200)
                 {
-                    _commodity.CoverPhotoName = key;
-                    _commodity.CoverPhotoUrl = PresetInfo.UrlBase + key;
+                    switch (_currentUploadPhotoType)
+                    {
+                        case UploadPhotoType.Commodity:
+                            _commodity.CoverPhotoName = key;
+                            _commodity.CoverPhotoUrl = PresetInfo.UrlBase + key;
+                            break;
+                        case UploadPhotoType.Subcategory:
+                            _subCategory.photoName = key;
+                            _subCategory.photoUrl = PresetInfo.UrlBase + key;
+                            break;
+                    }
+
                     UploadBmobWindowShow();
                 }
                 else
@@ -55,7 +69,15 @@ namespace bitkyShop.view
         /// </summary>
         public void ConfirmUpload()
         {
-            _presenter.UploadCommodityData(_commodity);
+            switch (_currentUploadPhotoType)
+            {
+                case UploadPhotoType.Commodity:
+                    _presenter.UploadCommodityOrCategoryData(_commodity);
+                    break;
+                case UploadPhotoType.Subcategory:
+                    _presenter.UploadCommodityOrCategoryData(_subCategory);
+                    break;
+            }
         }
 
         /// <summary>
@@ -65,31 +87,58 @@ namespace bitkyShop.view
         /// <param name="msg">返回信息</param>
         public void OnBmobUploadCompleted(int code, string msg)
         {
-            if (_confirmUploadInfo == null) return;
             Debug.WriteLine("商品上传成功:" + code);
-            switch (code)
+            switch (_currentUploadPhotoType)
             {
-                case 0:
-                    _confirmUploadInfo.UploadSuccessful();
+                case UploadPhotoType.Commodity:
+                    switch (code)
+                    {
+                        case 0:
+                            _confirmUploadCommodityInfo.UploadSuccessful();
+                            break;
+                        case 1:
+                            _confirmUploadCommodityInfo.UploadFailed(msg);
+                            break;
+                    }
                     break;
-                case 1:
-                    _confirmUploadInfo.UploadFailed(msg);
+                case UploadPhotoType.Subcategory:
+                    switch (code)
+                    {
+                        case 0:
+                            _confirmUploadSubCategoryInfo.UploadSuccessful();
+                            break;
+                        case 1:
+                            _confirmUploadSubCategoryInfo.UploadFailed(msg);
+                            break;
+                    }
                     break;
             }
+
+           
         }
 
         public void UploadBmobWindowShow()
         {
-            if (_commodity != null)
+            switch (_currentUploadPhotoType)
             {
-                _confirmUploadInfo = ConfirmUploadInfo.Builder(this)
-                    .SetCommodityInfo(_commodity);
-                _confirmUploadInfo.Show();
+                case UploadPhotoType.Commodity:
+                    if (_commodity != null)
+                    {
+                        _confirmUploadCommodityInfo = ConfirmUploadCommodityInfo.Builder(this)
+                            .SetCommodityInfo(_commodity);
+                        _confirmUploadCommodityInfo.Show();
+                        return;
+                    }
+                    break;
+                case UploadPhotoType.Subcategory:
+                           _confirmUploadSubCategoryInfo = ConfirmUploadSubCategoryInfo.Builder(this)
+                            .SetSubCategoryInfo(_subCategory);
+                    _confirmUploadSubCategoryInfo.Show();
+
+                    break;
             }
-            else
-            {
-                throw new Exception("程序错误，请检查");
-            }
+
+            throw new Exception("程序错误，请检查");
         }
 
         /// <summary>
@@ -121,12 +170,47 @@ namespace bitkyShop.view
             });
         }
 
+        public void btnSelectedFile_Click(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Title = "打开一张图片";
+            fileDialog.InitialDirectory = Environment.CurrentDirectory;
+            fileDialog.Multiselect = false;
+            fileDialog.DefaultExt = ".jpg";
+            fileDialog.Filter = "图片文件 (*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
+            if (fileDialog.ShowDialog() != true)
+            {
+                LabelFileName.Content = "未选择图片";
+                return;
+            }
+            _filePath = fileDialog.FileName;
+            var fileName = fileDialog.SafeFileName;
+            LabelFileName.Content = fileName;
+        }
+
+        private void BtnSelectedFileSubcategory_Click(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Title = "打开一张图片";
+            fileDialog.InitialDirectory = Environment.CurrentDirectory;
+            fileDialog.Multiselect = false;
+            fileDialog.DefaultExt = ".jpg";
+            fileDialog.Filter = "图片文件 (*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
+            if (fileDialog.ShowDialog() != true)
+            {
+                LabelFileName.Content = "未选择图片";
+                return;
+            }
+            _filePathSubcategory = fileDialog.FileName;
+            var fileName = fileDialog.SafeFileName;
+            LabelFileNameSubcategory.Content = fileName;
+        }
+
         public void btnUploadFile_Click(object sender, RoutedEventArgs e)
         {
             if (LabelFileName.Content.ToString().Trim().Equals(string.Empty) ||
                 TextBoxName.Text.Trim().Equals(string.Empty) ||
                 ComboBoxCategory.Text.Trim().Equals(string.Empty) ||
-                TextBoxName.Text.Trim().Equals(string.Empty) ||
                 !IsInt(TextBoxCount.Text.Trim()) ||
                 !IsFloat(TextBoxPrice.Text.Trim()))
             {
@@ -159,26 +243,28 @@ namespace bitkyShop.view
                 _commodity.Promotion = "true";
             if (checkBoxAD.IsChecked == true)
                 _commodity.AD = "true";
+            _currentUploadPhotoType = UploadPhotoType.Commodity;
             _presenter.UploadFile(_filePath);
         }
 
-        public void btnSelectedFile_Click(object sender, RoutedEventArgs e)
+        private void BtnUploadFileSubCategory_Click(object sender, RoutedEventArgs e)
         {
-            var fileDialog = new OpenFileDialog();
-            fileDialog.Title = "打开一张图片";
-            fileDialog.InitialDirectory = Environment.CurrentDirectory;
-            fileDialog.Multiselect = false;
-            fileDialog.DefaultExt = ".jpg";
-            fileDialog.Filter = "图片文件 (*.jpg,*.png,*.jpeg)|*.jpg;*.png;*.jpeg";
-            if (fileDialog.ShowDialog() != true)
+            if (LabelFileNameSubcategory.Content.ToString().Trim().Equals(string.Empty) ||
+                ComboBoxCategory2.Text.Trim().Equals(string.Empty) ||
+                TextBoxNameSubcategory.Text.Trim().Equals(string.Empty))
             {
-                LabelFileName.Content = "未选择图片";
+                MessageBox.Show("输入文本有误，请检查！", "警告");
                 return;
             }
-            _filePath = fileDialog.FileName;
-            var fileName = fileDialog.SafeFileName;
-            LabelFileName.Content = fileName;
+            _subCategory = new SubCategory
+            {
+                mainCategory = ComboBoxCategory2.Text.Trim(),
+                name = TextBoxNameSubcategory.Text.Trim()
+            };
+            _currentUploadPhotoType = UploadPhotoType.Subcategory;
+            _presenter.UploadFile(_filePathSubcategory);
         }
+
 
         /// <summary>
         ///     判断是自然数
@@ -205,5 +291,11 @@ namespace bitkyShop.view
         private void btnChangeCommodityQueryShow_Click(object sender, RoutedEventArgs e)
         {
         }
+    }
+
+    internal enum UploadPhotoType
+    {
+        Commodity,
+        Subcategory
     }
 }

@@ -1,76 +1,66 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using bitkyShop.bean;
-
 
 namespace bitkyShop.view
 {
     /// <summary>
-    /// ConfirmUploadInfo.xaml 的交互逻辑
+    /// ConfirmUploadSubCategoryInfo.xaml 的交互逻辑
     /// </summary>
-    public partial class ConfirmUploadInfo : Window
+    public partial class ConfirmUploadSubCategoryInfo : Window
     {
-        private static ConfirmUploadInfo _confirmUploadInfo;
-        private Commodity _commodity;
+        private static ConfirmUploadSubCategoryInfo _confirmUploadSubCategoryInfo;
         private string _photoLocalUrl;
         private WebClient _webClient;
         private static ICloudServiceView _window;
+        private SubCategory _subCategory;
 
-        private ConfirmUploadInfo()
+
+        public ConfirmUploadSubCategoryInfo()
         {
             InitializeComponent();
-            _confirmUploadInfo = this;
+            _confirmUploadSubCategoryInfo = this;
         }
 
-        public static ConfirmUploadInfo Builder(ICloudServiceView window)
+        public static ConfirmUploadSubCategoryInfo Builder(ICloudServiceView window)
         {
             _window = window;
-            return _confirmUploadInfo != null ? _confirmUploadInfo : new ConfirmUploadInfo();
+            return _confirmUploadSubCategoryInfo != null
+                ? _confirmUploadSubCategoryInfo
+                : new ConfirmUploadSubCategoryInfo();
         }
 
-        public ConfirmUploadInfo SetCommodityInfo(Commodity commodity)
+        public ConfirmUploadSubCategoryInfo SetSubCategoryInfo(SubCategory subCategory)
         {
-            _commodity = commodity;
-            labelName.Content = commodity.Name;
-            labelCategory.Content = commodity.Category;
-            labelCategorySub.Content = commodity.CategorySub;
-            labelCount.Content = commodity.Count;
-            labelPrice.Content = commodity.Price;
-            textBlockDetails.Text = commodity.Details;
-            var builder = new StringBuilder();
-            if (commodity.Promotion.Equals("true"))
-            {
-                builder.AppendLine("已促销");
-            }
-            if (commodity.AD.Equals("true"))
-            {
-                builder.AppendLine("已设为广告");
-            }
-            if (builder.Length <= 2)
-            {
-                builder.Append("无");
-            }
-            labelPromotionAndAD.Content = builder;
-
-            _photoLocalUrl = @"./photoCache/" + commodity.CoverPhotoName;
-            _webClient = new WebClient();
-            _webClient.DownloadFileAsync(new Uri(commodity.CoverPhotoUrl), _photoLocalUrl);
-            _webClient.DownloadFileCompleted += DownloadFileCompleted;
-            imageShow.Stretch = Stretch.Uniform;
-
+            _subCategory = subCategory;
+            labelName.Content = subCategory.name;
+            labelCategory.Content = subCategory.mainCategory;
             var info = new FileInfo(@"./resource/defaultCoverPhoto");
             if (info.Exists)
                 imageShow.Source = new BitmapImage((new Uri(info.FullName, UriKind.Absolute)));
+
+            var builder = new StringBuilder();
+            _photoLocalUrl = @"./photoCache/" + subCategory.photoName;
+            _webClient = new WebClient();
+            _webClient.DownloadFileAsync(new Uri(subCategory.photoUrl), _photoLocalUrl);
+            _webClient.DownloadFileCompleted += DownloadFileCompleted;
+            imageShow.Stretch = Stretch.Uniform;
             return this;
         }
-
         /// <summary>
         /// 图片下载完成回调
         /// </summary>
@@ -85,9 +75,15 @@ namespace bitkyShop.view
             }
         }
 
+
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _confirmUploadSubCategoryInfo = null;
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -99,7 +95,6 @@ namespace bitkyShop.view
         {
             _window.ConfirmUpload();
         }
-
         public void UploadSuccessful()
         {
             Close();
@@ -109,11 +104,6 @@ namespace bitkyShop.view
         public void UploadFailed(string msg)
         {
             MessageBox.Show("商品上传失败\n错误信息: " + msg, "提示");
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            _confirmUploadInfo = null;
         }
     }
 }

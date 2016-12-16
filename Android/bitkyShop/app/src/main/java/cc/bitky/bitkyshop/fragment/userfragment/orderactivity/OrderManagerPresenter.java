@@ -14,7 +14,7 @@ public class OrderManagerPresenter {
   String userObjectId;
   int status = Order.NONE;
   private int currentPosition = 0;
-  private int countLimit = 2;
+  private int countLimit = 10;
 
   public OrderManagerPresenter(OrderManagerActivity activity) {
     this.activity = activity;

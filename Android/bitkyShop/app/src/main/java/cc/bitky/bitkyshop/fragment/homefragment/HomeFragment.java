@@ -12,7 +12,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import cc.bitky.bitkyshop.CommodityDetailActivity;
+import cc.bitky.bitkyshop.MainActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
 import cc.bitky.bitkyshop.fragment.homefragment.HomeFragmentPresenter.RefreshType;
@@ -48,6 +52,11 @@ public class HomeFragment extends Fragment
   private HomeFragmentPresenter presenter;
   private View view;
   private ToastUtil toastUtil;
+  public static MainActivity _mainActivity;
+
+  public static void setMainActivity(MainActivity mainActivity) {
+    _mainActivity = mainActivity;
+  }
 
   @Override public void onAttach(Context context) {
     super.onAttach(context);
@@ -64,6 +73,20 @@ public class HomeFragment extends Fragment
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     view = inflater.inflate(R.layout.fragment_home, container, false);
+    ImageButton buttonToCategoryFragment = (ImageButton) view.findViewById(R.id.homefragment_buttonToCategoryFragment);
+    ImageButton buttonToHotFragment = (ImageButton) view.findViewById(R.id.homefragment_buttonToHotFragment);
+    buttonToHotFragment.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (_mainActivity!=null)
+          _mainActivity.fragmentTabHost.setCurrentTab(1);
+      }
+    });
+    buttonToCategoryFragment.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (_mainActivity!=null)
+          _mainActivity.fragmentTabHost.setCurrentTab(2);
+      }
+    });
     initSliderLayout();
     initSlider();
     initSwipeRefreshLayout();

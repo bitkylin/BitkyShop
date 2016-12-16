@@ -5,11 +5,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import cc.bitky.bitkyshop.R;
+import cc.bitky.bitkyshop.bean.Commodity;
 import cc.bitky.bitkyshop.bean.cart.CommodityOrder;
 import cc.bitky.bitkyshop.bean.cart.Order;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
+import com.lzy.ninegrid.NineGridViewAdapter;
+import com.socks.library.KLog;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManagerRecyclerAdapter extends KyBaseRecyclerAdapter<Order> {
@@ -38,13 +47,33 @@ public class OrderManagerRecyclerAdapter extends KyBaseRecyclerAdapter<Order> {
         .setText(dataItem.getCreatedAt());
 
     //设置订单中商品的数量和总价
+    //设置自定义九宫格控件
+    final ArrayList<ImageInfo> imageInfo = new ArrayList<>();
     List<CommodityOrder> localList = dataItem.getCommodityList();
     int count = 0;
     double price = 0;
-    for (CommodityOrder commodityOrder : localList) {
+    for (final CommodityOrder commodityOrder : localList) {
       count = count + commodityOrder.getCount();
       price = price + commodityOrder.getPrice();
+      BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
+      bmobQuery.getObject(commodityOrder.getObjectId(), new QueryListener<Commodity>() {
+        @Override public void done(Commodity commodity, BmobException e) {
+          if (e != null) {
+            KLog.d("有异常：" + e.getMessage());
+            return;
+          }
+          ImageInfo info = new ImageInfo();
+          info.setThumbnailUrl(commodity.getCoverPhotoUrl());
+          info.setBigImageUrl(commodity.getCoverPhotoUrl());
+          imageInfo.add(info);
+        }
+      });
     }
+    //NineGridView nineGridView=holder.getView(R.id.recycler_orderManagerActivity_nineGridView);
+    //
+    //nineGridView.setAdapter(new NineGridViewAdapter(mContext, imageInfo) {
+    //});
+
     holder.getTextView(R.id.recycler_orderManagerActivity_orderItemCount)
         .setText("共" + count + "件");
     holder.getTextView(R.id.recycler_orderManagerActivity_orderPrice).setText(price + "元");

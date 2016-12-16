@@ -61,7 +61,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="view\ConfirmUploadInfo.xaml">
+    <Page Include="view\ConfirmUploadCommodityInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\ConfirmUploadSubCategoryInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,6 +78,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="bean\beanShow\CommodityPcShow.cs" />
+    <Compile Include="bean\SubCategory.cs" />
     <Compile Include="bean\Commodity.cs" />
     <Compile Include="bean\CommodityUploadInfo.cs" />
     <Compile Include="bean\GameObject.cs" />
@@ -83,8 +88,11 @@
     <Compile Include="init\PresetInfo.cs" />
     <Compile Include="utils\AsynUploadPhotoThread.cs" />
     <Compile Include="utils\HashHelper.cs" />
-    <Compile Include="view\ConfirmUploadInfo.xaml.cs">
-      <DependentUpon>ConfirmUploadInfo.xaml</DependentUpon>
+    <Compile Include="view\ConfirmUploadCommodityInfo.xaml.cs">
+      <DependentUpon>ConfirmUploadCommodityInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\ConfirmUploadSubCategoryInfo.xaml.cs">
+      <DependentUpon>ConfirmUploadSubCategoryInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\ICloudServiceView.cs" />
     <Compile Include="view\MainWindow.xaml.cs">

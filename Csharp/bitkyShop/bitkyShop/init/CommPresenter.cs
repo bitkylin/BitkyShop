@@ -29,7 +29,7 @@ namespace bitkyShop.init
             _view.OnQiniuUploadCompleted(key, respInfo, respJson);
         }
 
-        public void UploadCommodityData(BmobTable data)
+        public void UploadCommodityOrCategoryData(BmobTable data)
         {
             var fature = _bmobWindows.CreateTaskAsync(data);
             if (fature.Exception == null)

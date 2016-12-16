@@ -47,6 +47,8 @@
     </activity>
     <activity android:name=".CommodityDetailActivity">
     </activity>
+    <activity android:name=".fragment.categrayfragment.SubCategoryActivity">
+    </activity>
   </application>
 
 </manifest>
