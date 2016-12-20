@@ -14,9 +14,7 @@
         <Label x:Name="label1_Copy" Content="类别：" HorizontalAlignment="Left" Margin="10,293,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelName" Content="" Margin="61,263,10.2,0" VerticalAlignment="Top"/>
         <Label x:Name="labelCategory" Content="" Margin="61,293,10.2,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnConfirmUpload" Content="确认上传" HorizontalAlignment="Left" Margin="150,385,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="btnConfirmUpload_Click" />
-        <Label x:Name="label1_Copy4" Content="下级类别：" HorizontalAlignment="Left" Margin="10,324,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="labelCategorySub" Content="" Margin="85,324,10.2,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnConfirmUpload" Content="确认上传" HorizontalAlignment="Left" Margin="150,370,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="btnConfirmUpload_Click" />
 
     </Grid>
 </Window>

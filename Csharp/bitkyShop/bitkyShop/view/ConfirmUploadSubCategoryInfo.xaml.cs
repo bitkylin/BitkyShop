@@ -81,15 +81,15 @@ namespace bitkyShop.view
             DragMove();
         }
 
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
         private void Window_Closed(object sender, EventArgs e)
         {
             _confirmUploadSubCategoryInfo = null;
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
         private void btnConfirmUpload_Click(object sender, RoutedEventArgs e)
         {

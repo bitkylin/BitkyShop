@@ -3,14 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:bitkyShop"
         mc:Ignorable="d"
         Title="生乐自选超市电脑端" Height="600" Width="900" MinWidth="800" MinHeight="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl">
+        <TabControl x:Name="tabControl" Margin="0,0,-0.4,0.4">
             <TabItem Header="商品信息上传" Background="#669EE4FF" Height="30" Width="120">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -18,27 +17,25 @@
                         <RowDefinition Height="302*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="481*" />
-                        <ColumnDefinition Width="405*" />
+                        <ColumnDefinition Width="56*" />
+                        <ColumnDefinition Width="71*" />
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="ListBoxCommunicationText" Margin="1" Grid.Column="1" />
-                    <ListBox x:Name="ListBoxControlText" Margin="1" Grid.Column="1" Grid.Row="1" />
-                    <Button x:Name="BtnUploadFile" Content="数据上传" HorizontalAlignment="Right" Margin="0,128.6,38.8,0"
-                            Width="95" Click="btnUploadFile_Click" Height="59" VerticalAlignment="Top" Grid.Row="1" />
-                    <Label x:Name="LabelFileName" Content="" Margin="82,17,153.8,0" VerticalAlignment="Top"
-                           RenderTransformOrigin="0.505,0.57" Height="26" Background="#FFD8F7FF" />
+                    <Button x:Name="BtnUploadFile" Content="数据上传" HorizontalAlignment="Right" Margin="0,208.8,16,0"
+                            Width="95" Click="btnUploadFile_Click" Height="47" VerticalAlignment="Top" Grid.Row="1" FontSize="14" />
+                    <Label x:Name="LabelFileName" Content="" Margin="82,17,15,0" VerticalAlignment="Top"
+                           RenderTransformOrigin="0.505,0.57" Height="26" Background="#FFD8F7FF" VerticalContentAlignment="Center" />
                     <Label Content="文件名：" HorizontalAlignment="Left" Margin="12,17,0,0"
                            VerticalAlignment="Top" Height="26" Width="58" />
-                    <Button x:Name="BtnSelectedFile" Content="浏览" Margin="0,10,38.8,0"
-                            VerticalAlignment="Top" Height="40" Click="btnSelectedFile_Click"
-                            HorizontalAlignment="Right" Width="95" />
+                    <Button x:Name="BtnSelectedFile" Content="浏览" Margin="0,48,16,0"
+                            VerticalAlignment="Top" Height="26" Click="btnSelectedFile_Click"
+                            HorizontalAlignment="Right" Width="77" />
                     <Label Content="名称：" HorizontalAlignment="Left" Margin="12,95,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46" />
-                    <TextBox x:Name="TextBoxName" Height="30" Margin="82,95,153.8,0" TextWrapping="Wrap"
+                    <TextBox x:Name="TextBoxName" Height="30" Margin="82,95,16,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" VerticalContentAlignment="Center" />
                     <Label Content="总类别：" HorizontalAlignment="Left" Margin="12,140,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="65" />
-                    <ComboBox x:Name="ComboBoxCategory" Margin="82,140,153.8,0" VerticalAlignment="Top" Height="30">
+                    <ComboBox x:Name="ComboBoxCategory" Margin="82,140,16,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                 <GradientStop Color="#FFF0F0F0" Offset="0" />
@@ -57,51 +54,85 @@
                         <ComboBoxItem Content="旅游" Background="#FF6DFFFD" />
                         <ComboBoxItem Background="Red" Content="广告与促销" />
                     </ComboBox>
-                    <Label Content="价格：" HorizontalAlignment="Left" Margin="12,2.6,0,0"
+                    <Label Content="价格：" HorizontalAlignment="Left" Margin="12,2.8,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"
                            Grid.Row="1" />
-                    <TextBox x:Name="TextBoxPrice" Height="30" Margin="82,1.6,153.8,0" TextWrapping="Wrap"
+                    <TextBox x:Name="TextBoxPrice" Height="30" Margin="82,1.8,16,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="1" />
-                    <Label Content="数量：" HorizontalAlignment="Left" Margin="12,47.6,0,0"
+                    <Label Content="数量：" HorizontalAlignment="Left" Margin="12,47.8,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"
                            Grid.Row="1" />
-                    <TextBox x:Name="TextBoxCount" Height="30" Margin="82,47.6,153.8,0" TextWrapping="Wrap"
+                    <TextBox x:Name="TextBoxCount" Height="30" Margin="82,47.8,16,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.Row="1" />
-                    <Label Content="简介：" HorizontalAlignment="Left" Margin="12,92.6,0,0"
+                    <Label Content="简介：" HorizontalAlignment="Left" Margin="12,92.8,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="46"
                            Grid.Row="1" />
-                    <TextBox x:Name="TextBoxDetails" Height="90" Margin="82,97.6,153.8,0" TextWrapping="Wrap"
+                    <TextBox x:Name="TextBoxDetails" Height="90" Margin="82,97.8,16,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" AcceptsReturn="True" Grid.Row="1" />
-                    <Label Content="下级类别：" HorizontalAlignment="Left" Margin="12,191,0,0"
+                    <Label Content="二级类别：" HorizontalAlignment="Left" Margin="12,191,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="65" />
-                    <TextBox x:Name="TextBoxCategorySub" Height="30" Margin="82,190,153.8,0" TextWrapping="Wrap"
+                    <TextBox x:Name="TextBoxCategorySub" Height="30" Margin="82,190,16,0" TextWrapping="Wrap"
                              VerticalAlignment="Top" VerticalContentAlignment="Center" />
-                    <CheckBox x:Name="checkBoxPromotion" Content="促销" HorizontalAlignment="Right" Margin="0,95,28.8,0"
-                              VerticalAlignment="Top" Height="30" Width="90" />
-                    <CheckBox x:Name="checkBoxAD" Content="轮播广告" HorizontalAlignment="Right" Margin="0,140,28.8,0"
-                              VerticalAlignment="Top" Height="30" Width="90" />
+                    <CheckBox x:Name="checkBoxPromotion" Content="促销" HorizontalAlignment="Left" Margin="81,200.8,0,0"
+                              VerticalAlignment="Top" Height="30" Width="90" Grid.Row="1" VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="checkBoxAD" Content="轮播广告" HorizontalAlignment="Left" Margin="81,235.8,0,0"
+                              VerticalAlignment="Top" Height="30" Width="90" Grid.Row="1" VerticalContentAlignment="Center" />
+                    <DataGrid x:Name="dataGridCommodity" Margin="10,10,9.8,127" Grid.Column="1" Grid.RowSpan="2"/>
+                    <Label Content="总类别：" HorizontalAlignment="Left" Margin="11,0,0,92"
+            VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="65" Grid.Column="1" Grid.Row="1" />
+                    <ComboBox x:Name="ComboBoxCategory_changeCommodity" Margin="81,0,0,92" VerticalAlignment="Bottom" Height="30" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="139" VerticalContentAlignment="Center">
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF0F0F0" Offset="0" />
+                                <GradientStop Color="#FFF4F4F4" Offset="1" />
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBoxItem Content="烟酒饮料" />
+                        <ComboBoxItem Content="美容洗护" />
+                        <ComboBoxItem Content="家居用品" />
+                        <ComboBoxItem Content="方便速食" />
+                        <ComboBoxItem Content="粮油米类" />
+                        <ComboBoxItem Content="厨具" />
+                        <ComboBoxItem Content="学习用品" />
+                        <ComboBoxItem Content="水果" Background="#FF6DFFFD" />
+                        <ComboBoxItem Content="烧烤" Background="#FF6DFFFD" />
+                        <ComboBoxItem Content="旅游" Background="#FF6DFFFD" />
+                        <ComboBoxItem Background="Red" Content="广告与促销" />
+                    </ComboBox>
+                    <Label Content="二级类别：" HorizontalAlignment="Left" Margin="276,0,0,92"
+                        VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1" />
+                    <TextBox x:Name="TextBoxCategorySub_changeCommodity" Height="30" Margin="356,0,0,92" TextWrapping="Wrap"
+                        VerticalAlignment="Bottom" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="131" />
+                    <Button x:Name="btnQueryCommodity" Content="查询商品" HorizontalAlignment="Left" Margin="11,0,0,49" VerticalAlignment="Bottom" Width="150" Grid.Column="1" Grid.Row="1" Height="35" FontSize="14" Click="btnQueryCommodity_Click"/>
+                    <Button x:Name="btnChangeCommodityToBmob" Content="修改当前选定的商品" HorizontalAlignment="Left" Margin="166,0,0,48" VerticalAlignment="Bottom" Width="155" Grid.Column="1" Grid.Row="1" Height="35" FontSize="14" Click="btnChangeCommodityToBmob_Click"/>
+                    <Label x:Name="labelCommodityStatusShow" Content="商品查询状态显示" Height="33" Margin="10,0,9.8,10" VerticalAlignment="Bottom" FontSize="16" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+                    <Button x:Name="btnDeleteCommodity" Content="删除选定的条目" HorizontalAlignment="Left" Margin="326,0,0,48" VerticalAlignment="Bottom" Width="161" Height="35" FontSize="14" Grid.Column="1" Grid.Row="1" Click="btnDeleteCommodity_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Height="30" Width="120" Background="#669EE4FF" Header="二级分类上传">
 
-                <Grid Margin="5" >
-                    <Label x:Name="LabelFileNameSubcategory" Content="" Margin="102,27,535.2,0" VerticalAlignment="Top"
-            RenderTransformOrigin="0.505,0.57" Height="26" Background="#FFD8F7FF" />
-                    <Label Content="文件名：" HorizontalAlignment="Left" Margin="26,27,0,0"
-            VerticalAlignment="Top" Height="26" Width="58" />
-                    <Button x:Name="BtnSelectedFileSubcategory" Content="浏览" Margin="0,20,419.2,0"
-            VerticalAlignment="Top" Height="40"
-            HorizontalAlignment="Right" Width="95" Click="BtnSelectedFileSubcategory_Click" />
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="119*"/>
+                        <ColumnDefinition Width="174*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="LabelFileNameSubcategory" Content="" Margin="102,14,13.8,0" VerticalAlignment="Top"
+                           RenderTransformOrigin="0.505,0.57" Height="26" Background="#FFD8F7FF" VerticalContentAlignment="Center" />
+                    <Label Content="文件名：" HorizontalAlignment="Left" Margin="26,14,0,0"
+                           VerticalAlignment="Top" Height="26" Width="58" />
+                    <Button x:Name="BtnSelectedFileSubcategory" Content="浏览" Margin="0,45,13.8,0"
+                            VerticalAlignment="Top" Height="30"
+                            HorizontalAlignment="Right" Width="95" Click="BtnSelectedFileSubcategory_Click" />
                     <Label Content="二级类别：" HorizontalAlignment="Left" Margin="26,155,0,0"
-            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="71" />
-                    <TextBox x:Name="TextBoxNameSubcategory" Height="30" Margin="102,155,535.2,0" TextWrapping="Wrap"
-            VerticalAlignment="Top" VerticalContentAlignment="Center" />
-                    <Button x:Name="BtnUploadFileSubCategory" Content="上传" Margin="0,145,419.2,0"
-                        VerticalAlignment="Top" Height="40"
-                        HorizontalAlignment="Right" Width="95" Click="BtnUploadFileSubCategory_Click" />
-                    <Label Content="总类别：" HorizontalAlignment="Left" Margin="26,89,0,0"
-                        VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="58" />
-                    <ComboBox x:Name="ComboBoxCategory2" Margin="101,89,535.2,0" VerticalAlignment="Top" Height="30">
+                           VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="71" />
+                    <TextBox x:Name="TextBoxNameSubcategory" Height="30" Margin="102,155,13.8,0" TextWrapping="Wrap"
+                             VerticalAlignment="Top" VerticalContentAlignment="Center" />
+                    <Button x:Name="BtnUploadFileSubCategory" Content="上传" Margin="0,205,14,0"
+                            VerticalAlignment="Top" Height="40"
+                            HorizontalAlignment="Right" Width="95" Click="BtnUploadFileSubCategory_Click" />
+                    <Label Content="总类别：" HorizontalAlignment="Left" Margin="26,105,0,0"
+                           VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="58" />
+                    <ComboBox x:Name="ComboBoxCategory2" Margin="101,105,13.8,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                 <GradientStop Color="#FFF0F0F0" Offset="0" />
@@ -117,25 +148,71 @@
                         <ComboBoxItem Content="学习用品" />
                         <ComboBoxItem Background="Red" Content="广告与促销" />
                     </ComboBox>
+                    <DataGrid x:Name="dataGridSubCategory" Margin="10.2,10,10.4,132" Grid.Column="1"/>
+                    <Label x:Name="labelSubCategoryStatusShow" Content="二级类别查询状态显示" Height="33" Margin="10,0,521.4,11" VerticalAlignment="Bottom" FontSize="16" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                    <Button x:Name="btnQuerySubCategory" Content="查询二级类别" HorizontalAlignment="Left" Margin="340.2,0,0,77" VerticalAlignment="Bottom" Width="171" Height="35" FontSize="14" Grid.Column="1" Click="btnQuerySubCategory_Click"/>
+                    <ComboBox x:Name="ComboBoxCategory_querySubCategory" Margin="73.2,0,0,82" VerticalAlignment="Bottom" Height="30" Grid.Column="1" HorizontalAlignment="Left" Width="147" VerticalContentAlignment="Center">
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF0F0F0" Offset="0" />
+                                <GradientStop Color="#FFF4F4F4" Offset="1" />
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBoxItem Content="烟酒饮料" />
+                        <ComboBoxItem Content="美容洗护" />
+                        <ComboBoxItem Content="家居用品" />
+                        <ComboBoxItem Content="方便速食" />
+                        <ComboBoxItem Content="粮油米类" />
+                        <ComboBoxItem Content="厨具" />
+                        <ComboBoxItem Content="学习用品" />
+                        <ComboBoxItem Background="Red" Content="广告与促销" />
+                    </ComboBox>
+                    <Label Content="总类别：" HorizontalAlignment="Left" Margin="10.2,0,0,82"
+                        VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="58" Grid.Column="1" />
+                    <Button x:Name="btnDeleteSubCategory" Content="删除选定的条目" HorizontalAlignment="Left" Margin="340.2,0,0,11" VerticalAlignment="Bottom" Width="171" Height="35" FontSize="14" Grid.Column="1" Click="btnDeleteSubCategory_Click"/>
 
 
                 </Grid>
 
             </TabItem>
 
-            <TabItem Header="商品信息修改" Background="#669EE4FF">
+            <TabItem Header="订单信息" Background="#669EE4FF" Height="30" Width="120">
                 <Grid Margin="1">
-                    <DataGrid x:Name="dataGridCommodityInfoShow" Margin="1,1,0.6,76.4" />
-                    <Button x:Name="btnChangeCommodityPageNext" Content="下一页" HorizontalAlignment="Left"
-                            Margin="345,0,0,32.4" VerticalAlignment="Bottom" Width="110" Height="36" />
-                    <Button x:Name="btnChangeCommodityPageFormer" Content="上一页" HorizontalAlignment="Left"
-                            Margin="185,0,0,32.4" VerticalAlignment="Bottom" Width="110" Height="36" />
-                    <Button x:Name="btnChangeCommodityQueryShow" Content="查询" HorizontalAlignment="Left"
-                            Margin="505,0,0,32.4" VerticalAlignment="Bottom" Width="110" Height="36"
-                            Click="btnChangeCommodityQueryShow_Click" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="501*" />
+                        <ColumnDefinition Width="386*" />
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="dataGridOrderInfoShow" Margin="5,5,4.8,116"
+                              MouseDoubleClick="dataGridOrderInfoShow_MouseDoubleClick" />
+                    <Button x:Name="btnQueryOrder" Content="开始查询" HorizontalAlignment="Left"
+                            Margin="265.2,0,0,65" VerticalAlignment="Bottom" Width="110" Height="36"
+                            Click="btnQueryOrder_Click" Grid.Column="1" />
+                    <DataGrid x:Name="dataGridOrderCommodityInfoShow" Margin="5.2,5,5.4,116" Grid.Column="1" />
+                    <Label x:Name="labelOrderStatusShow" Content="订单查询状态显示" HorizontalAlignment="Left"
+                           Margin="5,0,0,10" VerticalAlignment="Bottom" Width="376" Height="36"
+                           VerticalContentAlignment="Center" FontSize="14" />
+                    <Button x:Name="btnQueryOrderCategory" Content="查询订单" HorizontalAlignment="Left"
+                            Margin="156,0,0,65" VerticalAlignment="Bottom" Width="110" Height="36"
+                            Click="btnQueryOrderCategory_Click" />
+                    <ComboBox x:Name="comboBoxOrderCategory" HorizontalAlignment="Left" Margin="10,0,0,65"
+                              VerticalAlignment="Bottom" Width="120" Height="36" VerticalContentAlignment="Center"
+                              IsEditable="True">
+                        <ComboBoxItem Content="全部" />
+                        <ComboBoxItem Content="已下单" />
+                        <ComboBoxItem Content="已送达" />
+                        <ComboBoxItem Content="已确认收货" />
+                    </ComboBox>
                 </Grid>
             </TabItem>
-            <Grid HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" />
+            <TabItem Background="#669EE4FF" Height="30" Width="120" Header="关于">
+
+                <Grid Margin="1">
+                    <Label x:Name="label" Content="生乐自选超市电脑管理端" HorizontalAlignment="Left" Margin="346,184,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="label_Copy" Content="版本：v1.0" HorizontalAlignment="Left" Margin="386,219,0,0" VerticalAlignment="Top" FontSize="16"/>
+
+
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>

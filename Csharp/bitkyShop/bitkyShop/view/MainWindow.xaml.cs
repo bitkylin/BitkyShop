@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows;
 using bitkyShop.bean;
+using bitkyShop.bean.beanShow;
 using bitkyShop.init;
+using bitkyShop.utils;
 using Microsoft.Win32;
 using Qiniu.Http;
 
@@ -22,11 +26,20 @@ namespace bitkyShop.view
         private string _filePathSubcategory = string.Empty;
         private UploadPhotoType _currentUploadPhotoType = UploadPhotoType.Commodity;
         private SubCategory _subCategory;
+        List<OrderShow> orderShows = new List<OrderShow>();
+        private List<CommodityPcShow> orderCommoditylist = new List<CommodityPcShow>();
+        List<Commodity> _commodities = new List<Commodity>();
+        List<SubCategory> _subCategories = new List<SubCategory>();
 
         public MainWindow()
         {
             InitializeComponent();
             _presenter = new CommPresenter(this);
+
+            dataGridOrderInfoShow.ItemsSource = orderShows;
+            dataGridOrderCommodityInfoShow.ItemsSource = orderCommoditylist;
+            dataGridCommodity.ItemsSource = _commodities;
+            dataGridSubCategory.ItemsSource = _subCategories;
         }
 
         /// <summary>
@@ -39,8 +52,6 @@ namespace bitkyShop.view
         {
             Dispatcher.Invoke(() =>
             {
-                CommunicateMessageShow("图片上传完毕");
-                CommunicateMessageShow(respJson);
                 if (respInfo.StatusCode == 200)
                 {
                     switch (_currentUploadPhotoType)
@@ -59,7 +70,7 @@ namespace bitkyShop.view
                 }
                 else
                 {
-                    CommunicateMessageShow("图片上传出错");
+                    Debug.WriteLine("图片上传出错");
                 }
             });
         }
@@ -113,8 +124,6 @@ namespace bitkyShop.view
                     }
                     break;
             }
-
-           
         }
 
         public void UploadBmobWindowShow()
@@ -131,43 +140,14 @@ namespace bitkyShop.view
                     }
                     break;
                 case UploadPhotoType.Subcategory:
-                           _confirmUploadSubCategoryInfo = ConfirmUploadSubCategoryInfo.Builder(this)
-                            .SetSubCategoryInfo(_subCategory);
+                    _confirmUploadSubCategoryInfo = ConfirmUploadSubCategoryInfo.Builder(this)
+                        .SetSubCategoryInfo(_subCategory);
                     _confirmUploadSubCategoryInfo.Show();
 
                     break;
             }
 
             throw new Exception("程序错误，请检查");
-        }
-
-        /// <summary>
-        ///     通信信息的显示
-        /// </summary>
-        /// <param name="message">输入所需显示的信息</param>
-        public void CommunicateMessageShow(string message) //通信信息
-        {
-            Dispatcher.Invoke(() =>
-            {
-                ListBoxCommunicationText.Items.Add(message);
-                ListBoxCommunicationText.SelectedIndex = ListBoxCommunicationText.Items.Count - 1;
-                ListBoxCommunicationText.ScrollIntoView(
-                    ListBoxCommunicationText.Items[ListBoxCommunicationText.Items.Count - 1]);
-            });
-        }
-
-        /// <summary>
-        ///     控制信息的显示
-        /// </summary>
-        /// <param name="message">输入所需显示的信息</param>
-        public void ControlMessageShow(string message)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                ListBoxControlText.Items.Add(message);
-                ListBoxControlText.SelectedIndex = ListBoxControlText.Items.Count - 1;
-                ListBoxControlText.ScrollIntoView(ListBoxControlText.Items.CurrentItem);
-            });
         }
 
         public void btnSelectedFile_Click(object sender, RoutedEventArgs e)
@@ -211,8 +191,8 @@ namespace bitkyShop.view
             if (LabelFileName.Content.ToString().Trim().Equals(string.Empty) ||
                 TextBoxName.Text.Trim().Equals(string.Empty) ||
                 ComboBoxCategory.Text.Trim().Equals(string.Empty) ||
-                !IsInt(TextBoxCount.Text.Trim()) ||
-                !IsFloat(TextBoxPrice.Text.Trim()))
+                !KyMatch.IsInt(TextBoxCount.Text.Trim()) ||
+                !KyMatch.IsFloat(TextBoxPrice.Text.Trim()))
             {
                 MessageBox.Show("输入文本有误，请检查！", "警告");
                 return;
@@ -265,37 +245,200 @@ namespace bitkyShop.view
             _presenter.UploadFile(_filePathSubcategory);
         }
 
-
-        /// <summary>
-        ///     判断是自然数
-        /// </summary>
-        /// <param name="value">待匹配的文本</param>
-        /// <returns>匹配结果</returns>
-        private static bool IsInt(string value) //判断是自然数
+        private void btnQueryOrder_Click(object sender, RoutedEventArgs e)
         {
-            value = value.Trim();
-            return Regex.IsMatch(value, @"^[1-9]\d*|0$");
+            if (btnQueryOrder.Content.Equals("开始查询"))
+            {
+                btnQueryOrder.Content = "停止查询";
+                _presenter.queryOrderInLoop();
+            }
+            else
+            {
+                btnQueryOrder.Content = "开始查询";
+                _presenter.stopQueryOrderInLoop();
+            }
         }
 
-        /// <summary>
-        ///     判断是正浮点数
-        /// </summary>
-        /// <param name="value">待匹配的文本</param>
-        /// <returns>匹配结果</returns>
-        private static bool IsFloat(string value) //判断是正浮点数或自然数
+        private void btnQueryOrderCategory_Click(object sender, RoutedEventArgs e)
         {
-            value = value.Trim();
-            return Regex.IsMatch(value, @"^[1-9]d*.d*|0.d*[1-9]d*|[1-9]\d*|0$");
+            if (comboBoxOrderCategory.Text.Equals("全部"))
+            {
+                _presenter.QueryOrder(OrderStatus.NONE);
+                return;
+            }
+            if (comboBoxOrderCategory.Text.Equals("已下单"))
+            {
+                _presenter.QueryOrder(OrderStatus.已下单);
+                return;
+            }
+            if (comboBoxOrderCategory.Text.Equals("已送达"))
+            {
+                _presenter.QueryOrder(OrderStatus.已送达);
+                return;
+            }
+            if (comboBoxOrderCategory.Text.Equals("已确认收货"))
+            {
+                _presenter.QueryOrder(OrderStatus.已确认收货);
+                return;
+            }
         }
 
-        private void btnChangeCommodityQueryShow_Click(object sender, RoutedEventArgs e)
+        public void orderShow(List<Order> orders)
         {
+            Dispatcher.Invoke(() =>
+            {
+                if (orders != null)
+                {
+                    orderShows.Clear();
+                    labelOrderStatusShow.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "     " + "共查询到" +
+                                                   orders.Count + "条数据";
+                    orders.ForEach(order => { orderShows.Add(new OrderShow(order)); });
+                    dataGridOrderInfoShow.ItemsSource = null;
+                    dataGridOrderInfoShow.ItemsSource = orderShows;
+                }
+                else
+                {
+                    MessageBox.Show("未查询到数据");
+                    dataGridOrderInfoShow.ItemsSource = null;
+                }
+            });
         }
-    }
 
-    internal enum UploadPhotoType
-    {
-        Commodity,
-        Subcategory
+        public void commodityShow(List<Commodity> commodities)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (commodities != null)
+                {
+                    _commodities.Clear();
+                    labelCommodityStatusShow.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "     " + "共查询到" +
+                                                       commodities.Count + "条数据";
+                    commodities.ForEach(commodity => { _commodities.Add(commodity); });
+                    dataGridCommodity.ItemsSource = null;
+                    dataGridCommodity.ItemsSource = _commodities;
+                }
+                else
+                {
+                    MessageBox.Show("未查询到数据");
+                    dataGridOrderInfoShow.ItemsSource = null;
+                }
+            });
+        }
+
+        public void subCategoryShow(List<SubCategory> subCategories)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                if (subCategories != null)
+                {
+                    _subCategories.Clear();
+                    labelSubCategoryStatusShow.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "     " + "共查询到" +
+                                                         subCategories.Count + "条数据";
+                    subCategories.ForEach(subCategory => { _subCategories.Add(subCategory); });
+                    dataGridSubCategory.ItemsSource = null;
+                    dataGridSubCategory.ItemsSource = _subCategories;
+                }
+                else
+                {
+                    MessageBox.Show("未查询到数据");
+                    dataGridOrderInfoShow.ItemsSource = null;
+                }
+            });
+        }
+
+        public void updateCommodity(Commodity commodity)
+        {
+            _presenter.UpdateCommodity(commodity);
+        }
+
+        public void addOrderCommodity(CommodityPcShow commodityPcShow)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                orderCommoditylist.Add(commodityPcShow);
+                Debug.WriteLine("orderCommoditylist.Count:" + orderCommoditylist.Count);
+
+                dataGridOrderCommodityInfoShow.ItemsSource = null;
+                dataGridOrderCommodityInfoShow.ItemsSource = orderCommoditylist;
+            });
+        }
+
+
+        internal enum UploadPhotoType
+        {
+            Commodity,
+            Subcategory
+        }
+
+        private void dataGridOrderInfoShow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            orderCommoditylist.Clear();
+            var item = dataGridOrderInfoShow.SelectedItem as OrderShow;
+            if (item == null)
+            {
+                MessageBox.Show("请选择一条订单");
+                return;
+            }
+
+            _presenter.QueryOrderCommodity(item.commodityList);
+        }
+
+        private void btnQueryCommodity_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboBoxCategory_changeCommodity.Text.Equals(""))
+            {
+                MessageBox.Show("请选择商品的总类别");
+                return;
+            }
+            string category = ComboBoxCategory_changeCommodity.Text;
+            string subcategory = TextBoxCategorySub_changeCommodity.Text;
+            if (subcategory.Equals(""))
+            {
+                subcategory = null;
+            }
+
+            _presenter.queryCommodity(category, subcategory);
+        }
+
+        private void btnChangeCommodityToBmob_Click(object sender, RoutedEventArgs e)
+        {
+            Commodity commodity = dataGridCommodity.SelectedItem as Commodity;
+            if (commodity == null)
+            {
+                MessageBox.Show("请选择一条商品信息");
+                return;
+            }
+            new UpdateCommodityInfoWindow(this, commodity).Show();
+        }
+
+        private void btnDeleteSubCategory_Click(object sender, RoutedEventArgs e)
+        {
+            
+            SubCategory subCategory = dataGridSubCategory.SelectedItem as SubCategory;
+            if (subCategory == null)
+            {
+                MessageBox.Show("请选择一条二级类别信息");
+                return;
+            }
+            _presenter.DeleteItemFromBomb("SubCategory",subCategory.objectId);
+        }
+
+        private void btnQuerySubCategory_Click(object sender, RoutedEventArgs e)
+        {
+            string category = ComboBoxCategory_querySubCategory.Text;
+            _presenter.querySubCategory(category);
+        }
+
+        private void btnDeleteCommodity_Click(object sender, RoutedEventArgs e)
+        {
+
+            Commodity commodity = dataGridCommodity.SelectedItem as Commodity;
+            if (commodity == null)
+            {
+                MessageBox.Show("请选择一条商品信息");
+                return;
+            }
+            _presenter.DeleteItemFromBomb("Commodity", commodity.objectId);
+        }
     }
 }

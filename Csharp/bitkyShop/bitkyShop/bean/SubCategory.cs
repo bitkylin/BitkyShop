@@ -6,9 +6,10 @@ namespace bitkyShop.bean
     public class SubCategory : BmobTable
     {
         public string mainCategory { set; get; }
+        public string name { set; get; }
         public string photoUrl { set; get; }
         public string photoName { set; get; }
-        public string name { set; get; }
+
         //读字段信息
         public override void readFields(BmobInput input)
         {
