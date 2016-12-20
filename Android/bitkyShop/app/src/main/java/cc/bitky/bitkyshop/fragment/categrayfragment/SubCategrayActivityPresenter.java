@@ -8,15 +8,13 @@ import com.socks.library.KLog;
 import java.util.List;
 
 public class SubCategrayActivityPresenter {
-  private final String categoryStr;
-  SubCategoryActivity activity;
+  private SubCategoryActivity activity;
   private int currentPosition = 0;
   private int countLimit = 10;
   private String currentSubCategoryStr;
 
-  public SubCategrayActivityPresenter(SubCategoryActivity activity, String categoryStr) {
+  SubCategrayActivityPresenter(SubCategoryActivity activity) {
     this.activity = activity;
-    this.categoryStr = categoryStr;
   }
 
   void refreshRecyclerAdapterData(String subCategory, RefreshType type) {
@@ -30,6 +28,7 @@ public class SubCategrayActivityPresenter {
             currentPosition = 0;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
             bmobQuery.addWhereEqualTo("CategorySub", currentSubCategoryStr)
+                .addWhereGreaterThan("Count", 0)
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");
@@ -56,6 +55,7 @@ public class SubCategrayActivityPresenter {
             currentPosition = currentPosition + 10;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
             bmobQuery.addWhereEqualTo("CategorySub", currentSubCategoryStr)
+                .addWhereGreaterThan("Count", 0)
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");

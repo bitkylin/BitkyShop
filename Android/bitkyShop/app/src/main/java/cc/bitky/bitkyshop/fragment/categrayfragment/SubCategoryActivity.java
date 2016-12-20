@@ -38,7 +38,7 @@ public class SubCategoryActivity extends AppCompatActivity {
     setContentView(R.layout.activity_sub_category);
     mContext = this;
     toastUtil = new ToastUtil(mContext);
-    presenter = new SubCategrayActivityPresenter(this, null);
+    presenter = new SubCategrayActivityPresenter(this);
 
     String subCategoryStr = getSubcategoryStr();
     if (subCategoryStr == null) {

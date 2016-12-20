@@ -47,32 +47,13 @@ public class OrderManagerRecyclerAdapter extends KyBaseRecyclerAdapter<Order> {
         .setText(dataItem.getCreatedAt());
 
     //设置订单中商品的数量和总价
-    //设置自定义九宫格控件
-    final ArrayList<ImageInfo> imageInfo = new ArrayList<>();
     List<CommodityOrder> localList = dataItem.getCommodityList();
     int count = 0;
     double price = 0;
     for (final CommodityOrder commodityOrder : localList) {
       count = count + commodityOrder.getCount();
       price = price + commodityOrder.getPrice();
-      BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-      bmobQuery.getObject(commodityOrder.getObjectId(), new QueryListener<Commodity>() {
-        @Override public void done(Commodity commodity, BmobException e) {
-          if (e != null) {
-            KLog.d("有异常：" + e.getMessage());
-            return;
-          }
-          ImageInfo info = new ImageInfo();
-          info.setThumbnailUrl(commodity.getCoverPhotoUrl());
-          info.setBigImageUrl(commodity.getCoverPhotoUrl());
-          imageInfo.add(info);
-        }
-      });
     }
-    //NineGridView nineGridView=holder.getView(R.id.recycler_orderManagerActivity_nineGridView);
-    //
-    //nineGridView.setAdapter(new NineGridViewAdapter(mContext, imageInfo) {
-    //});
 
     holder.getTextView(R.id.recycler_orderManagerActivity_orderItemCount)
         .setText("共" + count + "件");
@@ -91,13 +72,13 @@ public class OrderManagerRecyclerAdapter extends KyBaseRecyclerAdapter<Order> {
         btncancel.setVisibility(View.VISIBLE);
         break;
       case Order.CONFIRMED:
-        orderStatus.setText("待收货");
-        orderStatus.setTextColor(mContext.getResources().getColor(R.color.red));
+        orderStatus.setText("已送达");
+        orderStatus.setTextColor(mContext.getResources().getColor(R.color.blue));
         btnCompleted.setVisibility(View.VISIBLE);
-        btncancel.setVisibility(View.VISIBLE);
+        btncancel.setVisibility(View.INVISIBLE);
         break;
       case Order.COMPLETED:
-        orderStatus.setText("订单已完成");
+        orderStatus.setText("已收货");
         orderStatus.setTextColor(mContext.getResources().getColor(R.color.green));
         btnCompleted.setVisibility(View.INVISIBLE);
         btncancel.setVisibility(View.INVISIBLE);

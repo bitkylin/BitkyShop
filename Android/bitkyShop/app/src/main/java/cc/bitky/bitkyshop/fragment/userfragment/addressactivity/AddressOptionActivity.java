@@ -26,7 +26,6 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
 
   private AddressOptionPresenter presenter;
   private ToastUtil toastUtil;
-  private RecyclerView recyclerView;
   private KyBaseRecyclerAdapter<ReceiveAddress> recyclerAdapter;
   private String objectId;
   private String username;
@@ -74,7 +73,8 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
   }
 
   private void initRecyclerView() {
-    recyclerView = (RecyclerView) findViewById(R.id.addressOptionActivity_RecyclerView);
+    RecyclerView recyclerView =
+        (RecyclerView) findViewById(R.id.addressOptionActivity_RecyclerView);
     if (recyclerAdapter == null) {
       initRecyclerViewData(new ArrayList<ReceiveAddress>());
     }
@@ -215,7 +215,6 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
     }
     if (message != null) {
       toastUtil.show(message);
-      return;
     }
   }
 }

@@ -59,6 +59,8 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
   private TextView orderStatus;
   private List<CommodityOrder> commodityOrderSubmitList;
 
+  private int currentStatus;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_order);
@@ -98,6 +100,7 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
 
     int requestCode = getIntent().getIntExtra("requestCode", -1);
     KLog.d("requestCode" + requestCode);
+    currentStatus = requestCode;
     switch (requestCode) {
       case KySet.CART_REQUEST_SUBMIT_ORDER:
         bottomNavigation.setVisibility(View.VISIBLE);
@@ -107,7 +110,6 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         addressLayout.setOnClickListener(this);
         queryDefaultAddressFromBmob();
         break;
-
       case KySet.USER_REQUEST_HISTORY_ORDER:
         historyOrderInfoLayout.setVisibility(View.VISIBLE);
         bottomNavigation.setVisibility(View.VISIBLE);
@@ -117,6 +119,9 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         name.setText(order.getName());
         phone.setText(order.getPhone());
         address.setText(order.getAddress());
+        break;
+      default:
+        finish();
         break;
     }
     initRecyclerOrderData(order.getCommodityList());
@@ -261,6 +266,9 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
             KLog.d("有异常：" + e.getMessage());
             return;
           }
+          if (commodity.getCount() <= 0 && currentStatus == KySet.CART_REQUEST_SUBMIT_ORDER) {
+            return;
+          }
           KLog.d("读取成功，objectId：" + commodity.getObjectId() + "," + commodity.getName());
           commodity.setCount(commodityOrder.getCount());
           commodities.add(commodity);
@@ -325,7 +333,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
       case R.id.orderActivity_btn_orderGeneration:
         if (receiveAddress != null) {
           btnOrderGeneration.setEnabled(false);
-
+          if (commodityOrderSubmitList.size() <= 0) {
+            toastUtil.show("您选择的商品可能被抢光了, 请重新选择");
+            return;
+          }
           //生成用于提交服务器的新的Order对象
           Order orderSubmit = new Order(commodityOrderSubmitList);
           orderSubmit.setAddressAndUserInfo(receiveAddress);

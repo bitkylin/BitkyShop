@@ -79,23 +79,20 @@ public class CategrayFragmentPresenter {
   public List<String> getCategrayNames() {
     if (categrayNames == null || categrayNames.size() > 0) {
       List<String> strings = new ArrayList<>();
-      //strings.add("烟酒饮料");
-      //strings.add("美容洗护");
-      //strings.add("家居用品");
-      //strings.add("方便速食");
-      //strings.add("粮油米类");
-      //strings.add("厨具");
-      //strings.add("学习用品");
-
-
-
-
-      strings.add("洗浴用品");
-      strings.add("书籍");
-      strings.add("零食速食");
-      strings.add("饮品酒水");
-      strings.add("生活用品");
+      strings.add("烟酒饮料");
+      strings.add("美容洗护");
+      strings.add("家居用品");
+      strings.add("方便速食");
+      strings.add("粮油米类");
+      strings.add("厨具");
       strings.add("学习用品");
+
+      //strings.add("洗浴用品");
+      //strings.add("书籍");
+      //strings.add("零食速食");
+      //strings.add("饮品酒水");
+      //strings.add("生活用品");
+      //strings.add("学习用品");
       return strings;
     }
     return categrayNames;

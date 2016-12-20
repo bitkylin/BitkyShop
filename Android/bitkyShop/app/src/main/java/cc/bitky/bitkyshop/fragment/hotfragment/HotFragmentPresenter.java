@@ -1,6 +1,5 @@
 package cc.bitky.bitkyshop.fragment.hotfragment;
 
-import android.content.Context;
 import cc.bitky.bitkyshop.bean.Commodity;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -13,24 +12,18 @@ class HotFragmentPresenter {
   private IHotFragment mView;
   private int currentPosition = 0;
   private int countLimit = 10;
-  private Context mContext;
-  private List<String> categrayNames;
-  private String currentCategoryStr="水果";
+  private String currentCategoryStr = "水果";
 
-  HotFragmentPresenter(Context context, IHotFragment view) {
-    mContext = context;
+  HotFragmentPresenter(IHotFragment view) {
     mView = view;
   }
 
-  public List<String> getCategrayNames() {
-    if (categrayNames == null || categrayNames.size() == 0) {
+  public List<String> getCategoryNames() {
       List<String> strings = new ArrayList<>();
       strings.add("水果");
       strings.add("烧烤");
       strings.add("旅游");
       return strings;
-    }
-    return categrayNames;
   }
 
   public void refreshRecyclerAdapterData(String category, RefreshType type) {
@@ -44,6 +37,7 @@ class HotFragmentPresenter {
             currentPosition = 0;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
             bmobQuery.addWhereEqualTo("Category", currentCategoryStr)
+                .addWhereGreaterThan("Count", 0)
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");
@@ -70,6 +64,7 @@ class HotFragmentPresenter {
             currentPosition = currentPosition + 10;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
             bmobQuery.addWhereEqualTo("Category", currentCategoryStr)
+                .addWhereGreaterThan("Count", 0)
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");

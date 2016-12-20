@@ -12,7 +12,7 @@ class HomeFragmentPresenter {
   private IHomeFragment mView;
   private int currentPosition = 0;
   private int countLimit = 10;
-  Context mContext;
+  private Context mContext;
 
   HomeFragmentPresenter(Context context, IHomeFragment view) {
     mContext = context;
@@ -27,6 +27,7 @@ class HomeFragmentPresenter {
             currentPosition = 0;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
             bmobQuery.addWhereEqualTo("Promotion", "true")
+                .addWhereGreaterThan("Count", 0)
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");
@@ -52,6 +53,7 @@ class HomeFragmentPresenter {
             currentPosition = currentPosition + 10;
             BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
             bmobQuery.addWhereEqualTo("Promotion", "true")
+                .addWhereGreaterThan("Count", 0)
                 .setLimit(countLimit)
                 .setSkip(currentPosition)
                 .order("createdAt");
@@ -75,20 +77,5 @@ class HomeFragmentPresenter {
   enum RefreshType {
     Refresh,
     LoadMore
-  }
-
-  void queryRecyclerData() {
-    BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-    bmobQuery.addWhereEqualTo("BitkyId", "default").setLimit(10).order("createdAt");
-
-    bmobQuery.findObjects(new FindListener<Commodity>() {
-      @Override public void done(List<Commodity> list, BmobException e) {
-        if (e != null) {
-          KLog.d("异常内容：" + e.getMessage());
-        } else if (list.size() > 0) {
-          mView.initRecyclerViewData(list);
-        }
-      }
-    });
   }
 }

@@ -149,7 +149,6 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
           KLog.d(ex.getErrorCode() + ":" + ex.getMessage());
           return;
         }
-        toastUtil.show("手机验证码已发送,请注意接收");
         startActivityForResult(intent, KySet.USER_REQUEST_PHONE_SIGNUP_OR_LOGIN);
       }
     });

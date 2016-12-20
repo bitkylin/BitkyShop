@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
   compileSdkVersion 24
-  buildToolsVersion "24.0.1"
+  buildToolsVersion "24.0.3"
   resourcePrefix "MaterialRefreshLayout" //这个随便填
   defaultConfig {
     minSdkVersion 19

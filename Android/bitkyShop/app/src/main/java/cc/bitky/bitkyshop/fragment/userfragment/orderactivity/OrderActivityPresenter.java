@@ -4,10 +4,6 @@ import cc.bitky.bitkyshop.bean.cart.Order;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
-/**
- * Created by bitky on 2016/12/11.
- */
-
 public class OrderActivityPresenter {
   private final OrderActivity activity;
 

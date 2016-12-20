@@ -48,7 +48,7 @@ public class HotFragment extends Fragment implements IHotFragment {
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    this.presenter = new HotFragmentPresenter(mContext, this);
+    this.presenter = new HotFragmentPresenter(this);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,7 +85,7 @@ public class HotFragment extends Fragment implements IHotFragment {
 
   private KyBaseRecyclerAdapter getRecyclerAdapterCategoryStr() {
     if (recyclerAdapterCategoryStr == null) {
-      List<String> categrayNames = presenter.getCategrayNames();
+      List<String> categrayNames = presenter.getCategoryNames();
       recyclerAdapterCategoryStr = new KyBaseRecyclerAdapter<String>(categrayNames,
           R.layout.recycler_categryfragment_single_text) {
         @Override public void setDataToViewHolder(String dataItem, KyBaseViewHolder holder) {

@@ -36,7 +36,6 @@ public class CartFragment extends Fragment implements View.OnClickListener {
   ToastUtil toastUtil;
   private List<CommodityLocal> commodityLocals;
   private CartRecyclerAdapter recyclerAdapter;
-  private RecyclerView recyclerViewCategray;
   private TextView textViewTotalPrice;
   private CheckBox checkBoxAll;
   private Button btnDeleteAll;
@@ -135,7 +134,8 @@ public class CartFragment extends Fragment implements View.OnClickListener {
         }
       });
     }
-    recyclerViewCategray = (RecyclerView) view.findViewById(R.id.recyclerView_cartFragment);
+    RecyclerView recyclerViewCategray =
+        (RecyclerView) view.findViewById(R.id.recyclerView_cartFragment);
     recyclerViewCategray.setAdapter(recyclerAdapter);
     recyclerViewCategray.setLayoutManager(new LinearLayoutManager(mContext));
     recyclerViewCategray.setItemAnimator(new DefaultItemAnimator());

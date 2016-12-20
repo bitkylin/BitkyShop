@@ -12,9 +12,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import cc.bitky.bitkyshop.CommodityDetailActivity;
 import cc.bitky.bitkyshop.MainActivity;
 import cc.bitky.bitkyshop.R;
@@ -73,18 +71,18 @@ public class HomeFragment extends Fragment
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     view = inflater.inflate(R.layout.fragment_home, container, false);
-    ImageButton buttonToCategoryFragment = (ImageButton) view.findViewById(R.id.homefragment_buttonToCategoryFragment);
-    ImageButton buttonToHotFragment = (ImageButton) view.findViewById(R.id.homefragment_buttonToHotFragment);
+    ImageButton buttonToCategoryFragment =
+        (ImageButton) view.findViewById(R.id.homefragment_buttonToCategoryFragment);
+    ImageButton buttonToHotFragment =
+        (ImageButton) view.findViewById(R.id.homefragment_buttonToHotFragment);
     buttonToHotFragment.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        if (_mainActivity!=null)
-          _mainActivity.fragmentTabHost.setCurrentTab(1);
+        if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(1);
       }
     });
     buttonToCategoryFragment.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        if (_mainActivity!=null)
-          _mainActivity.fragmentTabHost.setCurrentTab(2);
+        if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(2);
       }
     });
     initSliderLayout();
@@ -154,9 +152,7 @@ public class HomeFragment extends Fragment
    */
   private void getBmobSliderData() {
     BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-    bmobQuery.addWhereEqualTo("AD", "true");
-    bmobQuery.setLimit(5);
-    bmobQuery.findObjects(new FindListener<Commodity>() {
+    bmobQuery.addWhereEqualTo("AD", "true").setLimit(5).findObjects(new FindListener<Commodity>() {
       @Override public void done(List<Commodity> list, BmobException e) {
         if (e != null) {
           KLog.d(TAG, "异常内容：" + e.getMessage());
