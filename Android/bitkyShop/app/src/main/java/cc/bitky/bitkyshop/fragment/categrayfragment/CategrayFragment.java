@@ -1,6 +1,7 @@
 package cc.bitky.bitkyshop.fragment.categrayfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,23 +13,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import cc.bitky.bitkyshop.R;
-import cc.bitky.bitkyshop.bean.Commodity;
+import cc.bitky.bitkyshop.bean.SubCategory;
 import cc.bitky.bitkyshop.fragment.categrayfragment.CategrayFragmentPresenter.RefreshType;
-import cc.bitky.bitkyshop.globalDeploy.GreenDaoKyHelper;
 import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
-import com.socks.library.KLog;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CategrayFragment extends Fragment implements ICategrayFragment {
   Context mContext;
   CategrayFragmentPresenter presenter;
-  private KyBaseRecyclerAdapter recyclerAdapterCategoryStr;
-  private KyBaseRecyclerAdapter recyclerAdapterCommodity;
+  private KyBaseRecyclerAdapter<String> recyclerAdapterCategoryStr;
+  private KyBaseRecyclerAdapter recyclerAdapterSubCategory;
   private RecyclerView recyclerViewCommodity;
   private MaterialRefreshLayout swipeRefreshLayout;
   private View view;
@@ -45,8 +44,8 @@ public class CategrayFragment extends Fragment implements ICategrayFragment {
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     view = inflater.inflate(R.layout.fragment_categray, container, false);
-    initRecyclerView();
     initSwipeRefreshLayout();
+    initRecyclerView();
     return view;
   }
 
@@ -79,12 +78,15 @@ public class CategrayFragment extends Fragment implements ICategrayFragment {
     //商品RecyclerView显示
     recyclerViewCommodity =
         (RecyclerView) view.findViewById(R.id.categrayfragment_recyclerview_commodity);
-    if (recyclerAdapterCommodity == null) initRecyclerCommodityAdapter(new ArrayList<Commodity>());
-    recyclerViewCommodity.setAdapter(recyclerAdapterCommodity);
+    if (recyclerAdapterSubCategory == null) {
+      initRecyclerSubCategoryAdapter(new ArrayList<SubCategory>());
+    }
+    recyclerViewCommodity.setAdapter(recyclerAdapterSubCategory);
     recyclerViewCommodity.setLayoutManager(new GridLayoutManager(mContext, 2));
     recyclerViewCommodity.setItemAnimator(new DefaultItemAnimator());
-    if (recyclerAdapterCommodity.getItemCount() == 0) {
-      presenter.refreshRecyclerAdapterData(null, RefreshType.Refresh);
+    if (recyclerAdapterSubCategory.getItemCount() == 0) {
+      presenter.refreshRecyclerAdapterData(recyclerAdapterCategoryStr.getDataItems().get(0),
+          RefreshType.Refresh);
     }
   }
 
@@ -107,48 +109,42 @@ public class CategrayFragment extends Fragment implements ICategrayFragment {
     return recyclerAdapterCategoryStr;
   }
 
-public void initRecyclerCommodityAdapter(List<Commodity> list) {
-    recyclerAdapterCommodity =
-        new KyBaseRecyclerAdapter<Commodity>(list, R.layout.recycler_homefragment_show) {
+  public void initRecyclerSubCategoryAdapter(List<SubCategory> list) {
+    recyclerAdapterSubCategory =
+        new KyBaseRecyclerAdapter<SubCategory>(list, R.layout.recycler_subcategory_show) {
           @Override
-          public void setDataToViewHolder(final Commodity dataItem, KyBaseViewHolder holder) {
-            holder.getSimpleDraweeView(R.id.recycler_homeshow_draweeview)
-                .setImageURI(Uri.parse(dataItem.getCoverPhotoUrl()));
-            holder.getTextView(R.id.recycler_homeshow_text_title).setText(dataItem.getName());
-            holder.getTextView(R.id.recycler_homeshow_text_price)
-                .setText(dataItem.getPrice().toString() + " 元");
-            holder.getButton(R.id.recycler_homeshow_btn_addCart)
-                .setOnClickListener(new View.OnClickListener() {
-                  @Override public void onClick(View v) {
-                    GreenDaoKyHelper.insertOrIncrease(dataItem);
-                    toastUtil.show("已添加到购物车");
-                  }
-                });
+          public void setDataToViewHolder(final SubCategory dataItem, KyBaseViewHolder holder) {
+            holder.getSimpleDraweeView(R.id.recycler_subcategory_draweeview)
+                .setImageURI(Uri.parse(dataItem.getPhotoUrl()));
+            holder.getTextView(R.id.recycler_subcategory_textName).setText(dataItem.getName());
           }
         };
-    recyclerAdapterCommodity.setOnClickListener(
-        new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<Commodity>() {
-          @Override public void Onclick(View v, int adapterPosition, Commodity data) {
-            KLog.d("位置:" + adapterPosition + ",data:" + data.getName());
+    recyclerAdapterSubCategory.setOnClickListener(
+        new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<SubCategory>() {
+          @Override public void Onclick(View v, int adapterPosition, SubCategory data) {
+            Intent intent = new Intent(mContext, SubCategoryActivity.class);
+
+            intent.putExtra("subCategory", data.getName());
+            startActivity(intent);
           }
         });
   }
 
-  @Override public void refreshRecyclerViewData(List<Commodity> list, RefreshType type) {
+  @Override public void refreshRecyclerViewData(List<SubCategory> list, RefreshType type) {
     switch (type) {
       case Refresh:
         swipeRefreshLayout.finishRefresh();
-        if (recyclerAdapterCommodity == null) {
-          initRecyclerCommodityAdapter(list);
+        if (recyclerAdapterSubCategory == null) {
+          initRecyclerSubCategoryAdapter(list);
         } else {
-          recyclerAdapterCommodity.reloadData(list);
+          recyclerAdapterSubCategory.reloadData(list);
         }
         recyclerViewCommodity.scrollToPosition(0);
         break;
 
       case LoadMore:
         swipeRefreshLayout.finishRefreshLoadMore();
-        if (recyclerAdapterCommodity != null) recyclerAdapterCommodity.loadMoreData(list);
+        if (recyclerAdapterSubCategory != null) recyclerAdapterSubCategory.loadMoreData(list);
         break;
     }
   }

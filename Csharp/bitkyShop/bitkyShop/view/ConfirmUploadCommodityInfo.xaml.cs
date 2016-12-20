@@ -15,27 +15,27 @@ namespace bitkyShop.view
     /// <summary>
     /// ConfirmUploadInfo.xaml 的交互逻辑
     /// </summary>
-    public partial class ConfirmUploadInfo : Window
+    public partial class ConfirmUploadCommodityInfo : Window
     {
-        private static ConfirmUploadInfo _confirmUploadInfo;
+        private static ConfirmUploadCommodityInfo _confirmUploadCommodityInfo;
         private Commodity _commodity;
         private string _photoLocalUrl;
         private WebClient _webClient;
         private static ICloudServiceView _window;
 
-        private ConfirmUploadInfo()
+        private ConfirmUploadCommodityInfo()
         {
             InitializeComponent();
-            _confirmUploadInfo = this;
+            _confirmUploadCommodityInfo = this;
         }
 
-        public static ConfirmUploadInfo Builder(ICloudServiceView window)
+        public static ConfirmUploadCommodityInfo Builder(ICloudServiceView window)
         {
             _window = window;
-            return _confirmUploadInfo != null ? _confirmUploadInfo : new ConfirmUploadInfo();
+            return _confirmUploadCommodityInfo != null ? _confirmUploadCommodityInfo : new ConfirmUploadCommodityInfo();
         }
 
-        public ConfirmUploadInfo SetCommodityInfo(Commodity commodity)
+        public ConfirmUploadCommodityInfo SetCommodityInfo(Commodity commodity)
         {
             _commodity = commodity;
             labelName.Content = commodity.Name;
@@ -89,7 +89,10 @@ namespace bitkyShop.view
         {
             DragMove();
         }
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _confirmUploadCommodityInfo = null;
+        }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -111,9 +114,6 @@ namespace bitkyShop.view
             MessageBox.Show("商品上传失败\n错误信息: " + msg, "提示");
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            _confirmUploadInfo = null;
-        }
+     
     }
 }

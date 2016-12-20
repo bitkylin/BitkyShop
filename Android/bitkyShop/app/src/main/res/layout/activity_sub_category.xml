@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_sub_category"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.categrayfragment.SubCategoryActivity"
+    >
+  <cc.bitky.bitkyshop.utils.KyToolBar
+      android:id="@+id/subCategoryActivity_kyToolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@color/colorAccent"
+      app:enableKyNavigationIcon="true"
+      app:title="二级列表"
+      />
+  <com.cjj.MaterialRefreshLayout
+      android:id="@+id/subCategoryActivity_swiperefreshlayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:isLoadMore="true"
+      app:overlay="false"
+      app:progress_colors="@array/material_colors"
+      app:wave_color="#90ffffff"
+      app:wave_height_type="higher"
+      app:wave_show="true"
+      >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/subCategoryActivity_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+  </com.cjj.MaterialRefreshLayout>
+</LinearLayout>

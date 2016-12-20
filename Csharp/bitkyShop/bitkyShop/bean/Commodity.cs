@@ -5,17 +5,17 @@ namespace bitkyShop.bean
 {
     public class Commodity : BmobTable
     {
-        public string BitkyId { set; get; }
-        public BmobInt BitkyMode { set; get; }
-        public string BitkyModeStr { set; get; }
-        public string Promotion { set; get; }
-        public string AD { set; get; }
         public string Category { set; get; }
         public string CategorySub { set; get; }
         public string Name { set; get; }
         public BmobDouble Price { set; get; }
         public BmobInt Count { set; get; }
         public string Details { set; get; }
+        public string Promotion { set; get; }
+        public string AD { set; get; }
+        public string BitkyId { set; get; }
+        public BmobInt BitkyMode { set; get; }
+        public string BitkyModeStr { set; get; }
         public string CoverPhotoUrl { set; get; }
         public List<string> CoverPhotoUrlSet { set; get; }
         public string CoverPhotoName { get; set; }
@@ -26,8 +26,6 @@ namespace bitkyShop.bean
             CategorySub = "";
             BitkyModeStr = "none";
             BitkyId = "default";
-            Promotion = "none";
-            AD = "none";
             BitkyMode = 0;
             CoverPhotoUrlSet = new List<string>();
             CoverPhotoNameSet = new List<string>();

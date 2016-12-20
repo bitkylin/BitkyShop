@@ -1,6 +1,7 @@
 package cc.bitky.bitkyshop.fragment.homefragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import cc.bitky.bitkyshop.CommodityDetailActivity;
+import cc.bitky.bitkyshop.MainActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
 import cc.bitky.bitkyshop.fragment.homefragment.HomeFragmentPresenter.RefreshType;
@@ -46,6 +50,11 @@ public class HomeFragment extends Fragment
   private HomeFragmentPresenter presenter;
   private View view;
   private ToastUtil toastUtil;
+  public static MainActivity _mainActivity;
+
+  public static void setMainActivity(MainActivity mainActivity) {
+    _mainActivity = mainActivity;
+  }
 
   @Override public void onAttach(Context context) {
     super.onAttach(context);
@@ -62,6 +71,20 @@ public class HomeFragment extends Fragment
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     view = inflater.inflate(R.layout.fragment_home, container, false);
+    ImageButton buttonToCategoryFragment =
+        (ImageButton) view.findViewById(R.id.homefragment_buttonToCategoryFragment);
+    ImageButton buttonToHotFragment =
+        (ImageButton) view.findViewById(R.id.homefragment_buttonToHotFragment);
+    buttonToHotFragment.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(1);
+      }
+    });
+    buttonToCategoryFragment.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(2);
+      }
+    });
     initSliderLayout();
     initSlider();
     initSwipeRefreshLayout();
@@ -129,9 +152,7 @@ public class HomeFragment extends Fragment
    */
   private void getBmobSliderData() {
     BmobQuery<Commodity> bmobQuery = new BmobQuery<>();
-    bmobQuery.addWhereEqualTo("BitkyId", "default");
-    bmobQuery.setLimit(3);
-    bmobQuery.findObjects(new FindListener<Commodity>() {
+    bmobQuery.addWhereEqualTo("AD", "true").setLimit(5).findObjects(new FindListener<Commodity>() {
       @Override public void done(List<Commodity> list, BmobException e) {
         if (e != null) {
           KLog.d(TAG, "异常内容：" + e.getMessage());
@@ -203,16 +224,13 @@ public class HomeFragment extends Fragment
     recyclerAdapter.setOnClickListener(
         new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<Commodity>() {
           @Override public void Onclick(View v, int adapterPosition, Commodity data) {
-            KLog.d("点击:位置:" + adapterPosition + "; Name:" + data.getName());
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("commodity", data);
+            Intent intent = new Intent(mContext, CommodityDetailActivity.class);
+            intent.putExtra("bundle", bundle);
+            startActivity(intent);
           }
         });
-    //
-    //if (recyclerView != null) {
-    //  recyclerView.setAdapter(recyclerAdapter);
-    //  recyclerView.setLayoutManager(
-    //      new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-    //  recyclerView.setItemAnimator(new DefaultItemAnimator());
-    //}
   }
 
   @Override public void refleshRecyclerViewData(List<Commodity> list, RefreshType type) {

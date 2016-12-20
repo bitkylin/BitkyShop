@@ -16,8 +16,8 @@ import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.recyclerview.DividerItemDecoration;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
-import cc.bitky.bitkyshop.utils.recyclerview.KyRecyclerViewDivider;
 import cc.bitky.bitkyshop.utils.tools.KySet;
+import com.socks.library.KLog;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +26,6 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
 
   private AddressOptionPresenter presenter;
   private ToastUtil toastUtil;
-  private RecyclerView recyclerView;
   private KyBaseRecyclerAdapter<ReceiveAddress> recyclerAdapter;
   private String objectId;
   private String username;
@@ -44,29 +43,46 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
 
     initRecyclerView();
 
+    //由订单确认页面进入时的初始化
+    int requestCode = getIntent().getIntExtra("requestCode", -1);
+    if (requestCode == KySet.CART_REQUEST_SELECT_RECEIVE_ADDRESS) {
+      kyToolBar.setTitle("点击选择收货地址");
+      recyclerAdapter.setOnClickListener(
+          new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<ReceiveAddress>() {
+            @Override public void Onclick(View v, int adapterPosition, ReceiveAddress data) {
+              Intent intent = getIntent();
+              intent.putExtra("address", data);
+              setResult(KySet.CART_RESULT_SELECT_RECEIVE_ADDRESS, intent);
+              finish();
+            }
+          });
+    }
+
     //初始化本地User对象并获取远端ReceivedAddress
     String objectId = getIntent().getStringExtra("objectId");
-    String username = getIntent().getStringExtra("username");
+    String username = getIntent().getStringExtra("userName");
     if (objectId != null && username != null) {
       this.objectId = objectId;
       this.username = username;
       presenter.getCurrentUserAddress(objectId);
     } else {
+      KLog.d("未知错误");
       toastUtil.show("未知错误");
       finish();
     }
   }
 
   private void initRecyclerView() {
-    recyclerView = (RecyclerView) findViewById(R.id.addressOptionActivity_RecyclerView);
+    RecyclerView recyclerView =
+        (RecyclerView) findViewById(R.id.addressOptionActivity_RecyclerView);
     if (recyclerAdapter == null) {
       initRecyclerViewData(new ArrayList<ReceiveAddress>());
     }
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-    recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+    recyclerView.addItemDecoration(
+        new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
     recyclerView.setAdapter(recyclerAdapter);
-
   }
 
   public void initRecyclerViewData(List<ReceiveAddress> list) {
@@ -147,6 +163,9 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
           ReceiveAddress createdAddress =
               new ReceiveAddress(objectId, username, name, phone, address);
           if (recyclerAdapter.getDataItems().size() == 0) createdAddress.setDefault(true);
+          List<ReceiveAddress> receiveAddresses = new ArrayList<ReceiveAddress>();
+          receiveAddresses.add(createdAddress);
+          recyclerAdapter.loadMoreData(receiveAddresses);
           presenter.insertUserAddress(createdAddress);
         }
     }
@@ -171,6 +190,7 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
    */
   public void initReceiveAddress(List<ReceiveAddress> receiveList) {
     if (receiveList != null && receiveList.size() > 0) {
+      KLog.d("reloadData");
       recyclerAdapter.reloadData(receiveList);
     }
   }
@@ -195,7 +215,6 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
     }
     if (message != null) {
       toastUtil.show(message);
-      return;
     }
   }
 }

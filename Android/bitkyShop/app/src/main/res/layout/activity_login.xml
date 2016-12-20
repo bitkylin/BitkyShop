@@ -17,72 +17,24 @@
       app:titleTextColor="@color/white"
       />
 
-  <LinearLayout
+
+  <android.support.design.widget.TabLayout
+      android:id="@+id/loginActivity_tabLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:padding="20dp"
-      >
-
-    <EditText
-        android:id="@+id/loginActivity_TextView_userName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/edittext_style_grey"
-        android:hint="用户名"
-        android:inputType="text"
-        android:maxLength="18"
-        android:padding="15dp"
-        android:textColorHint="@color/darkgrey"
-        />
-
-    <EditText
-        android:id="@+id/loginActivity_TextView_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittext_style_grey"
-        android:hint="密码"
-        android:inputType="textPassword"
-        android:lines="1"
-        android:maxLength="18"
-        android:padding="15dp"
-        android:textColorHint="@color/darkgrey"
-        />
-    <Button
-        android:id="@+id/loginActivity_btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_btn_style_red"
-        android:text="登录"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        />
-  </LinearLayout>
-
-  <RelativeLayout
+      android:background="@color/colorAccent"
+      app:tabIndicatorColor="@color/white"
+      app:tabSelectedTextColor="@android:color/white"
+      app:tabTextColor="@color/lightgray"
+      />
+  <View
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:paddingLeft="20dp"
-      android:paddingRight="20dp"
-      >
-    <TextView
-        android:id="@+id/loginActivity_TextView_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="注册账号"
-        android:textColor="@color/colorAccent"
-        />
-    <TextView
-        android:id="@+id/loginActivity_TextView_forgetPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:padding="10dp"
-        android:text="忘记密码"
-        android:textColor="@color/colorAccent"
-        />
-  </RelativeLayout>
+      android:layout_height="1dp"
+    android:background="@color/colorAccent"
+      />
+  <android.support.v4.view.ViewPager
+      android:id="@+id/loginActivity_viewPager"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
 </LinearLayout>

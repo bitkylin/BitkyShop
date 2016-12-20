@@ -10,7 +10,7 @@ import com.socks.library.KLog;
 import java.util.List;
 
 public class AddressOptionPresenter {
-  AddressOptionActivity activity;
+  private AddressOptionActivity activity;
 
   public AddressOptionPresenter(AddressOptionActivity activity) {
     this.activity = activity;

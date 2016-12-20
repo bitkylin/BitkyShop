@@ -26,6 +26,7 @@
   <style name="line_vertical" parent="line">
     <item name="android:layout_width">60dp</item>
     <item name="android:layout_height">1dp</item>
+    <item name="android:background">@color/powderblue</item>
   </style>
 
 </resources>

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
   Context mContext;
   List<KyTab> kyTabs = new ArrayList<>(3);
-  FragmentTabHost fragmentTabHost;
+  public FragmentTabHost fragmentTabHost;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void initTab() {
+    HomeFragment.setMainActivity(this);
     KyTab tab_home = new KyTab(HomeFragment.class, "主页", R.drawable.navigationbar_selector_home);
     KyTab tab_hot = new KyTab(HotFragment.class, "便民", R.drawable.navigationbar_selector_hot);
     KyTab tab_category =

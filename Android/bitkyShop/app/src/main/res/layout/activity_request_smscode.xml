@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_request_smscode"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="cc.bitky.bitkyshop.fragment.userfragment.loginfragment.RequestSMSCodeActivity"
+    >
+  <cc.bitky.bitkyshop.utils.KyToolBar
+      android:id="@+id/requestSMSCodeActivity_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:background="@color/colorAccent"
+      app:enableKyNavigationIcon="true"
+      app:title="接收手机验证码"
+      app:titleTextColor="@color/white"
+      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="20dp"
+      >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="20dp"
+        android:text="手机验证码已发送成功,请耐心等待"
+        android:textColor="@color/red"
+        />
+    <EditText
+        android:id="@+id/requestSMSCodeActivity_textView_SMSCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edittext_style_white"
+        android:hint="输入手机验证码"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLength="18"
+        android:padding="15dp"
+        android:textColorHint="@color/darkgrey"
+        />
+    <Button
+        android:id="@+id/requestSMSCodeActivity_btn_loginOrSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_btn_style_red"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        />
+
+
+  </LinearLayout>
+
+</LinearLayout>

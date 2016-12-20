@@ -1,4 +1,4 @@
-package cc.bitky.bitkyshop.fragment.userfragment;
+package cc.bitky.bitkyshop.fragment.userfragment.loginfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.cart.KyUser;
-import cc.bitky.bitkyshop.utils.tools.KySet;
 import cc.bitky.bitkyshop.utils.KyToolBar;
 import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.tools.KyPattern;
+import cc.bitky.bitkyshop.utils.tools.KySet;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
+import rx.Subscriber;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
   ToastUtil toastUtil;
@@ -116,18 +118,20 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
   /**
    * 注册成功调用
    */
-  private void signUpSuccessful(KyUser kyUser) {
-    if (inputPwdStr == null || inputPwdStr.length() == 0) {
-      toastUtil.show("注册时遇到未知错误");
-      return;
-    }
-    Intent intent = new Intent();
-    Bundle bundle = new Bundle();
-    bundle.putString("objectId", kyUser.getObjectId());
-    bundle.putString("username", kyUser.getUsername());
-    bundle.putString("password", inputPwdStr);
-    intent.putExtra("bundle", bundle);
-    setResult(KySet.USER_RESULT_SIGN_UP, intent);
-    finish();
+  private void signUpSuccessful(final KyUser kyUser) {
+    KyUser newKyUser = new KyUser();
+    newKyUser.setHaveDetailInfo(true);
+    newKyUser.update(kyUser.getObjectId(), new UpdateListener() {
+      @Override public void done(BmobException e) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putString("objectId", kyUser.getObjectId());
+        bundle.putString("username", kyUser.getUsername());
+        bundle.putString("password", inputPwdStr);
+        intent.putExtra("bundle", bundle);
+        setResult(KySet.USER_RESULT_SIGN_UP, intent);
+        finish();
+      }
+    });
   }
 }

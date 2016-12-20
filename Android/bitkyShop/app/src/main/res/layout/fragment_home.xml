@@ -33,6 +33,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
         custom:selected_color="#bbf8ff"
         custom:selected_height="8dp"
         custom:selected_padding_left="3dp"
@@ -47,6 +48,32 @@
         />
 
   </RelativeLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      >
+    <ImageButton
+        android:id="@+id/homefragment_buttonToHotFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@mipmap/icon_hot_press"
+        />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+    <ImageButton
+        android:id="@+id/homefragment_buttonToCategoryFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@mipmap/icon_discover_press"
+        />
+
+
+  </LinearLayout>
   <com.cjj.MaterialRefreshLayout
       android:id="@+id/swiperefreshlayout_home_fragment"
       android:layout_width="match_parent"
