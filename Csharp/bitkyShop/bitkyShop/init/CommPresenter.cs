@@ -152,6 +152,19 @@ namespace bitkyShop.init
                 MessageBox.Show("修改成功");
             });
         }
+        public void UpdateOrderToArrived(Order order)
+        {
+            _bmobWindows.Update(order, (responseInfo, exception) =>
+            {
+                if (exception != null)
+                {
+                    Debug.WriteLine("修改失败: " + exception.Message);
+                    MessageBox.Show("修改失败: " + exception.Message);
+                    return;
+                }
+                MessageBox.Show("订单状态已修改成功");
+            });
+        }
 
         public void querySubCategory(string category)
         {

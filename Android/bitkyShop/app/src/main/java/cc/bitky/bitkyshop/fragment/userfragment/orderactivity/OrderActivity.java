@@ -141,10 +141,10 @@ public class OrderActivity extends AppCompatActivity implements View.OnClickList
         btncancel.setVisibility(View.VISIBLE);
         break;
       case Order.CONFIRMED:
-        orderStatus.setText("待收货");
-        orderStatus.setTextColor(mContext.getResources().getColor(R.color.red));
+        orderStatus.setText("商品已送达");
+        orderStatus.setTextColor(mContext.getResources().getColor(R.color.blue));
         btnCompleted.setVisibility(View.VISIBLE);
-        btncancel.setVisibility(View.VISIBLE);
+        btncancel.setVisibility(View.INVISIBLE);
         break;
       case Order.COMPLETED:
         orderStatus.setText("订单已完成");
