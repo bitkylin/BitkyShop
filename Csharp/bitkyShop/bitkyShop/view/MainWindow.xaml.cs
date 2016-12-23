@@ -48,7 +48,7 @@ namespace bitkyShop.view
         /// <param name="respJson">返回Json</param>
         public void OnQiniuUploadCompleted(string key, ResponseInfo respInfo, string respJson)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (respInfo.StatusCode == 200)
                 {
@@ -70,7 +70,7 @@ namespace bitkyShop.view
                 {
                     Debug.WriteLine("图片上传出错");
                 }
-            });
+            }));
         }
 
         /// <summary>
@@ -141,11 +141,10 @@ namespace bitkyShop.view
                     _confirmUploadSubCategoryInfo = ConfirmUploadSubCategoryInfo.Builder(this)
                         .SetSubCategoryInfo(_subCategory);
                     _confirmUploadSubCategoryInfo.Show();
-
                     break;
+                default:
+                    throw new Exception("程序错误，请检查");
             }
-
-            throw new Exception("程序错误，请检查");
         }
 
         public void btnSelectedFile_Click(object sender, RoutedEventArgs e)
@@ -285,7 +284,7 @@ namespace bitkyShop.view
 
         public void orderShow(List<Order> orders)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (orders != null)
                 {
@@ -301,12 +300,12 @@ namespace bitkyShop.view
                     MessageBox.Show("未查询到数据");
                     dataGridOrderInfoShow.ItemsSource = null;
                 }
-            });
+            }));
         }
 
         public void commodityShow(List<Commodity> commodities)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (commodities != null)
                 {
@@ -322,12 +321,12 @@ namespace bitkyShop.view
                     MessageBox.Show("未查询到数据");
                     dataGridOrderInfoShow.ItemsSource = null;
                 }
-            });
+            }));
         }
 
         public void subCategoryShow(List<SubCategory> subCategories)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (subCategories != null)
                 {
@@ -343,7 +342,7 @@ namespace bitkyShop.view
                     MessageBox.Show("未查询到数据");
                     dataGridOrderInfoShow.ItemsSource = null;
                 }
-            });
+            }));
         }
 
         public void updateCommodity(Commodity commodity)
@@ -353,14 +352,14 @@ namespace bitkyShop.view
 
         public void addOrderCommodity(CommodityPcShow commodityPcShow)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 _orderCommoditylist.Add(commodityPcShow);
                 Debug.WriteLine("orderCommoditylist.Count:" + _orderCommoditylist.Count);
 
                 dataGridOrderCommodityInfoShow.ItemsSource = null;
                 dataGridOrderCommodityInfoShow.ItemsSource = _orderCommoditylist;
-            });
+            }));
         }
 
 

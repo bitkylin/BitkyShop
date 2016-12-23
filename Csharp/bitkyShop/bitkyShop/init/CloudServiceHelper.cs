@@ -56,17 +56,16 @@ namespace bitkyShop.init
         }
 
 
-
         /// <summary>
         /// 七牛初始化
         /// </summary>
         private void QiniuInit()
         {
-            
             var policy = new PutPolicy(); // 上传策略实例
             policy.Scope = PresetInfo.bucket; // 设置要上传的目标空间
             policy.SetExpires(86400); // 上传策略的过期时间(单位:秒)，当前设为24小时
-            var zoneId = Qiniu.Common.AutoZone.Query(PresetInfo.QiniuAccessKey, PresetInfo.bucket); // 这里的Zone设置(如果不设置，就默认为华东机房)
+            var zoneId = Qiniu.Common.AutoZone.Query(PresetInfo.QiniuAccessKey, PresetInfo.bucket);
+                // 这里的Zone设置(如果不设置，就默认为华东机房)
             Qiniu.Common.Config.ConfigZone(zoneId);
             var mac = new Mac(PresetInfo.QiniuAccessKey, PresetInfo.QiniuSecretKey);
             _uploadToken = Auth.createUploadToken(policy, mac); // 生成上传凭证
