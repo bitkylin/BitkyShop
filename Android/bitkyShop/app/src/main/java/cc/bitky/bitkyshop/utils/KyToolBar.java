@@ -6,11 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.TintTypedArray;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cc.bitky.bitkyshop.R;
+import com.socks.library.KLog;
 
 public class KyToolBar extends Toolbar {
   private TextView textView;
@@ -19,6 +23,8 @@ public class KyToolBar extends Toolbar {
   private ImageView rightButton;
   private TextView rightTextView;
   private TextView placeHolderTextView;
+  private EditText editText;
+  private OnSearchListener onSearchListener;
 
   public KyToolBar(Context context) {
     this(context, null);
@@ -37,6 +43,7 @@ public class KyToolBar extends Toolbar {
             defStyleAttr, 0);
     final boolean enableKyNavigationIcon =
         a.getBoolean(R.styleable.KyToolbar_enableKyNavigationIcon, true);
+    final boolean enableKySearch = a.getBoolean(R.styleable.KyToolbar_enableKySearch, false);
     final Drawable navIcon = a.getDrawable(R.styleable.KyToolbar_KyNavigationIcon);
     final Drawable rightButtonIcon = a.getDrawable(R.styleable.KyToolbar_setRightButton);
     final String rightText = a.getString(R.styleable.KyToolbar_setRightText);
@@ -45,12 +52,15 @@ public class KyToolBar extends Toolbar {
     setRightButtonIcon(rightButtonIcon);
     enableKyNavigation(enableKyNavigationIcon);
     setRightTextView(rightText);
+    setEnabledSearch(enableKySearch);
     a.recycle();
   }
+
   private void initView() {
     LayoutInflater inflater = LayoutInflater.from(getContext());
     view = inflater.inflate(R.layout.widget_ky_toolbar, this, true);
     textView = (TextView) view.findViewById(R.id.kytoolbar_title);
+    editText = (EditText) view.findViewById(R.id.kytoolbar_editText);
     kyNavigation = (ImageView) view.findViewById(R.id.kytoolbar_navigation);
     rightButton = (ImageView) view.findViewById(R.id.kytoolbar_rightButton);
     rightTextView = (TextView) view.findViewById(R.id.kytoolbar_rightTextView);
@@ -146,11 +156,37 @@ public class KyToolBar extends Toolbar {
     }
   }
 
-
   @Override public void setTitle(CharSequence title) {
     super.setTitle(title);
     if (view == null) initView();
     textView.setText(title);
+  }
+
+  /**
+   * 设置是否启用搜索
+   */
+  public void setEnabledSearch(boolean enabledSearch) {
+    if (enabledSearch) {
+      textView.setVisibility(GONE);
+      editText.setVisibility(VISIBLE);
+      editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+          if (actionId == EditorInfo.IME_ACTION_SEARCH && onSearchListener != null) {
+            onSearchListener.searchListener(editText.getText().toString().trim());
+            return true;
+          }
+          return false;
+        }
+      });
+    }
+  }
+
+  public void setOnSearchListener(OnSearchListener onSearchListener) {
+    this.onSearchListener = onSearchListener;
+  }
+
+  public interface OnSearchListener {
+    void searchListener(String msg);
   }
 }
 

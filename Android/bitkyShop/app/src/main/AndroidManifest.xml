@@ -47,6 +47,8 @@
     </activity>
     <activity android:name=".fragment.categrayfragment.SubCategoryActivity">
     </activity>
+    <activity android:name=".fragment.userfragment.searchActivity.SearchActivity">
+    </activity>
   </application>
 
 </manifest>

@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cc.bitky.bitkyshop.CommodityDetailActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.cart.KyUser;
 import cc.bitky.bitkyshop.fragment.userfragment.addressactivity.AddressOptionActivity;
@@ -23,13 +23,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
   private TextView textViewUserNameShow;
   private TextView textViewUserLogOut;
+  private Button btnLogout;
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     View view = inflater.inflate(R.layout.fragment_user, container, false);
     textViewUserNameShow = (TextView) view.findViewById(R.id.userFragment_userName_show);
-    view.findViewById(R.id.userfragment_button_logout).setOnClickListener(this);
+    btnLogout = (Button) view.findViewById(R.id.userfragment_button_logout);
     textViewUserLogOut = (TextView) view.findViewById(R.id.userFragment_userName_logout);
     LinearLayout cardViewAddress =
         (LinearLayout) view.findViewById(R.id.userFragment_addressCardView);
@@ -37,6 +38,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     textViewUserNameShow.setOnClickListener(this);
     textViewUserLogOut.setOnClickListener(this);
+    btnLogout.setOnClickListener(this);
     cardViewAddress.setOnClickListener(this);
     cardViewOrder.setOnClickListener(this);
     initCurrentUser();
@@ -56,9 +58,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         textViewUserNameShow.setText(username);
       }
       textViewUserLogOut.setVisibility(View.VISIBLE);
+      btnLogout.setVisibility(View.VISIBLE);
     } else {
       textViewUserNameShow.setText("点击登录");
       textViewUserLogOut.setVisibility(View.GONE);
+      btnLogout.setVisibility(View.GONE);
     }
   }
 
@@ -66,9 +70,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     super.onActivityResult(requestCode, resultCode, data);
     switch (resultCode) {
       case KySet.USER_RESULT_LOG_IN:
-        //Bundle bundle = data.getBundleExtra("bundle");
-        //String objectId = bundle.getString("objectId");
-        //String username = bundle.getString("username");
         initCurrentUser();
         break;
     }
@@ -84,9 +85,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     switch (v.getId()) {
       case R.id.userFragment_userName_show:
       case R.id.userFragment_userName_logout:
+      case R.id.userfragment_button_logout:
         textViewUserNameShow.setText("点击登录");
         BmobUser.logOut();
         textViewUserLogOut.setVisibility(View.GONE);
+        btnLogout.setVisibility(View.GONE);
+
         break;
       case R.id.userFragment_addressCardView:
         Intent intentAddress = new Intent(getContext(), AddressOptionActivity.class);
@@ -99,10 +103,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         intentOrder.putExtra("objectId", KyBmobHelper.getCurrentUser().getObjectId());
         intentOrder.putExtra("userName", KyBmobHelper.getCurrentUser().getUsername());
         startActivity(intentOrder);
-        break;
-      case R.id.userfragment_button_logout:
-        Intent intent = new Intent(getContext(), CommodityDetailActivity.class);
-        startActivity(intent);
         break;
     }
   }

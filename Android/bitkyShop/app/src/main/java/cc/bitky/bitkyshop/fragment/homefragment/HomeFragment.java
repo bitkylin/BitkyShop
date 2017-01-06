@@ -18,6 +18,7 @@ import cc.bitky.bitkyshop.MainActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
 import cc.bitky.bitkyshop.fragment.homefragment.HomeFragmentPresenter.RefreshType;
+import cc.bitky.bitkyshop.fragment.userfragment.searchActivity.SearchActivity;
 import cc.bitky.bitkyshop.globalDeploy.GreenDaoKyHelper;
 import cc.bitky.bitkyshop.utils.KyLog;
 import cc.bitky.bitkyshop.utils.ToastUtil;
@@ -71,6 +72,15 @@ public class HomeFragment extends Fragment
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     view = inflater.inflate(R.layout.fragment_home, container, false);
+
+    ImageButton btnSearch = (ImageButton) view.findViewById(R.id.homefragment_btnSearch);
+    btnSearch.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent intent = new Intent(mContext, SearchActivity.class);
+        startActivity(intent);
+      }
+    });
+
     ImageButton buttonToCategoryFragment =
         (ImageButton) view.findViewById(R.id.homefragment_buttonToCategoryFragment);
     ImageButton buttonToHotFragment =
@@ -99,7 +109,7 @@ public class HomeFragment extends Fragment
     }
     recyclerView.setAdapter(recyclerAdapter);
     recyclerView.setLayoutManager(
-        new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
     presenter.refreshRecyclerAdapterData(RefreshType.Refresh);
   }

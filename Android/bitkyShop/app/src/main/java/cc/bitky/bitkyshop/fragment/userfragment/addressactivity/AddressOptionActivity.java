@@ -80,8 +80,8 @@ public class AddressOptionActivity extends AppCompatActivity implements View.OnC
     }
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setItemAnimator(new DefaultItemAnimator());
-    recyclerView.addItemDecoration(
-        new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+    //recyclerView.addItemDecoration(
+    //    new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
     recyclerView.setAdapter(recyclerAdapter);
   }
 

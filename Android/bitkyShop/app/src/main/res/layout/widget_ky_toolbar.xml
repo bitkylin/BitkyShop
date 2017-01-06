@@ -29,6 +29,22 @@
       android:textColor="@color/white"
       android:textSize="20sp"
       />
+  <EditText
+      android:id="@+id/kytoolbar_editText"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginBottom="2dp"
+      android:layout_marginTop="2dp"
+      android:layout_weight="1"
+      android:background="@color/semiTransparent"
+      android:gravity="center"
+      android:hint="输入要搜索的商品"
+      android:imeOptions="actionSearch"
+      android:inputType="text"
+      android:lines="1"
+      android:visibility="gone"
+      />
   <TextView
       android:id="@+id/kytoolbar_rightTextView"
       android:layout_width="wrap_content"
