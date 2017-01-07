@@ -63,10 +63,8 @@ public class MainActivity extends AppCompatActivity {
     View view = LayoutInflater.from(mContext).inflate(R.layout.tab_indicator, null);
     ImageView img = (ImageView) view.findViewById(R.id.icon_tab);
     TextView text = (TextView) view.findViewById(R.id.txt_indicator);
-
     img.setBackgroundResource(tab.getIcon());
     text.setText(tab.getTitle());
-
     return view;
   }
 }

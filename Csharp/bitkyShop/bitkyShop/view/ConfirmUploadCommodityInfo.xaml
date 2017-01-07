@@ -9,7 +9,7 @@
     <Grid>
         <Image x:Name="imageShow" Height="189" Margin="10,31,10,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="商品信息上传确认" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="btnClose" Content="X" HorizontalAlignment="Left" Margin="360,0,0,0" VerticalAlignment="Top" Width="40" Height="26" Background="#BFFF0000" BorderBrush="#FFFF6E00" Click="btnClose_Click"/>
+        <Button x:Name="btnClose" Content="X" HorizontalAlignment="Right" Margin="0,0,0.2,0" VerticalAlignment="Top" Width="40" Height="26" Background="#BFFF0000" BorderBrush="#FFFF6E00" Click="btnClose_Click"/>
         <Label x:Name="label1" Content="名称：" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Copy" Content="类别：" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Copy1" Content="价格：" HorizontalAlignment="Left" Margin="10,316,0,0" VerticalAlignment="Top"/>

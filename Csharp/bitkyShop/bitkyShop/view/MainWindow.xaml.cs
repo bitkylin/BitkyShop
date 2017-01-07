@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Windows;
 using bitkyShop.bean;
 using bitkyShop.bean.beanShow;
@@ -26,18 +24,18 @@ namespace bitkyShop.view
         private string _filePathSubcategory = string.Empty;
         private UploadPhotoType _currentUploadPhotoType = UploadPhotoType.Commodity;
         private SubCategory _subCategory;
-        List<OrderShow> orderShows = new List<OrderShow>();
-        private List<CommodityPcShow> orderCommoditylist = new List<CommodityPcShow>();
-        List<Commodity> _commodities = new List<Commodity>();
-        List<SubCategory> _subCategories = new List<SubCategory>();
+        private readonly List<OrderShow> _orderShows = new List<OrderShow>();
+        private readonly List<CommodityPcShow> _orderCommoditylist = new List<CommodityPcShow>();
+        private readonly List<Commodity> _commodities = new List<Commodity>();
+        private readonly List<SubCategory> _subCategories = new List<SubCategory>();
 
         public MainWindow()
         {
             InitializeComponent();
             _presenter = new CommPresenter(this);
 
-            dataGridOrderInfoShow.ItemsSource = orderShows;
-            dataGridOrderCommodityInfoShow.ItemsSource = orderCommoditylist;
+            dataGridOrderInfoShow.ItemsSource = _orderShows;
+            dataGridOrderCommodityInfoShow.ItemsSource = _orderCommoditylist;
             dataGridCommodity.ItemsSource = _commodities;
             dataGridSubCategory.ItemsSource = _subCategories;
         }
@@ -50,7 +48,7 @@ namespace bitkyShop.view
         /// <param name="respJson">返回Json</param>
         public void OnQiniuUploadCompleted(string key, ResponseInfo respInfo, string respJson)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (respInfo.StatusCode == 200)
                 {
@@ -72,7 +70,7 @@ namespace bitkyShop.view
                 {
                     Debug.WriteLine("图片上传出错");
                 }
-            });
+            }));
         }
 
         /// <summary>
@@ -143,11 +141,10 @@ namespace bitkyShop.view
                     _confirmUploadSubCategoryInfo = ConfirmUploadSubCategoryInfo.Builder(this)
                         .SetSubCategoryInfo(_subCategory);
                     _confirmUploadSubCategoryInfo.Show();
-
                     break;
+                default:
+                    throw new Exception("程序错误，请检查");
             }
-
-            throw new Exception("程序错误，请检查");
         }
 
         public void btnSelectedFile_Click(object sender, RoutedEventArgs e)
@@ -249,11 +246,13 @@ namespace bitkyShop.view
         {
             if (btnQueryOrder.Content.Equals("开始查询"))
             {
+                btnQueryOrderCategory.IsEnabled = false;
                 btnQueryOrder.Content = "停止查询";
                 _presenter.queryOrderInLoop();
             }
             else
             {
+                btnQueryOrderCategory.IsEnabled = true;
                 btnQueryOrder.Content = "开始查询";
                 _presenter.stopQueryOrderInLoop();
             }
@@ -285,28 +284,28 @@ namespace bitkyShop.view
 
         public void orderShow(List<Order> orders)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (orders != null)
                 {
-                    orderShows.Clear();
+                    _orderShows.Clear();
                     labelOrderStatusShow.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "     " + "共查询到" +
                                                    orders.Count + "条数据";
-                    orders.ForEach(order => { orderShows.Add(new OrderShow(order)); });
+                    orders.ForEach(order => { _orderShows.Add(new OrderShow(order)); });
                     dataGridOrderInfoShow.ItemsSource = null;
-                    dataGridOrderInfoShow.ItemsSource = orderShows;
+                    dataGridOrderInfoShow.ItemsSource = _orderShows;
                 }
                 else
                 {
                     MessageBox.Show("未查询到数据");
                     dataGridOrderInfoShow.ItemsSource = null;
                 }
-            });
+            }));
         }
 
         public void commodityShow(List<Commodity> commodities)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (commodities != null)
                 {
@@ -322,12 +321,12 @@ namespace bitkyShop.view
                     MessageBox.Show("未查询到数据");
                     dataGridOrderInfoShow.ItemsSource = null;
                 }
-            });
+            }));
         }
 
         public void subCategoryShow(List<SubCategory> subCategories)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
                 if (subCategories != null)
                 {
@@ -343,7 +342,7 @@ namespace bitkyShop.view
                     MessageBox.Show("未查询到数据");
                     dataGridOrderInfoShow.ItemsSource = null;
                 }
-            });
+            }));
         }
 
         public void updateCommodity(Commodity commodity)
@@ -353,18 +352,18 @@ namespace bitkyShop.view
 
         public void addOrderCommodity(CommodityPcShow commodityPcShow)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(new Action(() =>
             {
-                orderCommoditylist.Add(commodityPcShow);
-                Debug.WriteLine("orderCommoditylist.Count:" + orderCommoditylist.Count);
+                _orderCommoditylist.Add(commodityPcShow);
+                Debug.WriteLine("orderCommoditylist.Count:" + _orderCommoditylist.Count);
 
                 dataGridOrderCommodityInfoShow.ItemsSource = null;
-                dataGridOrderCommodityInfoShow.ItemsSource = orderCommoditylist;
-            });
+                dataGridOrderCommodityInfoShow.ItemsSource = _orderCommoditylist;
+            }));
         }
 
 
-        internal enum UploadPhotoType
+        private enum UploadPhotoType
         {
             Commodity,
             Subcategory
@@ -372,7 +371,7 @@ namespace bitkyShop.view
 
         private void dataGridOrderInfoShow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            orderCommoditylist.Clear();
+            _orderCommoditylist.Clear();
             var item = dataGridOrderInfoShow.SelectedItem as OrderShow;
             if (item == null)
             {
@@ -413,14 +412,13 @@ namespace bitkyShop.view
 
         private void btnDeleteSubCategory_Click(object sender, RoutedEventArgs e)
         {
-            
             SubCategory subCategory = dataGridSubCategory.SelectedItem as SubCategory;
             if (subCategory == null)
             {
                 MessageBox.Show("请选择一条二级类别信息");
                 return;
             }
-            _presenter.DeleteItemFromBomb("SubCategory",subCategory.objectId);
+            _presenter.DeleteItemFromBomb("SubCategory", subCategory.objectId);
         }
 
         private void btnQuerySubCategory_Click(object sender, RoutedEventArgs e)
@@ -431,7 +429,15 @@ namespace bitkyShop.view
 
         private void btnDeleteCommodity_Click(object sender, RoutedEventArgs e)
         {
-
+            if (
+                MessageBox.Show(
+                    "注意：没有特殊原因不要删除商品，删除商品会可能导致手机App的信息显示出现不可预测的问题。\r\n如果不想在手机App中显示，请将此商品的数量修改为0\r\n您确定要删除本商品吗？", "警告",
+                    MessageBoxButton.OKCancel) == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            {
+            }
             Commodity commodity = dataGridCommodity.SelectedItem as Commodity;
             if (commodity == null)
             {
@@ -439,6 +445,20 @@ namespace bitkyShop.view
                 return;
             }
             _presenter.DeleteItemFromBomb("Commodity", commodity.objectId);
+        }
+
+        private void btnQueryOrderMarkArrived_Click(object sender, RoutedEventArgs e)
+        {
+            OrderShow orderShow = dataGridOrderInfoShow.SelectedItem as OrderShow;
+            if (orderShow == null)
+            {
+                MessageBox.Show("请选择一条订单");
+                return;
+            }
+            Order order = new Order();
+            order.objectId = orderShow.objectId;
+            order.status = OrderStatus.已送达;
+            _presenter.UpdateOrderToArrived(order);
         }
     }
 }

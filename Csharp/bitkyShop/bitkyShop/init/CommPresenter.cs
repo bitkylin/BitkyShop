@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Diagnostics;
 using System.Timers;
 using System.Windows;
@@ -19,6 +18,7 @@ namespace bitkyShop.init
         private readonly CloudServiceHelper _cloudServiceHelper;
         private readonly BmobWindows _bmobWindows;
         private Timer _timer;
+        private List<Order> holdingOrders;
 
         public CommPresenter(ICloudServiceView view)
         {
@@ -48,7 +48,7 @@ namespace bitkyShop.init
             }
             else
             {
-                Debug.WriteLine("上传失败:" + fature.Exception.Message + ";" + fature.Exception.HResult);
+                Debug.WriteLine("上传失败:" + fature.Exception.Message);
                 _view.OnBmobUploadCompleted(1, fature.Exception.Message);
             }
         }
@@ -56,6 +56,7 @@ namespace bitkyShop.init
         public void queryOrderInLoop()
         {
             _timer.Enabled = true;
+            holdingOrders = new List<Order>();
             QueryOrder(OrderStatus.已下单);
         }
 
@@ -88,11 +89,36 @@ namespace bitkyShop.init
             {
                 if (ex != null)
                 {
-                    Debug.WriteLine("查询出错:" + ex.Message + "," + ex.HResult);
+                    Debug.WriteLine("查询出错:" + ex.Message);
                     return;
                 }
                 var orders = resp.results;
                 _view.orderShow(orders);
+                //对比前后订单列表的不同
+                if (orderStatus == OrderStatus.已下单)
+                {
+                    Debug.WriteLine("检索已下单");
+                    orders.ForEach(order =>
+                    {
+                        var objectId = order.objectId;
+                        var isNew = true;
+
+                        holdingOrders.ForEach(holdOrder =>
+                        {
+                            if (objectId.Equals(holdOrder.objectId))
+                            {
+                                isNew = false;
+                            }
+                        });
+                        if (isNew)
+                        {
+                            Debug.WriteLine("有新订单来了，请注意查收");
+                            var sndPlayer = new System.Media.SoundPlayer(@"./resource/kyOrderSound");
+                            sndPlayer.Play();
+                        }
+                    });
+                    holdingOrders = orders;
+                }
             });
         }
 
@@ -106,7 +132,7 @@ namespace bitkyShop.init
                     {
                         if (ex != null)
                         {
-                            Debug.WriteLine("错误:" + ex.Message + "," + ex.HResult);
+                            Debug.WriteLine("错误:" + ex.Message);
                         }
                         else
                         {
@@ -131,7 +157,7 @@ namespace bitkyShop.init
             {
                 if (ex != null)
                 {
-                    Debug.WriteLine("查询出错:" + ex.Message + "," + ex.HResult);
+                    Debug.WriteLine("查询出错:" + ex.Message);
                     return;
                 }
                 var commodities = resp.results;
@@ -153,6 +179,20 @@ namespace bitkyShop.init
             });
         }
 
+        public void UpdateOrderToArrived(Order order)
+        {
+            _bmobWindows.Update(order, (responseInfo, exception) =>
+            {
+                if (exception != null)
+                {
+                    Debug.WriteLine("修改失败: " + exception.Message);
+                    MessageBox.Show("修改失败: " + exception.Message);
+                    return;
+                }
+                MessageBox.Show("订单状态已修改成功");
+            });
+        }
+
         public void querySubCategory(string category)
         {
             var bmobQuery = new BmobQuery();
@@ -164,8 +204,8 @@ namespace bitkyShop.init
             {
                 if (ex != null)
                 {
-                    Debug.WriteLine("查询出错:" + ex.Message + "," + ex.HResult);
-                    MessageBox.Show("查询出错:" + ex.Message + "," + ex.HResult);
+                    Debug.WriteLine("查询出错:" + ex.Message);
+                    MessageBox.Show("查询出错:" + ex.Message);
                     return;
                 }
                 var subCategories = resp.results;

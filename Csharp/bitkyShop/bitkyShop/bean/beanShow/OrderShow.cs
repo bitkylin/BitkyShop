@@ -13,6 +13,7 @@ namespace bitkyShop.bean.beanShow
         public int 商品种类数 { get; set; }
         public int 商品总数 { get; set; }
         public List<CommodityOrder> commodityList { get; set; }
+        public string objectId { get; set; }
 
 
         public OrderShow(Order order)
@@ -21,6 +22,7 @@ namespace bitkyShop.bean.beanShow
             姓名 = order.name;
             电话 = order.phone;
             地址 = order.address;
+            objectId = order.objectId;
             int status = order.status.Get();
 
             switch (status)

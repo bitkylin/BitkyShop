@@ -8,7 +8,7 @@
         Title="确认商品信息上传" Height="410.8" Width="445" MinWidth="400" MinHeight="450" Topmost="True" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None"  BorderBrush="#FF000CFF" BorderThickness="1"  MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid>
         <Label Content="商品信息修改" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="btnClose" Content="X" HorizontalAlignment="Left" Margin="403,0,0,0" VerticalAlignment="Top" Width="40" Height="26" Background="#BFFF0000" BorderBrush="#FFFF6E00" Click="btnClose_Click" />
+        <Button x:Name="btnClose" Content="X" HorizontalAlignment="Right" Margin="0,0,0.2,0" VerticalAlignment="Top" Width="40" Height="26" Background="#BFFF0000" BorderBrush="#FFFF6E00" Click="btnClose_Click" />
         <Label  Content="名称：" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Width="105"/>
         <Button x:Name="btnConfirmUpdate" Content="确认修改" HorizontalAlignment="Left" Margin="150,380,0,0" VerticalAlignment="Top" Width="110" Height="25" Click="btnConfirmUpdate_Click"  />
         <TextBox x:Name="textBoxName" HorizontalAlignment="Left" Height="26" Margin="120,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="313" VerticalContentAlignment="Center"/>

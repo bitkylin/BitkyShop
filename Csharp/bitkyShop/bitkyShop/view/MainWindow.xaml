@@ -202,6 +202,8 @@
                         <ComboBoxItem Content="已送达" />
                         <ComboBoxItem Content="已确认收货" />
                     </ComboBox>
+                    <Button x:Name="btnQueryOrderMarkArrived" Content="设为已送达" HorizontalAlignment="Left"
+                        Margin="281,0,0,65" VerticalAlignment="Bottom" Width="110" Height="36" Click="btnQueryOrderMarkArrived_Click" />
                 </Grid>
             </TabItem>
             <TabItem Background="#669EE4FF" Height="30" Width="120" Header="关于">

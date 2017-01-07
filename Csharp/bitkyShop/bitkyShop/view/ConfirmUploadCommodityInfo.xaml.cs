@@ -45,11 +45,11 @@ namespace bitkyShop.view
             labelPrice.Content = commodity.Price;
             textBlockDetails.Text = commodity.Details;
             var builder = new StringBuilder();
-            if (commodity.Promotion.Equals("true"))
+            if (commodity.Promotion != null && commodity.Promotion.Equals("true"))
             {
                 builder.AppendLine("已促销");
             }
-            if (commodity.AD.Equals("true"))
+            if (commodity.AD != null && commodity.AD.Equals("true"))
             {
                 builder.AppendLine("已设为广告");
             }
@@ -89,10 +89,12 @@ namespace bitkyShop.view
         {
             DragMove();
         }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             _confirmUploadCommodityInfo = null;
         }
+
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -113,7 +115,5 @@ namespace bitkyShop.view
         {
             MessageBox.Show("商品上传失败\n错误信息: " + msg, "提示");
         }
-
-     
     }
 }
