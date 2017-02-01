@@ -74,26 +74,20 @@ public class HomeFragment extends Fragment
     view = inflater.inflate(R.layout.fragment_home, container, false);
 
     ImageButton btnSearch = (ImageButton) view.findViewById(R.id.homefragment_btnSearch);
-    btnSearch.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        Intent intent = new Intent(mContext, SearchActivity.class);
-        startActivity(intent);
-      }
+    btnSearch.setOnClickListener(v -> {
+      Intent intent = new Intent(mContext, SearchActivity.class);
+      startActivity(intent);
     });
 
     ImageButton buttonToCategoryFragment =
         (ImageButton) view.findViewById(R.id.homefragment_buttonToCategoryFragment);
     ImageButton buttonToHotFragment =
         (ImageButton) view.findViewById(R.id.homefragment_buttonToHotFragment);
-    buttonToHotFragment.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(1);
-      }
+    buttonToHotFragment.setOnClickListener(v -> {
+      if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(1);
     });
-    buttonToCategoryFragment.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(2);
-      }
+    buttonToCategoryFragment.setOnClickListener(v -> {
+      if (_mainActivity != null) _mainActivity.fragmentTabHost.setCurrentTab(2);
     });
     initSliderLayout();
     initSlider();
@@ -105,7 +99,7 @@ public class HomeFragment extends Fragment
   private void initRecyclerView() {
     recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_home_fragment);
     if (recyclerAdapter == null) {
-      initRecyclerViewData(new ArrayList<Commodity>());
+      initRecyclerViewData(new ArrayList<>());
     }
     recyclerView.setAdapter(recyclerAdapter);
     recyclerView.setLayoutManager(
