@@ -1,6 +1,4 @@
-
-
-## 功能说明
+## [功能说明](https://github.com/bitkylin/BitkyShop/wiki)
 
 - 一套完整的线上商品浏览及线下交易系统
 
@@ -14,7 +12,7 @@
 
 - 商家可通过电脑端上传及修改商品信息，管理订单数据、及时接收用户的订单等
 
-## 技术与架构
+## [技术与架构](https://github.com/bitkylin/BitkyShop/wiki/%E6%8A%80%E6%9C%AF%E4%B8%8E%E6%9E%B6%E6%9E%84)
 
 ### 云服务
 
@@ -39,6 +37,11 @@ Android 手机端和 .NET 电脑端均使用如下云服务，并通过如下云
 - 完善的商家管理端，商家可通过电脑端上传及修改商品信息，管理订单数据、及时接收用户的订单等
 
 - 商家可通过电脑端实时查看用户所下的订单，并设置订单状态，和用户在线下完成商品交易后在系统中确认交易完成
+
+## [Wiki](https://github.com/bitkylin/BitkyShop/wiki)
+
+项目详情请参见 Wiki
+
 
 ## 项目展示
 
@@ -85,6 +88,30 @@ Android 手机端和 .NET 电脑端均使用如下云服务，并通过如下云
 用户订单管理：查看并操作用户的订单
 
 ![用户订单管理](./mdphoto/main/desktop2.png)
+
+## [License](https://github.com/bitkylin/BitkyShop/blob/master/LICENSE)
+
+> MIT License
+> 
+> Copyright (c) 2017 123lml123
+> 
+> Permission is hereby granted, free of charge, to any person obtaining a copy
+> of this software and associated documentation files (the "Software"), to deal
+> in the Software without restriction, including without limitation the rights
+> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+> copies of the Software, and to permit persons to whom the Software is
+> furnished to do so, subject to the following conditions:
+> 
+> The above copyright notice and this permission notice shall be included in all
+> copies or substantial portions of the Software.
+> 
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+> SOFTWARE.
 
 ## 关于我
 
