@@ -1,3 +1,9 @@
+# 线上商品浏览及线下交易系统
+
+[![GitHub stars](https://img.shields.io/github/stars/bitkylin/MapForTour.svg)](https://github.com/bitkylin/MapForTour/stargazers)
+[![GitHub wiki](https://img.shields.io/badge/publish-Wiki-brightgreen.svg)](https://github.com/bitkylin/MapForTour/wiki)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/bitkylin/BitkyShop/blob/master/LICENSE)
+
 ## [功能说明](https://github.com/bitkylin/BitkyShop/wiki)
 
 - 一套完整的线上商品浏览及线下交易系统
@@ -41,6 +47,16 @@ Android 手机端和 .NET 电脑端均使用如下云服务，并通过如下云
 ## [Wiki](https://github.com/bitkylin/BitkyShop/wiki)
 
 项目详情请参见 Wiki
+
+### 1. [项目简介](https://github.com/bitkylin/BitkyShop/wiki)
+
+### 2. [技术与架构](https://github.com/bitkylin/BitkyShop/wiki/技术与架构)
+
+### 3. [商品信息上传](https://github.com/bitkylin/BitkyShop/wiki/商品信息上传)
+
+### 4. [商品信息查询与修改](https://github.com/bitkylin/BitkyShop/wiki/商品信息查询与修改)
+
+### 5. [订单信息查询与修改](https://github.com/bitkylin/BitkyShop/wiki/订单信息查询与修改)
 
 
 ## 项目展示
