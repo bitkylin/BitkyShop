@@ -2,7 +2,7 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/bitkylin/MapForTour.svg)](https://github.com/bitkylin/MapForTour/stargazers)
 [![GitHub wiki](https://img.shields.io/badge/publish-Wiki-brightgreen.svg)](https://github.com/bitkylin/MapForTour/wiki)
-[![许可证](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bitkylin/BitkyShop/master/LICENSE)
+[![许可证](https://img.shields.io/badge/许可证-Apache-blue.svg)](https://raw.githubusercontent.com/bitkylin/BitkyShop/master/LICENSE)
 
 ## [功能说明](https://github.com/bitkylin/BitkyShop/wiki)
 
