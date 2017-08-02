@@ -1,123 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_one"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="cc.bitky.bitkyshop.fragment.homefragment.HomeFragment"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:custom="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/fragment_one"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context="cc.bitky.bitkyshop.fragment.homefragment.HomeFragment">
 
   <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="180dp"
-      android:layout_marginLeft="20dp"
-      android:layout_marginRight="20dp"
-      >
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp">
 
     <com.daimajia.slider.library.SliderLayout
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+      android:id="@+id/slider"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
     </com.daimajia.slider.library.SliderLayout>
 
     <com.daimajia.slider.library.Indicators.PagerIndicator
-        android:id="@+id/custom_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_vertical"
-        custom:selected_color="#bbf8ff"
-        custom:selected_height="8dp"
-        custom:selected_padding_left="3dp"
-        custom:selected_padding_right="3dp"
-        custom:selected_width="8dp"
-        custom:shape="oval"
-        custom:unselected_color="#c8ffffff"
-        custom:unselected_height="4dp"
-        custom:unselected_padding_left="3dp"
-        custom:unselected_padding_right="3dp"
-        custom:unselected_width="4dp"
-        />
+      android:id="@+id/custom_indicator"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentEnd="true"
+      android:layout_marginBottom="10dp"
+      android:layout_marginEnd="10dp"
+      android:gravity="center_vertical"
+      custom:selected_color="#bbf8ff"
+      custom:selected_height="8dp"
+      custom:selected_padding_left="3dp"
+      custom:selected_padding_right="3dp"
+      custom:selected_width="8dp"
+      custom:shape="oval"
+      custom:unselected_color="#c8ffffff"
+      custom:unselected_height="4dp"
+      custom:unselected_padding_left="3dp"
+      custom:unselected_padding_right="3dp"
+      custom:unselected_width="4dp" />
 
   </RelativeLayout>
+
   <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="60dp"
-      >
+
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:visibility="gone">
+
     <ImageButton
-        android:layout_marginLeft="20dp"
-        android:id="@+id/homefragment_buttonToHotFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@mipmap/icon_hot_press"
-        />
+      android:id="@+id/homefragment_buttonToHotFragment"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_marginLeft="20dp"
+      android:layout_weight="1"
+      android:src="@mipmap/icon_hot_press" />
+
     <View
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1" />
+
     <ImageButton
-        android:layout_marginRight="20dp"
-        android:id="@+id/homefragment_buttonToCategoryFragment"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@mipmap/icon_discover_press"
-        />
+      android:id="@+id/homefragment_buttonToCategoryFragment"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_marginRight="20dp"
+      android:layout_weight="1"
+      android:src="@mipmap/icon_discover_press" />
 
 
   </LinearLayout>
+
   <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:paddingLeft="50dp"
-      android:paddingRight="50dp"
-      >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:visibility="gone">
 
     <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        />
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1" />
 
     <ImageButton
-        android:id="@+id/homefragment_btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@color/white"
-        android:src="@mipmap/icon_search"
-        />
+      android:id="@+id/homefragment_btnSearch"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:background="@color/white"
+      android:src="@mipmap/icon_search" />
 
   </LinearLayout>
+
   <com.cjj.MaterialRefreshLayout
-      android:id="@+id/swiperefreshlayout_home_fragment"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:isLoadMore="true"
-      app:overlay="false"
-      app:progress_colors="@array/material_colors"
-      app:wave_color="#90ffffff"
-      app:wave_height_type="higher"
-      app:wave_show="true"
-      >
+    android:id="@+id/swiperefreshlayout_home_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:isLoadMore="true"
+    app:overlay="false"
+    app:progress_colors="@array/material_colors"
+    app:wave_color="#90ffffff"
+    app:wave_height_type="higher"
+    app:wave_show="true">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_home_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+      android:id="@+id/recyclerView_home_fragment"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
   </com.cjj.MaterialRefreshLayout>
 
 </LinearLayout>

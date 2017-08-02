@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources >
     <!-- style for MaterialRefreshLayout  -->
     <declare-styleable name="MaterialRefreshLayout">
         <attr name="overlay" format="boolean"/>

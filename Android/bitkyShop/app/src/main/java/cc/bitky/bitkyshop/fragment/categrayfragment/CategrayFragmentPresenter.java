@@ -79,20 +79,30 @@ public class CategrayFragmentPresenter {
   public List<String> getCategrayNames() {
     if (categrayNames == null || categrayNames.size() > 0) {
       List<String> strings = new ArrayList<>();
-      strings.add("烟酒饮料");
-      strings.add("美容洗护");
-      strings.add("家居用品");
-      strings.add("方便速食");
-      strings.add("粮油米类");
-      strings.add("厨具");
-      strings.add("学习用品");
+      strings.add("烟、酒");
+      strings.add("水、饮料");
+      strings.add("牛奶、面包");
+      strings.add("休闲食品");
+      strings.add("饼干糕点");
+      strings.add("冲调、粥");
+      strings.add("火腿、面条");
+      strings.add("洗漱用品");
+      strings.add("床上用品");
+      strings.add("个人护理");
+      strings.add("生活日用");
+      strings.add("纸品湿巾");
+      strings.add("粮油调料");
+      strings.add("礼品、饰品");
+      strings.add("手机配件");
+      strings.add("电脑配件");
 
-      //strings.add("洗浴用品");
-      //strings.add("书籍");
-      //strings.add("零食速食");
-      //strings.add("饮品酒水");
-      //strings.add("生活用品");
-      //strings.add("学习用品");
+//      strings.add("烟酒饮料");
+//      strings.add("美容洗护");
+//      strings.add("家居用品");
+//      strings.add("方便速食");
+//      strings.add("粮油米类");
+//      strings.add("厨具");
+//      strings.add("学习用品");
       return strings;
     }
     return categrayNames;

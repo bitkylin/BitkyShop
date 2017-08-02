@@ -313,7 +313,7 @@ public class CircleProgressBar extends ImageView implements MaterialHeadListener
     public void setBackgroundColor(int colorRes) {
         if (getBackground() instanceof ShapeDrawable) {
             final Resources res = getResources();
-            ((ShapeDrawable) getBackground()).getPaint().setColor(res.getColor(colorRes));
+          //  ((ShapeDrawable) getBackground()).getPaint().setColor(res.getColor(colorRes));
         }
     }
 
