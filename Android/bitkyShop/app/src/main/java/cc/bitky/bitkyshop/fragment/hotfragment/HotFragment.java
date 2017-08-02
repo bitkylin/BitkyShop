@@ -1,5 +1,7 @@
 package cc.bitky.bitkyshop.fragment.hotfragment;
 
+import com.google.gson.Gson;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +15,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
+import com.socks.library.KLog;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cc.bitky.bitkyshop.CommodityDetailActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
@@ -22,12 +32,6 @@ import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
-import com.google.gson.Gson;
-import com.socks.library.KLog;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HotFragment extends Fragment implements IHotFragment {
 
@@ -40,19 +44,22 @@ public class HotFragment extends Fragment implements IHotFragment {
   private KyBaseRecyclerAdapter<Commodity> recyclerAdapterCommodity;
   private RecyclerView recyclerViewCommodity;
 
-  @Override public void onAttach(Context context) {
+  @Override
+  public void onAttach(Context context) {
     super.onAttach(context);
     mContext = context;
     toastUtil = new ToastUtil(mContext);
   }
 
-  @Override public void onCreate(@Nullable Bundle savedInstanceState) {
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.presenter = new HotFragmentPresenter(this);
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     KLog.d("onCreateView");
     view = inflater.inflate(R.layout.fragment_hot, container, false);
@@ -88,13 +95,15 @@ public class HotFragment extends Fragment implements IHotFragment {
       List<String> categrayNames = presenter.getCategoryNames();
       recyclerAdapterCategoryStr = new KyBaseRecyclerAdapter<String>(categrayNames,
           R.layout.recycler_categryfragment_single_text) {
-        @Override public void setDataToViewHolder(String dataItem, KyBaseViewHolder holder) {
+        @Override
+        public void setDataToViewHolder(String dataItem, KyBaseViewHolder holder) {
           holder.getTextView(R.id.recycler_categry_single_textView).setText(dataItem);
         }
       };
       recyclerAdapterCategoryStr.setOnClickListener(
           new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<String>() {
-            @Override public void Onclick(View v, int adapterPosition, String data) {
+            @Override
+            public void Onclick(View v, int adapterPosition, String data) {
               presenter.refreshRecyclerAdapterData(data, HotFragmentPresenter.RefreshType.Refresh);
             }
           });
@@ -109,11 +118,13 @@ public class HotFragment extends Fragment implements IHotFragment {
     swipeRefreshLayout =
         (MaterialRefreshLayout) view.findViewById(R.id.swiperefreshlayout_hot_fragment);
     swipeRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-      @Override public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+      @Override
+      public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
         presenter.refreshRecyclerAdapterData(null, RefreshType.Refresh);
       }
 
-      @Override public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+      @Override
+      public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
         super.onRefreshLoadMore(materialRefreshLayout);
         presenter.refreshRecyclerAdapterData(null, RefreshType.LoadMore);
       }
@@ -137,7 +148,8 @@ public class HotFragment extends Fragment implements IHotFragment {
                 .setText(dataItem.getPrice().toString() + " 元");
             holder.getButton(R.id.recycler_homeshow_btn_addCart)
                 .setOnClickListener(new View.OnClickListener() {
-                  @Override public void onClick(View v) {
+                  @Override
+                  public void onClick(View v) {
                     GreenDaoKyHelper.insertOrIncrease(dataItem);
                     toastUtil.show("已添加到购物车");
                     KLog.json(new Gson().toJson(GreenDaoKyHelper.queryAll()));
@@ -147,7 +159,8 @@ public class HotFragment extends Fragment implements IHotFragment {
         };
 
     recyclerAdapterCommodity.setOnClickListener(new KyRecyclerViewItemOnClickListener<Commodity>() {
-      @Override public void Onclick(View v, int adapterPosition, Commodity data) {
+      @Override
+      public void Onclick(View v, int adapterPosition, Commodity data) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("commodity", data);
         Intent intent = new Intent(mContext, CommodityDetailActivity.class);
@@ -157,7 +170,8 @@ public class HotFragment extends Fragment implements IHotFragment {
     });
   }
 
-  @Override public void refreshRecyclerViewData(List<Commodity> list, RefreshType type) {
+  @Override
+  public void refreshRecyclerViewData(List<Commodity> list, RefreshType type) {
     switch (type) {
       case Refresh:
         swipeRefreshLayout.finishRefresh();
@@ -172,7 +186,8 @@ public class HotFragment extends Fragment implements IHotFragment {
     }
   }
 
-  @Override public void CanNotRefreshData(RefreshType type) {
+  @Override
+  public void CanNotRefreshData(RefreshType type) {
     toastUtil.show("没有更多的商品了！");
     swipeRefreshLayout.finishRefreshLoadMore();
   }

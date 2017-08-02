@@ -42,13 +42,22 @@
                                 <GradientStop Color="#FFF4F4F4" Offset="1" />
                             </LinearGradientBrush>
                         </ComboBox.Background>
-                        <ComboBoxItem Content="烟酒饮料" />
-                        <ComboBoxItem Content="美容洗护" />
-                        <ComboBoxItem Content="家居用品" />
-                        <ComboBoxItem Content="方便速食" />
-                        <ComboBoxItem Content="粮油米类" />
-                        <ComboBoxItem Content="厨具" />
-                        <ComboBoxItem Content="学习用品" />
+                        <ComboBoxItem Content="烟、酒" />
+                        <ComboBoxItem Content="水、饮料" />
+                        <ComboBoxItem Content="牛奶、面包" />
+                        <ComboBoxItem Content="休闲食品" />
+                        <ComboBoxItem Content="饼干糕点" />
+                        <ComboBoxItem Content="冲调、粥" />
+                        <ComboBoxItem Content="火腿、面条" />
+                        <ComboBoxItem Content="洗漱用品"/>
+                        <ComboBoxItem Content="床上用品"/>
+                        <ComboBoxItem Content="个人护理"/>
+                        <ComboBoxItem Content="生活日用"/>
+                        <ComboBoxItem Content="纸品湿巾"/>
+                        <ComboBoxItem Content="粮油调料"/>
+                        <ComboBoxItem Content="礼品、饰品"/>
+                        <ComboBoxItem Content="手机配件"/>
+                        <ComboBoxItem Content="电脑配件"/>
                         <ComboBoxItem Content="水果" Background="#FF6DFFFD" />
                         <ComboBoxItem Content="烧烤" Background="#FF6DFFFD" />
                         <ComboBoxItem Content="旅游" Background="#FF6DFFFD" />
@@ -80,25 +89,6 @@
                     <DataGrid x:Name="dataGridCommodity" Margin="10,10,9.8,127" Grid.Column="1" Grid.RowSpan="2"/>
                     <Label Content="总类别：" HorizontalAlignment="Left" Margin="11,0,0,92"
             VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="65" Grid.Column="1" Grid.Row="1" />
-                    <ComboBox x:Name="ComboBoxCategory_changeCommodity" Margin="81,0,0,92" VerticalAlignment="Bottom" Height="30" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Width="139" VerticalContentAlignment="Center">
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                <GradientStop Color="#FFF0F0F0" Offset="0" />
-                                <GradientStop Color="#FFF4F4F4" Offset="1" />
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-                        <ComboBoxItem Content="烟酒饮料" />
-                        <ComboBoxItem Content="美容洗护" />
-                        <ComboBoxItem Content="家居用品" />
-                        <ComboBoxItem Content="方便速食" />
-                        <ComboBoxItem Content="粮油米类" />
-                        <ComboBoxItem Content="厨具" />
-                        <ComboBoxItem Content="学习用品" />
-                        <ComboBoxItem Content="水果" Background="#FF6DFFFD" />
-                        <ComboBoxItem Content="烧烤" Background="#FF6DFFFD" />
-                        <ComboBoxItem Content="旅游" Background="#FF6DFFFD" />
-                        <ComboBoxItem Background="Red" Content="广告与促销" />
-                    </ComboBox>
                     <Label Content="二级类别：" HorizontalAlignment="Left" Margin="276,0,0,92"
                         VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="75" Grid.Column="1" Grid.Row="1" />
                     <TextBox x:Name="TextBoxCategorySub_changeCommodity" Height="30" Margin="356,0,0,92" TextWrapping="Wrap"
@@ -107,6 +97,34 @@
                     <Button x:Name="btnChangeCommodityToBmob" Content="修改当前选定的商品" HorizontalAlignment="Left" Margin="166,0,0,48" VerticalAlignment="Bottom" Width="155" Grid.Column="1" Grid.Row="1" Height="35" FontSize="14" Click="btnChangeCommodityToBmob_Click"/>
                     <Label x:Name="labelCommodityStatusShow" Content="商品查询状态显示" Height="33" Margin="10,0,9.8,10" VerticalAlignment="Bottom" FontSize="16" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="1"/>
                     <Button x:Name="btnDeleteCommodity" Content="删除选定的条目" HorizontalAlignment="Left" Margin="326,0,0,48" VerticalAlignment="Bottom" Width="161" Height="35" FontSize="14" Grid.Column="1" Grid.Row="1" Click="btnDeleteCommodity_Click"/>
+                    <ComboBox x:Name="ComboBoxCategory_changeCommodity" Margin="81,174.8,256.8,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1">
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF0F0F0" Offset="0" />
+                                <GradientStop Color="#FFF4F4F4" Offset="1" />
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBoxItem Content="烟、酒" />
+                        <ComboBoxItem Content="水、饮料" />
+                        <ComboBoxItem Content="牛奶、面包" />
+                        <ComboBoxItem Content="休闲食品" />
+                        <ComboBoxItem Content="饼干糕点" />
+                        <ComboBoxItem Content="冲调、粥" />
+                        <ComboBoxItem Content="火腿、面条" />
+                        <ComboBoxItem Content="洗漱用品"/>
+                        <ComboBoxItem Content="床上用品"/>
+                        <ComboBoxItem Content="个人护理"/>
+                        <ComboBoxItem Content="生活日用"/>
+                        <ComboBoxItem Content="纸品湿巾"/>
+                        <ComboBoxItem Content="粮油调料"/>
+                        <ComboBoxItem Content="礼品、饰品"/>
+                        <ComboBoxItem Content="手机配件"/>
+                        <ComboBoxItem Content="电脑配件"/>
+                        <ComboBoxItem Content="水果" Background="#FF6DFFFD" />
+                        <ComboBoxItem Content="烧烤" Background="#FF6DFFFD" />
+                        <ComboBoxItem Content="旅游" Background="#FF6DFFFD" />
+                        <ComboBoxItem Background="Red" Content="广告与促销" />
+                    </ComboBox>
                 </Grid>
             </TabItem>
             <TabItem Height="30" Width="120" Background="#669EE4FF" Header="二级分类上传">
@@ -132,44 +150,62 @@
                             HorizontalAlignment="Right" Width="95" Click="BtnUploadFileSubCategory_Click" />
                     <Label Content="总类别：" HorizontalAlignment="Left" Margin="26,105,0,0"
                            VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Width="58" />
-                    <ComboBox x:Name="ComboBoxCategory2" Margin="101,105,13.8,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center">
-                        <ComboBox.Background>
-                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                                <GradientStop Color="#FFF0F0F0" Offset="0" />
-                                <GradientStop Color="#FFF4F4F4" Offset="1" />
-                            </LinearGradientBrush>
-                        </ComboBox.Background>
-                        <ComboBoxItem Content="烟酒饮料" />
-                        <ComboBoxItem Content="美容洗护" />
-                        <ComboBoxItem Content="家居用品" />
-                        <ComboBoxItem Content="方便速食" />
-                        <ComboBoxItem Content="粮油米类" />
-                        <ComboBoxItem Content="厨具" />
-                        <ComboBoxItem Content="学习用品" />
-                        <ComboBoxItem Background="Red" Content="广告与促销" />
-                    </ComboBox>
                     <DataGrid x:Name="dataGridSubCategory" Margin="10.2,10,10.4,132" Grid.Column="1"/>
                     <Label x:Name="labelSubCategoryStatusShow" Content="二级类别查询状态显示" Height="33" Margin="10,0,521.4,11" VerticalAlignment="Bottom" FontSize="16" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
                     <Button x:Name="btnQuerySubCategory" Content="查询二级类别" HorizontalAlignment="Left" Margin="340.2,0,0,77" VerticalAlignment="Bottom" Width="171" Height="35" FontSize="14" Grid.Column="1" Click="btnQuerySubCategory_Click"/>
-                    <ComboBox x:Name="ComboBoxCategory_querySubCategory" Margin="73.2,0,0,82" VerticalAlignment="Bottom" Height="30" Grid.Column="1" HorizontalAlignment="Left" Width="147" VerticalContentAlignment="Center">
+                    <Label Content="总类别：" HorizontalAlignment="Left" Margin="10.2,0,0,82"
+                        VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="58" Grid.Column="1" />
+                    <Button x:Name="btnDeleteSubCategory" Content="删除选定的条目" HorizontalAlignment="Left" Margin="340.2,0,0,11" VerticalAlignment="Bottom" Width="171" Height="35" FontSize="14" Grid.Column="1" Click="btnDeleteSubCategory_Click"/>
+                    <ComboBox x:Name="ComboBoxCategory_querySubCategory" Margin="73.2,410,289.4,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Grid.Column="1">
                         <ComboBox.Background>
                             <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                 <GradientStop Color="#FFF0F0F0" Offset="0" />
                                 <GradientStop Color="#FFF4F4F4" Offset="1" />
                             </LinearGradientBrush>
                         </ComboBox.Background>
-                        <ComboBoxItem Content="烟酒饮料" />
-                        <ComboBoxItem Content="美容洗护" />
-                        <ComboBoxItem Content="家居用品" />
-                        <ComboBoxItem Content="方便速食" />
-                        <ComboBoxItem Content="粮油米类" />
-                        <ComboBoxItem Content="厨具" />
-                        <ComboBoxItem Content="学习用品" />
+                        <ComboBoxItem Content="烟、酒" />
+                        <ComboBoxItem Content="水、饮料" />
+                        <ComboBoxItem Content="牛奶、面包" />
+                        <ComboBoxItem Content="休闲食品" />
+                        <ComboBoxItem Content="饼干糕点" />
+                        <ComboBoxItem Content="冲调、粥" />
+                        <ComboBoxItem Content="火腿、面条" />
+                        <ComboBoxItem Content="洗漱用品"/>
+                        <ComboBoxItem Content="床上用品"/>
+                        <ComboBoxItem Content="个人护理"/>
+                        <ComboBoxItem Content="生活日用"/>
+                        <ComboBoxItem Content="纸品湿巾"/>
+                        <ComboBoxItem Content="粮油调料"/>
+                        <ComboBoxItem Content="礼品、饰品"/>
+                        <ComboBoxItem Content="手机配件"/>
+                        <ComboBoxItem Content="电脑配件"/>
                         <ComboBoxItem Background="Red" Content="广告与促销" />
                     </ComboBox>
-                    <Label Content="总类别：" HorizontalAlignment="Left" Margin="10.2,0,0,82"
-                        VerticalAlignment="Bottom" Height="30" VerticalContentAlignment="Center" Width="58" Grid.Column="1" />
-                    <Button x:Name="btnDeleteSubCategory" Content="删除选定的条目" HorizontalAlignment="Left" Margin="340.2,0,0,11" VerticalAlignment="Bottom" Width="171" Height="35" FontSize="14" Grid.Column="1" Click="btnDeleteSubCategory_Click"/>
+                    <ComboBox x:Name="ComboBoxCategory2" Margin="102,105,13.8,0" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center">
+                        <ComboBox.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF0F0F0" Offset="0" />
+                                <GradientStop Color="#FFF4F4F4" Offset="1" />
+                            </LinearGradientBrush>
+                        </ComboBox.Background>
+                        <ComboBoxItem Content="烟、酒" />
+                        <ComboBoxItem Content="水、饮料" />
+                        <ComboBoxItem Content="牛奶、面包" />
+                        <ComboBoxItem Content="休闲食品" />
+                        <ComboBoxItem Content="饼干糕点" />
+                        <ComboBoxItem Content="冲调、粥" />
+                        <ComboBoxItem Content="火腿、面条" />
+                        <ComboBoxItem Content="洗漱用品"/>
+                        <ComboBoxItem Content="床上用品"/>
+                        <ComboBoxItem Content="个人护理"/>
+                        <ComboBoxItem Content="生活日用"/>
+                        <ComboBoxItem Content="纸品湿巾"/>
+                        <ComboBoxItem Content="粮油调料"/>
+                        <ComboBoxItem Content="礼品、饰品"/>
+                        <ComboBoxItem Content="手机配件"/>
+                        <ComboBoxItem Content="电脑配件"/>
+                        <ComboBoxItem Background="Red" Content="广告与促销" />
+                    </ComboBox>
 
 
                 </Grid>
@@ -210,7 +246,7 @@
 
                 <Grid Margin="1">
                     <Label x:Name="label" Content="生乐自选超市电脑管理端" HorizontalAlignment="Left" Margin="346,184,0,0" VerticalAlignment="Top" FontSize="16"/>
-                    <Label x:Name="label_Copy" Content="版本：v1.0" HorizontalAlignment="Left" Margin="386,219,0,0" VerticalAlignment="Top" FontSize="16"/>
+                    <Label x:Name="label_Copy" Content="版本：v1.2.1" HorizontalAlignment="Left" Margin="386,219,0,0" VerticalAlignment="Top" FontSize="16"/>
 
 
                 </Grid>

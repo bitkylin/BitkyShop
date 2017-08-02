@@ -1,11 +1,10 @@
 package cc.bitky.bitkyshop.fragment.hotfragment;
 
-import cc.bitky.bitkyshop.bean.Commodity;
-import java.util.List;
-
 import static cc.bitky.bitkyshop.fragment.hotfragment.HotFragmentPresenter.RefreshType;
 
+import java.util.List;
 
+import cc.bitky.bitkyshop.bean.Commodity;
 
 public interface IHotFragment {
 

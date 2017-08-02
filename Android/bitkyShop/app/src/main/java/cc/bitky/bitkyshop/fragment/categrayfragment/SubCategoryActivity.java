@@ -10,6 +10,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cc.bitky.bitkyshop.CommodityDetailActivity;
 import cc.bitky.bitkyshop.R;
 import cc.bitky.bitkyshop.bean.Commodity;
@@ -19,10 +26,6 @@ import cc.bitky.bitkyshop.utils.KyToolBar;
 import cc.bitky.bitkyshop.utils.ToastUtil;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseRecyclerAdapter;
 import cc.bitky.bitkyshop.utils.recyclerview.KyBaseViewHolder;
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubCategoryActivity extends AppCompatActivity {
   Context mContext;
@@ -33,7 +36,8 @@ public class SubCategoryActivity extends AppCompatActivity {
   private String subCategoryStr;
   private RecyclerView recyclerView;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_sub_category);
     mContext = this;
@@ -50,16 +54,18 @@ public class SubCategoryActivity extends AppCompatActivity {
 
     KyToolBar kyToolBar = (KyToolBar) findViewById(R.id.subCategoryActivity_kyToolbar);
     kyToolBar.setNavigationOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
         finish();
       }
     });
-    kyToolBar.setTitle("当前类别: "+subCategoryStr);
+    kyToolBar.setTitle("当前类别: " + subCategoryStr);
     initSwipeRefreshLayout();
     initRecyclerView(new ArrayList<Commodity>());
   }
 
-  @Nullable private String getSubcategoryStr() {
+  @Nullable
+  private String getSubcategoryStr() {
     Intent intent = getIntent();
     if (intent == null) {
       return null;
@@ -75,11 +81,13 @@ public class SubCategoryActivity extends AppCompatActivity {
     swipeRefreshLayout =
         (MaterialRefreshLayout) findViewById(R.id.subCategoryActivity_swiperefreshlayout);
     swipeRefreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-      @Override public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+      @Override
+      public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
         presenter.refreshRecyclerAdapterData(null, RefreshType.Refresh);
       }
 
-      @Override public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+      @Override
+      public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
         super.onRefreshLoadMore(materialRefreshLayout);
         presenter.refreshRecyclerAdapterData(null, RefreshType.LoadMore);
       }
@@ -113,7 +121,8 @@ public class SubCategoryActivity extends AppCompatActivity {
                 .setText(dataItem.getPrice().toString() + " 元");
             holder.getButton(R.id.recycler_homeshow_btn_addCart)
                 .setOnClickListener(new View.OnClickListener() {
-                  @Override public void onClick(View v) {
+                  @Override
+                  public void onClick(View v) {
                     GreenDaoKyHelper.insertOrIncrease(dataItem);
                     toastUtil.show("已添加到购物车");
                   }
@@ -122,7 +131,8 @@ public class SubCategoryActivity extends AppCompatActivity {
         };
     recyclerAdapter.setOnClickListener(
         new KyBaseRecyclerAdapter.KyRecyclerViewItemOnClickListener<Commodity>() {
-          @Override public void Onclick(View v, int adapterPosition, Commodity data) {
+          @Override
+          public void Onclick(View v, int adapterPosition, Commodity data) {
             Bundle bundle = new Bundle();
             bundle.putSerializable("commodity", data);
             Intent intent = new Intent(mContext, CommodityDetailActivity.class);
@@ -131,7 +141,8 @@ public class SubCategoryActivity extends AppCompatActivity {
           }
         });
   }
- public void refreshRecyclerViewData(List<Commodity> list, RefreshType type) {
+
+  public void refreshRecyclerViewData(List<Commodity> list, RefreshType type) {
     switch (type) {
       case Refresh:
         swipeRefreshLayout.finishRefresh();
@@ -150,7 +161,7 @@ public class SubCategoryActivity extends AppCompatActivity {
     }
   }
 
-   public void CanNotRefreshData(RefreshType type) {
+  public void CanNotRefreshData(RefreshType type) {
     toastUtil.show("没有更多的商品了！");
     swipeRefreshLayout.finishRefreshLoadMore();
   }
