@@ -141,11 +141,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginActivity {
     final Intent intent = new Intent(this, RequestSMSCodeActivity.class);
     intent.putExtra("phone", phone);
 
-    BmobSMS.requestSMSCode(phone, "生乐自选超市模板", new QueryListener<Integer>() {
+    BmobSMS.requestSMSCode(phone, "生活服务超市模板", new QueryListener<Integer>() {
 
       @Override public void done(Integer smsId, BmobException ex) {
         if (ex != null) {
-          toastUtil.show("发送短信验证码时出现未知错误");
+          toastUtil.show("出现未知错误，请重启该应用");
           KLog.d(ex.getErrorCode() + ":" + ex.getMessage());
           return;
         }

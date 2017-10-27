@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using bitkyShop.bean;
 using bitkyShop.bean.beanShow;
@@ -331,7 +332,8 @@ namespace bitkyShop.view
                 if (subCategories != null)
                 {
                     _subCategories.Clear();
-                    labelSubCategoryStatusShow.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "     " + "共查询到" +
+                    labelSubCategoryStatusShow.Content = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "     " +
+                                                         "共查询到" +
                                                          subCategories.Count + "条数据";
                     subCategories.ForEach(subCategory => { _subCategories.Add(subCategory); });
                     dataGridSubCategory.ItemsSource = null;
@@ -459,6 +461,36 @@ namespace bitkyShop.view
             order.objectId = orderShow.objectId;
             order.status = OrderStatus.已送达;
             _presenter.UpdateOrderToArrived(order);
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            _presenter.queryCommodityNative(0);
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            _presenter.querySubCategoryNative(0);
+        }
+
+        private void button_removeJpeg_Click(object sender, RoutedEventArgs e)
+        {
+            var dir = Environment.CurrentDirectory + "/photoCache/";
+            String[] files = Directory.GetFiles(dir);
+            foreach (var file in files)
+            {
+                File.Move(file, file.Substring(0, file.Length - 4));
+            }
+        }
+
+        private void button_addJpeg_Click(object sender, RoutedEventArgs e)
+        {
+            var dir = Environment.CurrentDirectory + "/photoCache/";
+            String[] files = Directory.GetFiles(dir);
+            foreach (var file in files)
+            {
+                File.Move(file, file + ".jpg");
+            }
         }
     }
 }

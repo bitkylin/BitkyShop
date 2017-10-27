@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Timers;
 using System.Windows;
 using System.Windows.Documents;
@@ -146,13 +149,23 @@ namespace bitkyShop.init
         public void queryCommodity(string category, string subcategory)
         {
             var bmobQuery = new BmobQuery();
-
-            bmobQuery.WhereEqualTo("Category", category);
+            if (category.Equals("促销"))
+            {
+                bmobQuery.WhereEqualTo("Promotion", "true");
+            }
+            else if (category.Equals("广告"))
+            {
+                bmobQuery.WhereEqualTo("AD", "true");
+            }
+            else
+            {
+                bmobQuery.WhereEqualTo("Category", category);
+            }
             if (subcategory != null)
             {
                 bmobQuery.WhereEqualTo("CategorySub", subcategory);
             }
-
+            bmobQuery.Limit(1000);
             _bmobWindows.Find<Commodity>("Commodity", bmobQuery, (resp, ex) =>
             {
                 if (ex != null)
@@ -162,6 +175,90 @@ namespace bitkyShop.init
                 }
                 var commodities = resp.results;
                 _view.commodityShow(commodities);
+            });
+        }
+
+        public void queryCommodityNative(int skip)
+        {
+            var bmobQuery = new BmobQuery();
+            bmobQuery.Skip(skip);
+            bmobQuery.Limit(100);
+            _bmobWindows.Find<Commodity>("Commodity", bmobQuery, (resp, ex) =>
+            {
+                if (ex != null)
+                {
+                    Debug.WriteLine("查询出错:" + ex.Message);
+                    return;
+                }
+                var commodities = resp.results;
+                Debug.WriteLine("数量：" + commodities.Count);
+
+                commodities.ForEach(commodity =>
+                {
+                    commodity.CoverPhotoUrl = PresetInfo.UrlBase + commodity.CoverPhotoName;
+                    batchDownloadPhoto(commodity.CoverPhotoUrl, commodity.CoverPhotoName);
+//                    _bmobWindows.Update(commodity, (responseInfo, exception) =>
+//                    {
+//                        if (exception != null)
+//                        {
+//                            Debug.WriteLine("修改失败: " + exception.Message);
+//                            return;
+//                        }
+//                        Debug.WriteLine("修改成功: " + commodity.CoverPhotoUrl);
+//                    });
+                });
+                if (commodities.Count > 0)
+                {
+                    queryCommodityNative(skip + 100);
+                }
+            });
+        }
+
+        WebClient _webClient = new WebClient();
+
+        public void batchDownloadPhoto(string url, string name)
+        {
+            var _photoLocalUrl = @"./photoCache/" + name;
+            var info = new FileInfo(_photoLocalUrl);
+            if (!info.Exists)
+            {
+                _webClient.DownloadFile(new Uri(url), _photoLocalUrl);
+            }
+        }
+
+        public void querySubCategoryNative(int skip)
+        {
+            var bmobQuery = new BmobQuery();
+            bmobQuery.Skip(skip);
+            bmobQuery.Limit(100);
+            _bmobWindows.Find<SubCategory>("SubCategory", bmobQuery, (resp, ex) =>
+            {
+                if (ex != null)
+                {
+                    Debug.WriteLine("查询出错:" + ex.Message);
+                    return;
+                }
+                var commodities = resp.results;
+                Debug.WriteLine("数量：" + commodities.Count);
+
+                commodities.ForEach(subCategory =>
+                {
+                    subCategory.photoUrl = PresetInfo.UrlBase + subCategory.photoName;
+                    batchDownloadPhoto(subCategory.photoUrl, subCategory.photoName);
+                    //                    _bmobWindows.Update(subCategory, (responseInfo, exception) =>
+                    //                    {
+                    //                        if (exception != null)
+                    //                        {
+                    //                            Debug.WriteLine("修改失败: " + exception.Message);
+                    //                            return;
+                    //                        }
+                    //                        Debug.WriteLine("修改成功: " + subCategory.photoUrl);
+                    //                    });
+                });
+                if (commodities.Count > 0)
+                {
+                    querySubCategoryNative(skip + 100);
+                }
             });
         }
 
@@ -200,6 +297,7 @@ namespace bitkyShop.init
             {
                 bmobQuery.WhereEqualTo("mainCategory", category);
             }
+            bmobQuery.Limit(10000);
             _bmobWindows.Find<SubCategory>("SubCategory", bmobQuery, (resp, ex) =>
             {
                 if (ex != null)

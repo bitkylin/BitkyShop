@@ -34,7 +34,7 @@ public class OrderManagerPresenter {
     bmobQuery.findObjects(new FindListener<Order>() {
       @Override public void done(List<Order> list, BmobException e) {
         if (e != null) {
-          activity.showMessage(e.getMessage());
+          activity.showMessage("您还没有买过东西！");
           return;
         }
         activity.initCloudOrder(list);

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     HomeFragment.setMainActivity(this);
     KyTab tab_home = new KyTab(HomeFragment.class, "主页", R.drawable.navigationbar_selector_home);
     KyTab tab_hot = new KyTab(HotFragment.class, "便民", R.drawable.navigationbar_selector_hot);
-    KyTab tab_category = new KyTab(CategrayFragment.class, "分类", R.drawable.navigationbar_selector_category);
+    KyTab tab_category = new KyTab(CategrayFragment.class, "超市", R.drawable.navigationbar_selector_category);
     KyTab tab_cart = new KyTab(CartFragment.class, "购物车", R.drawable.navigationbar_selector_cart);
     KyTab tab_user = new KyTab(UserFragment.class, "个人", R.drawable.navigationbar_selector_user);
     kyTabs.add(tab_home);

@@ -23,7 +23,7 @@ public class AddressOptionPresenter {
     bmobQuery.findObjects(new FindListener<ReceiveAddress>() {
       @Override public void done(List<ReceiveAddress> list, BmobException e) {
         if (e != null) {
-          activity.showMessage(e.getMessage(), null);
+          activity.showMessage("您还没有添加收货地址哦！", null);
           return;
         }
         activity.initReceiveAddress(list);
