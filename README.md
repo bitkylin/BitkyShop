@@ -48,6 +48,8 @@ Android 手机端和 .NET 电脑端均使用如下云服务，并通过如下云
 
 项目详情请参见 Wiki
 
+特别提示：如果无法查看后面的图片，可能需要科学上网。
+
 ### 1. [项目简介](https://github.com/bitkylin/BitkyShop/wiki)
 
 ### 2. [技术与架构](https://github.com/bitkylin/BitkyShop/wiki/技术与架构)
